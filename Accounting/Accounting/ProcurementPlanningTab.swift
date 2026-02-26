@@ -23,7 +23,7 @@ struct ProcurementPlanningTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Завантаження плану закупівель...")).foregroundColor(
+                    Text(String(localized: "Loading procurement plan...")).foregroundColor(
                         .secondary
                     ).padding(.top)
                 }
@@ -49,7 +49,7 @@ struct ProcurementPlanningTab: View {
                         Divider().frame(height: 20)
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Пошук за найменуванням")
+                            placeholder: String(localized: "Search by name")
                         ).frame(width: 200)
                     }.padding()
                 }
@@ -67,29 +67,29 @@ struct ProcurementPlanningTab: View {
 
                 // Procurement Table
                 Table(controller.procurementLines, selection: $controller.selectedProcurementIds) {
-                    TableColumn(String(localized: "Найменування"), value: \.item).width(
+                    TableColumn(String(localized: "Name"), value: \.item).width(
                         min: 180, ideal: 220)
-                    TableColumn(String(localized: "К-ть")) { p in
+                    TableColumn(String(localized: "Qty")) { p in
                         Text("\(p.quantity, specifier: "%.0f")").font(
                             .system(.body, design: .monospaced))
                     }.width(50)
-                    TableColumn(String(localized: "Ціна")) { p in
+                    TableColumn(String(localized: "Price")) { p in
                         Text(p.estimatedPrice, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced))
                     }.width(90)
-                    TableColumn(String(localized: "Всього")) { p in
+                    TableColumn(String(localized: "Total")) { p in
                         Text(p.totalEstimate, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced)
                         ).bold()
                     }.width(100)
-                    TableColumn(String(localized: "Замовник"), value: \.requestedBy).width(100)
-                    TableColumn(String(localized: "КЕКВ"), value: \.kekv).width(50)
-                    TableColumn(String(localized: "Договір")) { p in
+                    TableColumn(String(localized: "Customer"), value: \.requestedBy).width(100)
+                    TableColumn(String(localized: "KEKV"), value: \.kekv).width(50)
+                    TableColumn(String(localized: "Contract")) { p in
                         Text(p.linkedContract.isEmpty ? "—" : p.linkedContract)
                             .font(.caption).foregroundColor(
                                 p.linkedContract.isEmpty ? .secondary : .blue)
                     }.width(100)
-                    TableColumn(String(localized: "Статус")) { p in
+                    TableColumn(String(localized: "Status")) { p in
                         Text(p.approvalStatus).font(.caption).bold().padding(.horizontal, 8)
                             .padding(.vertical, 4)
                             .background(approvalColor(p.approvalStatus)).foregroundColor(.white)

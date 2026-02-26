@@ -29,7 +29,7 @@ struct PlanAdjustmentsDetailView: View {
                         historyArea
                     }
                 }
-                .navigationTitle(String(localized: "Коригування"))
+                .navigationTitle(String(localized: "Adjustments"))
             } else {
                 // Wide: side-by-side
                 HStack(spacing: 0) {
@@ -61,16 +61,16 @@ struct PlanAdjustmentsDetailView: View {
     @ViewBuilder
     private func formArea(doc: AccDocument) -> some View {
         HStack {
-            Text(String(localized: "Коригування: \(doc.planNumber)")).font(.title3).bold()
+            Text(String(localized: "Adjustment: \(doc.planNumber)")).font(.title3).bold()
             Spacer()
         }
         .padding()
         .background(Color.secondary.opacity(0.05))
 
         Picker("", selection: $selectedFormTab) {
-            Text(String(localized: "Загальні")).tag(0)
-            Text(String(localized: "КЕКВ")).tag(1)
-            Text(String(localized: "Обґрунтування")).tag(2)
+            Text(String(localized: "General")).tag(0)
+            Text(String(localized: "KEKV")).tag(1)
+            Text(String(localized: "Justification")).tag(2)
         }
         .pickerStyle(.segmented)
         .padding()
@@ -78,14 +78,14 @@ struct PlanAdjustmentsDetailView: View {
         VStack(alignment: .leading, spacing: 16) {
             if selectedFormTab == 0 {
                 Form {
-                    Section(String(localized: "Ініціатор")) {
+                    Section(String(localized: "Initiator")) {
                         TextField(
-                            String(localized: "Розпорядник"), text: .constant(doc.organization))
+                            String(localized: "Fund Manager"), text: .constant(doc.organization))
                         DatePicker(
-                            String(localized: "Дата"), selection: .constant(doc.date),
+                            String(localized: "Date"), selection: .constant(doc.date),
                             displayedComponents: .date)
                     }
-                    Section(String(localized: "Сума зміни")) {
+                    Section(String(localized: "Change Amount")) {
                         Text(doc.amount * 0.1, format: .currency(code: "UAH"))
                             .foregroundColor(doc.amount > 0 ? .green : .red)
                     }
@@ -93,13 +93,13 @@ struct PlanAdjustmentsDetailView: View {
                 .frame(minHeight: 200)
             } else if selectedFormTab == 1 {
                 VStack(alignment: .leading) {
-                    Text(String(localized: "Зміни за КЕКВ")).font(.headline)
+                    Text(String(localized: "Changes by KEKV")).font(.headline)
                     Grid(alignment: .leading, horizontalSpacing: 16, verticalSpacing: 12) {
                         GridRow {
                             Text("КЕКВ").bold()
-                            Text(String(localized: "Поточний")).bold()
+                            Text(String(localized: "Current")).bold()
                             Text(String(localized: "+/-")).bold()
-                            Text(String(localized: "Новий")).bold()
+                            Text(String(localized: "New")).bold()
                         }
                         Divider()
                         GridRow {
@@ -122,7 +122,7 @@ struct PlanAdjustmentsDetailView: View {
                 .padding()
             } else {
                 VStack(alignment: .leading) {
-                    Text(String(localized: "Обґрунтування")).font(.headline)
+                    Text(String(localized: "Justification")).font(.headline)
                     TextEditor(
                         text: .constant(
                             String(
@@ -135,20 +135,20 @@ struct PlanAdjustmentsDetailView: View {
                         RoundedRectangle(cornerRadius: 8).stroke(Color.secondary.opacity(0.2)))
 
                     Button(action: {}) {
-                        Label(String(localized: "Додати файл"), systemImage: "paperclip")
+                        Label(String(localized: "Add File"), systemImage: "paperclip")
                     }.padding(.top, 8)
                 }.padding()
             }
         }
 
         HStack {
-            Button(String(localized: "Зберегти чернетку")) {}
+            Button(String(localized: "Save Draft")) {}
                 .buttonStyle(.bordered)
             Spacer()
-            Button(String(localized: "Відхилити")) {}
+            Button(String(localized: "Reject")) {}
                 .buttonStyle(.borderedProminent)
                 .tint(.red)
-            Button(String(localized: "Погодити")) {}
+            Button(String(localized: "Approve")) {}
                 .buttonStyle(.borderedProminent)
                 .tint(.green)
         }
@@ -158,13 +158,13 @@ struct PlanAdjustmentsDetailView: View {
 
     @ViewBuilder
     private var historyArea: some View {
-        Text(String(localized: "Історія погодження")).font(.headline).padding()
+        Text(String(localized: "Approval History")).font(.headline).padding()
 
         VStack(alignment: .leading, spacing: 16) {
             HStack(alignment: .top) {
                 Circle().fill(Color.green).frame(width: 10, height: 10).padding(.top, 4)
                 VStack(alignment: .leading) {
-                    Text(String(localized: "Створено")).font(.subheadline).bold()
+                    Text(String(localized: "Created")).font(.subheadline).bold()
                     Text("Іванов І.І.").font(.caption).foregroundColor(.secondary)
                 }
             }
@@ -173,7 +173,7 @@ struct PlanAdjustmentsDetailView: View {
             HStack(alignment: .top) {
                 Circle().fill(Color.yellow).frame(width: 10, height: 10).padding(.top, 4)
                 VStack(alignment: .leading) {
-                    Text(String(localized: "Очікує ДФБО")).font(.subheadline).bold()
+                    Text(String(localized: "Awaiting Finance Dept")).font(.subheadline).bold()
                 }
             }
         }
@@ -182,7 +182,7 @@ struct PlanAdjustmentsDetailView: View {
         Divider()
 
         HStack {
-            TextField(String(localized: "Коментар..."), text: $commentText)
+            TextField(String(localized: "Comment..."), text: $commentText)
                 .textFieldStyle(.roundedBorder)
             Button(action: { commentText = "" }) {
                 Image(systemName: "paperplane.fill").foregroundColor(.accentColor)

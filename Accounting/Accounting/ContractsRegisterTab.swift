@@ -23,7 +23,7 @@ struct ContractsRegisterTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Завантаження договорів...")).foregroundColor(.secondary)
+                    Text(String(localized: "Loading contracts...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -41,12 +41,12 @@ struct ContractsRegisterTab: View {
                         }.buttonStyle(.bordered).disabled(controller.selectedContractIds.isEmpty)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Export to Є-Data"), systemImage: "arrow.up.doc")
+                                String(localized: "Export to E-Data"), systemImage: "arrow.up.doc")
                         }.buttonStyle(.bordered)
                         Divider().frame(height: 20)
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Пошук за № або постачальником")
+                            placeholder: String(localized: "Search by No or supplier")
                         ).frame(width: 250)
                     }.padding()
                 }
@@ -64,16 +64,16 @@ struct ContractsRegisterTab: View {
 
                 // Contracts Table
                 Table(controller.contracts, selection: $controller.selectedContractIds) {
-                    TableColumn(String(localized: "Договір №"), value: \.contractNumber).width(110)
-                    TableColumn(String(localized: "Дата")) { c in Text(c.date, style: .date) }
+                    TableColumn(String(localized: "Contract No"), value: \.contractNumber).width(110)
+                    TableColumn(String(localized: "Date")) { c in Text(c.date, style: .date) }
                         .width(90)
-                    TableColumn(String(localized: "Постачальник"), value: \.supplier).width(
+                    TableColumn(String(localized: "Supplier"), value: \.supplier).width(
                         min: 150, ideal: 200)
-                    TableColumn(String(localized: "Сума")) { c in
+                    TableColumn(String(localized: "Amount")) { c in
                         Text(c.totalValue, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced))
                     }.width(110)
-                    TableColumn(String(localized: "Виконано")) { c in
+                    TableColumn(String(localized: "Completed")) { c in
                         HStack(spacing: 4) {
                             ProgressView(
                                 value: c.totalValue > 0 ? c.executedAmount / c.totalValue : 0
@@ -84,14 +84,14 @@ struct ContractsRegisterTab: View {
                             ).font(.caption).foregroundColor(.secondary)
                         }
                     }.width(100)
-                    TableColumn(String(localized: "Етапи")) { c in
+                    TableColumn(String(localized: "Stages")) { c in
                         Text("\(c.stagesCompleted)/\(c.totalStages)").font(
                             .system(.body, design: .monospaced))
                     }.width(60)
-                    TableColumn(String(localized: "Кінцева дата")) { c in
+                    TableColumn(String(localized: "End Date")) { c in
                         Text(c.endDate, style: .date)
                     }.width(90)
-                    TableColumn(String(localized: "Статус")) { c in
+                    TableColumn(String(localized: "Status")) { c in
                         Text(c.status).font(.caption).bold().padding(.horizontal, 8).padding(
                             .vertical, 4
                         )

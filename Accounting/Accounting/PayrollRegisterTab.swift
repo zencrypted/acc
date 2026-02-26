@@ -23,7 +23,7 @@ struct PayrollRegisterTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Завантаження реєстру...")).foregroundColor(.secondary)
+                    Text(String(localized: "Loading register...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -65,35 +65,35 @@ struct PayrollRegisterTab: View {
 
                 // Payments Table
                 Table(controller.payments, selection: $controller.selectedPaymentIds) {
-                    TableColumn(String(localized: "ПІБ"), value: \.employeeName).width(
+                    TableColumn(String(localized: "Full Name"), value: \.employeeName).width(
                         min: 150, ideal: 200)
-                    TableColumn(String(localized: "Підрозділ"), value: \.department).width(100)
-                    TableColumn(String(localized: "Нараховано")) { p in
+                    TableColumn(String(localized: "Department"), value: \.department).width(100)
+                    TableColumn(String(localized: "Accrued")) { p in
                         Text(p.grossPay, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced))
                     }.width(100)
-                    TableColumn(String(localized: "Утримано")) { p in
+                    TableColumn(String(localized: "Withheld")) { p in
                         Text(p.totalDeductions, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced)
                         ).foregroundColor(.red)
                     }.width(90)
-                    TableColumn(String(localized: "До виплати")) { p in
+                    TableColumn(String(localized: "To Pay")) { p in
                         Text(p.netPay, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced)
                         ).bold().foregroundColor(.green)
                     }.width(100)
-                    TableColumn(String(localized: "Спосіб")) { p in
+                    TableColumn(String(localized: "Method")) { p in
                         HStack(spacing: 4) {
                             Image(
                                 systemName: p.paymentMethod == "Bank"
                                     ? "building.columns" : "banknote")
                             Text(
                                 p.paymentMethod == "Bank"
-                                    ? String(localized: "Банк") : String(localized: "Каса"))
+                                    ? String(localized: "Bank") : String(localized: "Cash Desk"))
                         }.font(.caption)
                     }.width(70)
-                    TableColumn(String(localized: "Док №"), value: \.paymentDocNumber).width(100)
-                    TableColumn(String(localized: "Статус")) { p in
+                    TableColumn(String(localized: "Doc No"), value: \.paymentDocNumber).width(100)
+                    TableColumn(String(localized: "Status")) { p in
                         Text(p.status).font(.caption).bold().padding(.horizontal, 8).padding(
                             .vertical, 4
                         )

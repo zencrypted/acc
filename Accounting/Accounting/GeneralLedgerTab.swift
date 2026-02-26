@@ -25,29 +25,12 @@ struct GeneralLedgerTab: View {
             let errorMessage = state.errorMessage
 
             if let error = errorMessage {
-                Spacer()
-                VStack {
-                    Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
-                        .system(size: 40))
-                    Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
-                        controller.loadBookkeepingData(
-                            state: state, period: controller.selectedPeriod)
-                    }.buttonStyle(.bordered)
+                AccErrorView(message: error) {
+                    controller.loadBookkeepingData(
+                        state: state, period: controller.selectedPeriod)
                 }
-                .frame(maxWidth: .infinity).padding(.vertical, 40)
-                .background(Color.secondary.opacity(0.05)).cornerRadius(12)
-                .padding()
-                Spacer()
             } else if isLoading {
-                Spacer()
-                VStack {
-                    ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Loading general ledger...")).foregroundColor(.secondary)
-                        .padding(.top)
-                }
-                .frame(maxWidth: .infinity, minHeight: 150)
-                Spacer()
+                AccLoadingView(message: String(localized: "Loading general ledger..."))
             } else {
                 // Toolbar
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -73,18 +56,7 @@ struct GeneralLedgerTab: View {
                     .padding()
                 }
 
-                // KPI Grid
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 16) {
-                        ForEach(controller.ledgerKPIs) { kpi in
-                            KPICard(
-                                title: kpi.title, value: kpi.value, suffix: kpi.suffix,
-                                valueColor: colorFromName(kpi.colorName))
-                        }
-                    }
-                    .padding(.horizontal)
-                }
-                .padding(.bottom, 8)
+                AccKPIRow(kpis: controller.ledgerKPIs)
 
                 #if os(iOS)
                 if isCompact {
@@ -106,7 +78,7 @@ struct GeneralLedgerTab: View {
                                 }
                                 Spacer()
                                 VStack(alignment: .center, spacing: 1) {
-                                    Text(String(localized: "Дт")).font(.caption2)
+                                    Text(String(localized: "Dr")).font(.caption2)
                                         .foregroundColor(.blue)
                                     Text(acc.debitTurnover, format: .currency(code: "UAH"))
                                         .font(.caption)
@@ -114,7 +86,7 @@ struct GeneralLedgerTab: View {
                                 }
                                 Spacer()
                                 VStack(alignment: .trailing, spacing: 1) {
-                                    Text(String(localized: "Кт")).font(.caption2)
+                                    Text(String(localized: "Cr")).font(.caption2)
                                         .foregroundColor(.purple)
                                     Text(acc.creditTurnover, format: .currency(code: "UAH"))
                                         .font(.caption)
@@ -201,17 +173,6 @@ struct GeneralLedgerTab: View {
             if controller.ledgerAccounts.isEmpty {
                 controller.loadBookkeepingData(state: state, period: controller.selectedPeriod)
             }
-        }
-    }
-
-    private func colorFromName(_ name: String) -> Color {
-        switch name.lowercased() {
-        case "blue": return .blue
-        case "green": return .green
-        case "orange": return .orange
-        case "red": return .red
-        case "purple": return .purple
-        default: return .primary
         }
     }
 }

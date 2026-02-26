@@ -24,7 +24,7 @@ struct ReportRegistryTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Завантаження реєстру звітів...")).foregroundColor(
+                    Text(String(localized: "Loading reports register...")).foregroundColor(
                         .secondary
                     ).padding(.top)
                 }
@@ -49,7 +49,7 @@ struct ReportRegistryTab: View {
                         Divider().frame(height: 20)
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Пошук за назвою або кодом")
+                            placeholder: String(localized: "Search by name or code")
                         ).frame(width: 230)
                     }.padding()
                 }
@@ -65,24 +65,24 @@ struct ReportRegistryTab: View {
                 }.padding(.bottom, 8)
 
                 Table(controller.reports, selection: $controller.selectedReportIds) {
-                    TableColumn(String(localized: "Звіт"), value: \.name).width(
+                    TableColumn(String(localized: "Report"), value: \.name).width(
                         min: 200, ideal: 250)
-                    TableColumn(String(localized: "Код"), value: \.formCode).width(60)
-                    TableColumn(String(localized: "Тип"), value: \.reportType).width(100)
-                    TableColumn(String(localized: "Частота"), value: \.frequency).width(100)
-                    TableColumn(String(localized: "Останній")) { r in
+                    TableColumn(String(localized: "Code"), value: \.formCode).width(60)
+                    TableColumn(String(localized: "Type"), value: \.reportType).width(100)
+                    TableColumn(String(localized: "Frequency"), value: \.frequency).width(100)
+                    TableColumn(String(localized: "Last")) { r in
                         if let date = r.lastGenerated {
                             Text(date, style: .date)
                         } else {
                             Text("—").foregroundColor(.secondary)
                         }
                     }.width(90)
-                    TableColumn(String(localized: "Термін")) { r in
+                    TableColumn(String(localized: "Term")) { r in
                         Text(r.nextDue, style: .date).foregroundColor(
                             r.nextDue < Date() ? .red : .primary)
                     }.width(90)
-                    TableColumn(String(localized: "Власник"), value: \.owner).width(120)
-                    TableColumn(String(localized: "Статус")) { r in
+                    TableColumn(String(localized: "Owner"), value: \.owner).width(120)
+                    TableColumn(String(localized: "Status")) { r in
                         Text(r.status).font(.caption).bold().padding(.horizontal, 8).padding(
                             .vertical, 4
                         )

@@ -38,16 +38,16 @@ class ReportingController: ObservableObject {
             // Tab 1: Registry
             self.registryKPIs = [
                 KPIData(
-                    title: String(localized: "Всього звітів"), value: "42", suffix: "",
+                    title: String(localized: "Total reports"), value: "42", suffix: "",
                     colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Готові до подачі"), value: "8", suffix: "",
+                    title: String(localized: "Ready to submit"), value: "8", suffix: "",
                     colorName: "green"),
                 KPIData(
-                    title: String(localized: "Термін цього міс."), value: "5", suffix: "",
+                    title: String(localized: "Due this month"), value: "5", suffix: "",
                     colorName: "orange"),
                 KPIData(
-                    title: String(localized: "Комплаєнс"), value: "96%", suffix: "",
+                    title: String(localized: "Compliance"), value: "96%", suffix: "",
                     colorName: "green"),
             ]
             self.reports = [
@@ -94,17 +94,17 @@ class ReportingController: ObservableObject {
             // Tab 2: Constructor
             self.constructorKPIs = [
                 KPIData(
-                    title: String(localized: "Активних шаблонів"), value: "18", suffix: "",
+                    title: String(localized: "Active Templates"), value: "18", suffix: "",
                     colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Використ. елементів"), value: "124", suffix: "",
+                    title: String(localized: "Used elements"), value: "124", suffix: "",
                     colorName: "green"),
                 KPIData(
-                    title: String(localized: "Помилки валідації"), value: "2", suffix: "",
+                    title: String(localized: "Validation Errors"), value: "2", suffix: "",
                     colorName: "red"),
                 KPIData(
-                    title: String(localized: "Час генерації"), value: "1.2",
-                    suffix: String(localized: "сек"), colorName: "purple"),
+                    title: String(localized: "Generation time"), value: "1.2",
+                    suffix: String(localized: "sec"), colorName: "purple"),
             ]
             self.templates = [
                 ReportTemplate(
@@ -127,16 +127,16 @@ class ReportingController: ObservableObject {
             // Tab 3: Archive
             self.archiveKPIs = [
                 KPIData(
-                    title: String(localized: "Згенеровано цей міс."), value: "14", suffix: "",
+                    title: String(localized: "Generated this month"), value: "14", suffix: "",
                     colorName: "blue"),
                 KPIData(
-                    title: String(localized: "На перевірці"), value: "3", suffix: "",
+                    title: String(localized: "Under Review"), value: "3", suffix: "",
                     colorName: "orange"),
                 KPIData(
-                    title: String(localized: "Підписаних"), value: "9", suffix: "",
+                    title: String(localized: "Signed"), value: "9", suffix: "",
                     colorName: "green"),
                 KPIData(
-                    title: String(localized: "Надіслано"), value: "8", suffix: "",
+                    title: String(localized: "Sent"), value: "8", suffix: "",
                     colorName: "purple"),
             ]
             self.generatedReports = [
@@ -165,14 +165,14 @@ class ReportingController: ObservableObject {
             // Tab 4: Validation
             self.validationKPIs = [
                 KPIData(
-                    title: String(localized: "Пройшли"), value: "9", suffix: "", colorName: "green"),
+                    title: String(localized: "Passed"), value: "9", suffix: "", colorName: "green"),
                 KPIData(
-                    title: String(localized: "Попередження"), value: "3", suffix: "",
+                    title: String(localized: "Warnings"), value: "3", suffix: "",
                     colorName: "orange"),
                 KPIData(
-                    title: String(localized: "Критичні"), value: "1", suffix: "", colorName: "red"),
+                    title: String(localized: "Critical"), value: "1", suffix: "", colorName: "red"),
                 KPIData(
-                    title: String(localized: "Звірка"), value: "94%", suffix: "", colorName: "blue"),
+                    title: String(localized: "Reconciliation"), value: "94%", suffix: "", colorName: "blue"),
             ]
             self.validations = [
                 ValidationResult(
@@ -200,16 +200,16 @@ class ReportingController: ObservableObject {
             // Tab 5: Submission
             self.submissionKPIs = [
                 KPIData(
-                    title: String(localized: "Надіслано"), value: "8", suffix: "", colorName: "blue"
+                    title: String(localized: "Sent"), value: "8", suffix: "", colorName: "blue"
                 ),
                 KPIData(
-                    title: String(localized: "Прийнято"), value: "6", suffix: "", colorName: "green"
+                    title: String(localized: "Accepted"), value: "6", suffix: "", colorName: "green"
                 ),
                 KPIData(
-                    title: String(localized: "Відхилено"), value: "1", suffix: "", colorName: "red"),
+                    title: String(localized: "Rejected"), value: "1", suffix: "", colorName: "red"),
                 KPIData(
-                    title: String(localized: "Сер. час"), value: "2.4",
-                    suffix: String(localized: "год"), colorName: "purple"),
+                    title: String(localized: "Avg Time"), value: "2.4",
+                    suffix: String(localized: "hrs"), colorName: "purple"),
             ]
             self.submissions = [
                 SubmissionRecord(
@@ -246,11 +246,11 @@ struct ModReportingView: View {
         VStack(spacing: 0) {
             HStack {
                 Picker("", selection: $controller.selectedTab) {
-                    Text(String(localized: "Реєстр звітів")).tag(0)
-                    Text(String(localized: "Конструктор")).tag(1)
-                    Text(String(localized: "Архів")).tag(2)
-                    Text(String(localized: "Валідація")).tag(3)
-                    Text(String(localized: "Подання")).tag(4)
+                    Text(String(localized: "Reports Register")).tag(0)
+                    Text(String(localized: "Constructor")).tag(1)
+                    Text(String(localized: "Archive")).tag(2)
+                    Text(String(localized: "Validation")).tag(3)
+                    Text(String(localized: "Submission")).tag(4)
                 }
                 .pickerStyle(.segmented)
                 .labelsHidden()
@@ -267,15 +267,15 @@ struct ModReportingView: View {
             }
         }
         .navigationSplitViewColumnWidth(min: 400, ideal: 600)
-        .navigationTitle(String(localized: "Звітність"))
+        .navigationTitle(String(localized: "Reporting"))
         #if os(macOS)
             .toolbar {
                 ToolbarItem(placement: .navigation) {
-                    Text(String(localized: "МОДУЛЬ ЗВІТНОСТІ")).font(.caption).bold()
+                    Text(String(localized: "REPORTING MODULE")).font(.caption).bold()
                     .foregroundColor(.secondary)
                 }
                 ToolbarItem(placement: .primaryAction) {
-                    Text(String(localized: "Звітний період: Лютий 2026")).font(.caption)
+                    Text(String(localized: "Reporting Period: February 2026")).font(.caption)
                     .foregroundColor(.secondary)
                 }
             }

@@ -10,7 +10,6 @@ struct AnalyticsTab: View {
 
     #if os(iOS)
         @Environment(\.horizontalSizeClass) var horizontalSizeClass
-        @State private var showAnalyticsDetail = false
     #endif
 
     private var isCompact: Bool {
@@ -49,50 +48,20 @@ struct AnalyticsTab: View {
             let errorMessage = state.errorMessage
 
             if let error = errorMessage {
-                Spacer()
-                VStack {
-                    Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
-                        .system(size: 40))
-                    Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
-                        controller.loadFinanceData(
-                            state: state, period: controller.selectedPeriod,
-                            org: controller.selectedOrg, kekv: controller.selectedKekv)
-                    }.buttonStyle(.bordered)
+                AccErrorView(message: error) {
+                    controller.loadFinanceData(
+                        state: state, period: controller.selectedPeriod,
+                        org: controller.selectedOrg, kekv: controller.selectedKekv)
                 }
-                .frame(maxWidth: .infinity).padding(.vertical, 40)
-                .background(Color.secondary.opacity(0.05)).cornerRadius(12)
-                .padding()
-                Spacer()
             } else if isLoading {
-                Spacer()
-                VStack {
-                    ProgressView()
-                        .scaleEffect(1.5)
-                    Text(String(localized: "Loading analytics...")).foregroundColor(.secondary)
-                        .padding(.top)
-                }
-                .frame(maxWidth: .infinity, minHeight: 150)
-                Spacer()
+                AccLoadingView(message: String(localized: "Loading analytics..."))
             } else {
-                // Dynamic KPI Row
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 16) {
-                        ForEach(controller.analyticsKPIs) { kpi in
-                            KPICard(
-                                title: kpi.title, value: kpi.value, suffix: kpi.suffix,
-                                valueColor: colorFromName(kpi.colorName))
-                        }
-                    }
-                    .padding(.horizontal)
-                }
-                .padding(.bottom, 8)
+                AccKPIRow(kpis: controller.analyticsKPIs)
 
                 #if os(iOS)
                 if isCompact {
                     List {
-                        // "View Full Report" button at top of list
-                        Button(action: { showAnalyticsDetail = true }) {
+                        NavigationLink(value: FinanceDest.analyticsDetail) {
                             Label(
                                 String(localized: "View Full Analytics Report"),
                                 systemImage: "chart.line.uptrend.xyaxis"
@@ -102,41 +71,41 @@ struct AnalyticsTab: View {
                             .frame(maxWidth: .infinity, alignment: .center)
                             .padding(.vertical, 8)
                         }
-                        .buttonStyle(.plain)
                         .listRowBackground(Color.accentColor.opacity(0.08))
 
                         ForEach(controller.analyticsData) { dim in
-                            Button(action: { showAnalyticsDetail = true }) {
+                            NavigationLink(value: FinanceDest.analyticsDetail) {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(dim.name)
                                         .font(dim.isHeader ? .headline : .subheadline)
                                         .bold(dim.isHeader)
                                     if !dim.isHeader {
                                         HStack {
-                                            Text("Q1: \(dim.q1Actual, format: .currency(code: "UAH"))")
-                                                .font(.caption)
-                                            Text("Q2: \(dim.q2Actual, format: .currency(code: "UAH"))")
-                                                .font(.caption)
+                                            Text(
+                                                "Q1: \(dim.q1Actual, format: .currency(code: "UAH"))"
+                                            )
+                                            .font(.caption)
+                                            Text(
+                                                "Q2: \(dim.q2Actual, format: .currency(code: "UAH"))"
+                                            )
+                                            .font(.caption)
                                             Spacer()
                                             Text(
                                                 "\(dim.totalVariance >= 0 ? "+" : "")\(dim.totalVariance, specifier: "%.1f")%"
                                             )
                                             .font(.caption).bold()
-                                            .foregroundColor(dim.totalVariance >= 0 ? .green : .red)
+                                            .foregroundColor(
+                                                dim.totalVariance >= 0 ? .green : .red)
                                         }
                                     }
                                 }
                                 .padding(.vertical, 4)
                             }
-                            .buttonStyle(.plain)
-                            .listRowBackground(dim.isHeader ? Color.secondary.opacity(0.08) : Color.clear)
+                            .listRowBackground(
+                                dim.isHeader ? Color.secondary.opacity(0.08) : Color.clear)
                         }
                     }
                     .listStyle(.plain)
-                    .navigationDestination(isPresented: $showAnalyticsDetail) {
-                        AnalyticsDetailView(controller: controller)
-                            .navigationTitle(String(localized: "Аналітика"))
-                    }
                 } else {
                     VStack(alignment: .leading, spacing: 0) {
                         HStack {
@@ -226,18 +195,6 @@ struct AnalyticsTab: View {
                     state: state, period: controller.selectedPeriod, org: controller.selectedOrg,
                     kekv: controller.selectedKekv)
             }
-        }
-    }
-
-    private func colorFromName(_ name: String) -> Color {
-        switch name.lowercased() {
-        case "blue": return .blue
-        case "green": return .green
-        case "orange": return .orange
-        case "red": return .red
-        case "yellow": return .yellow
-        case "purple": return .purple
-        default: return .primary
         }
     }
 }

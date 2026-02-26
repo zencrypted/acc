@@ -23,29 +23,12 @@ struct BalanceSheetTab: View {
             let errorMessage = state.errorMessage
 
             if let error = errorMessage {
-                Spacer()
-                VStack {
-                    Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
-                        .system(size: 40))
-                    Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
-                        controller.loadBookkeepingData(
-                            state: state, period: controller.selectedPeriod)
-                    }.buttonStyle(.bordered)
+                AccErrorView(message: error) {
+                    controller.loadBookkeepingData(
+                        state: state, period: controller.selectedPeriod)
                 }
-                .frame(maxWidth: .infinity).padding(.vertical, 40)
-                .background(Color.secondary.opacity(0.05)).cornerRadius(12)
-                .padding()
-                Spacer()
             } else if isLoading {
-                Spacer()
-                VStack {
-                    ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Loading balance sheet...")).foregroundColor(.secondary)
-                        .padding(.top)
-                }
-                .frame(maxWidth: .infinity, minHeight: 150)
-                Spacer()
+                AccLoadingView(message: String(localized: "Loading balance sheet..."))
             } else {
                 // Toolbar
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -55,7 +38,7 @@ struct BalanceSheetTab: View {
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Export XML (Є-Звітність)"),
+                                String(localized: "Export XML (E-Reporting)"),
                                 systemImage: "doc.badge.arrow.up")
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
@@ -65,24 +48,13 @@ struct BalanceSheetTab: View {
                     .padding()
                 }
 
-                // KPI Grid
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 16) {
-                        ForEach(controller.balanceKPIs) { kpi in
-                            KPICard(
-                                title: kpi.title, value: kpi.value, suffix: kpi.suffix,
-                                valueColor: colorFromName(kpi.colorName))
-                        }
-                    }
-                    .padding(.horizontal)
-                }
-                .padding(.bottom, 8)
+                AccKPIRow(kpis: controller.balanceKPIs)
 
                 // Balance Sheet Content
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
                         // ASSETS SECTION
-                        sectionHeader(String(localized: "АКТИВ (Assets)"), color: .blue)
+                        sectionHeader(String(localized: "ASSETS"), color: .blue)
 
                         ForEach(controller.balanceAssets) { item in
                             balanceRow(item)
@@ -90,7 +62,7 @@ struct BalanceSheetTab: View {
 
                         // Assets Total
                         totalRow(
-                            String(localized: "Разом Актив"),
+                            String(localized: "Total Assets"),
                             beginning: controller.balanceAssets.filter { !$0.isHeader }.reduce(0) {
                                 $0 + $1.beginningBalance
                             },
@@ -104,7 +76,7 @@ struct BalanceSheetTab: View {
 
                         // LIABILITIES SECTION
                         sectionHeader(
-                            String(localized: "ПАСИВ (Liabilities & Equity)"), color: .orange)
+                            String(localized: "LIABILITIES & EQUITY"), color: .orange)
 
                         ForEach(controller.balanceLiabilities) { item in
                             balanceRow(item)
@@ -112,7 +84,7 @@ struct BalanceSheetTab: View {
 
                         // Liabilities Total
                         totalRow(
-                            String(localized: "Разом Пасив"),
+                            String(localized: "Total Liabilities & Equity"),
                             beginning: controller.balanceLiabilities.filter { !$0.isHeader }.reduce(
                                 0
                             ) { $0 + $1.beginningBalance },
@@ -138,7 +110,7 @@ struct BalanceSheetTab: View {
                             .font(.title2)
                             Text(
                                 diff == 0
-                                    ? String(localized: "Актив = Пасив ✓ Баланс зведений")
+                                    ? String(localized: "Assets = Liabilities ✓ Balance confirmed")
                                     : String(
                                         localized:
                                             "⚠ Розбіжність: \(diff, format: .currency(code: "UAH"))"
@@ -180,11 +152,11 @@ struct BalanceSheetTab: View {
                 HStack {
                     Text(title).font(.headline).bold().foregroundColor(color)
                     Spacer()
-                    Text(String(localized: "Поч. сальдо")).font(.caption).foregroundColor(.secondary)
+                    Text(String(localized: "Opening Bal.")).font(.caption).foregroundColor(.secondary)
                         .frame(width: 120, alignment: .trailing)
-                    Text(String(localized: "Кін. сальдо")).font(.caption).foregroundColor(.secondary)
+                    Text(String(localized: "Closing Bal.")).font(.caption).foregroundColor(.secondary)
                         .frame(width: 120, alignment: .trailing)
-                    Text(String(localized: "Зміна")).font(.caption).foregroundColor(.secondary)
+                    Text(String(localized: "Change")).font(.caption).foregroundColor(.secondary)
                         .frame(width: 100, alignment: .trailing)
                 }
                 .padding(.horizontal)
@@ -213,12 +185,12 @@ struct BalanceSheetTab: View {
                         HStack {
                             Text(item.endingBalance, format: .currency(code: "UAH"))
                                 .font(.system(.caption, design: .monospaced)).bold()
-                            Text(String(localized: "кін.")).font(.caption2).foregroundColor(.secondary)
+                            Text(String(localized: "end")).font(.caption2).foregroundColor(.secondary)
                             Spacer()
                             Text(item.beginningBalance, format: .currency(code: "UAH"))
                                 .font(.system(.caption2, design: .monospaced))
                                 .foregroundColor(.secondary)
-                            Text(String(localized: "поч.")).font(.caption2).foregroundColor(.secondary)
+                            Text(String(localized: "beg.")).font(.caption2).foregroundColor(.secondary)
                         }
                     }
                 }
@@ -268,11 +240,11 @@ struct BalanceSheetTab: View {
                     HStack {
                         Text(ending, format: .currency(code: "UAH"))
                             .font(.system(.subheadline, design: .monospaced)).bold()
-                        Text(String(localized: "кін.")).font(.caption2).foregroundColor(.secondary)
+                        Text(String(localized: "end")).font(.caption2).foregroundColor(.secondary)
                         Spacer()
                         Text(beginning, format: .currency(code: "UAH"))
                             .font(.system(.caption, design: .monospaced)).foregroundColor(.secondary)
-                        Text(String(localized: "поч.")).font(.caption2).foregroundColor(.secondary)
+                        Text(String(localized: "beg.")).font(.caption2).foregroundColor(.secondary)
                     }
                 }
                 .padding()
@@ -299,17 +271,6 @@ struct BalanceSheetTab: View {
                 .cornerRadius(8)
                 .padding(.horizontal)
             }
-        }
-    }
-
-    private func colorFromName(_ name: String) -> Color {
-        switch name.lowercased() {
-        case "blue": return .blue
-        case "green": return .green
-        case "orange": return .orange
-        case "red": return .red
-        case "purple": return .purple
-        default: return .primary
         }
     }
 }

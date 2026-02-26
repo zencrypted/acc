@@ -9,7 +9,6 @@ struct PlanAdjustmentsTab: View {
 
     #if os(iOS)
         @Environment(\.horizontalSizeClass) var horizontalSizeClass
-        @State private var showAdjustmentDetail = false
     #endif
 
     private var isCompact: Bool {
@@ -26,70 +25,25 @@ struct PlanAdjustmentsTab: View {
             let errorMessage = state.errorMessage
 
             if let error = errorMessage {
-                Spacer()
-                VStack {
-                    Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
-                        .system(size: 40))
-                    Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
-                        controller.loadFinanceData(
-                            state: state, period: controller.selectedPeriod,
-                            org: controller.selectedOrg, kekv: controller.selectedKekv)
-                    }.buttonStyle(.bordered)
+                AccErrorView(message: error) {
+                    controller.loadFinanceData(
+                        state: state, period: controller.selectedPeriod,
+                        org: controller.selectedOrg, kekv: controller.selectedKekv)
                 }
-                .frame(maxWidth: .infinity).padding(.vertical, 40)
-                .background(Color.secondary.opacity(0.05)).cornerRadius(12)
-                .padding()
-                Spacer()
             } else if isLoading {
-                Spacer()
-                VStack {
-                    ProgressView()
-                        .scaleEffect(1.5)
-                    Text(String(localized: "Loading data...")).foregroundColor(.secondary).padding(
-                        .top)
-                }
-                .frame(maxWidth: .infinity, minHeight: 150)
-                Spacer()
+                AccLoadingView()
             } else {
-                // KPI Grid
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 16) {
-                        ForEach(controller.planAdjustmentKPIs) { kpi in
-                            KPICard(
-                                title: kpi.title, value: kpi.value, suffix: kpi.suffix,
-                                valueColor: colorFromName(kpi.colorName))
-                        }
-                    }
-                    .padding(.horizontal)
-                }
-                .padding(.vertical, 8)
+                AccKPIRow(kpis: controller.planAdjustmentKPIs)
 
                 #if os(iOS)
                 if isCompact {
                     List(controller.adjustments) { adj in
-                        Button(action: {
-                            // Trigger navigation: use first available document as the form base
-                            if let firstDoc = controller.documents.first {
-                                controller.selectedDocumentIds = [firstDoc.id]
-                            } else {
-                                showAdjustmentDetail = true
-                            }
-                        }) {
+                        NavigationLink(value: FinanceDest.planAdjDetail) {
                             VStack(alignment: .leading, spacing: 4) {
                                 HStack {
                                     Text(adj.number).font(.headline)
                                     Spacer()
-                                    Text(String(localized: String.LocalizationValue(adj.status)))
-                                        .font(.caption).bold()
-                                        .padding(.horizontal, 8).padding(.vertical, 4)
-                                        .background(
-                                            adj.status == "Виконано" ? Color.green
-                                                : (adj.status == "В роботі"
-                                                    ? Color.yellow : Color.blue)
-                                        )
-                                        .foregroundColor(.white)
-                                        .cornerRadius(12)
+                                    AccStatusBadge(status: adj.status)
                                 }
                                 Text(adj.organization).font(.subheadline)
                                     .foregroundColor(.secondary)
@@ -104,37 +58,23 @@ struct PlanAdjustmentsTab: View {
                             }
                             .padding(.vertical, 4)
                         }
-                        .buttonStyle(.plain)
                     }
                     .listStyle(.plain)
-                    .navigationDestination(isPresented: $showAdjustmentDetail) {
-                        PlanAdjustmentsDetailView(
-                            controller: controller, doc: controller.documents.first)
-                    }
                 } else {
                     Table(controller.adjustments, selection: $selectedAdjustmentIds) {
                         TableColumn("№", value: \.number)
                             .width(min: 60, ideal: 80)
-                        TableColumn(String(localized: "Дата")) { adj in
+                        TableColumn(String(localized: "Date")) { adj in
                             Text(adj.date, style: .date)
                         }
-                        TableColumn(String(localized: "Сума зміни")) { adj in
+                        TableColumn(String(localized: "Change Amount")) { adj in
                             Text(adj.amount, format: .currency(code: "UAH"))
                                 .font(.system(.body, design: .monospaced))
                                 .foregroundColor(adj.amount > 0 ? .green : .red)
                         }
-                        TableColumn(String(localized: "Ініціатор"), value: \.organization)
-                        TableColumn(String(localized: "Статус")) { adj in
-                            Text(String(localized: String.LocalizationValue(adj.status)))
-                                .font(.caption).bold()
-                                .padding(.horizontal, 8).padding(.vertical, 4)
-                                .background(
-                                    adj.status == "Виконано"
-                                        ? Color.green
-                                        : (adj.status == "В роботі" ? Color.yellow : Color.blue)
-                                )
-                                .foregroundColor(.white)
-                                .cornerRadius(12)
+                        TableColumn(String(localized: "Initiator"), value: \.organization)
+                        TableColumn(String(localized: "Status")) { adj in
+                            AccStatusBadge(status: adj.status)
                         }
                         .width(ideal: 100)
                     }
@@ -143,26 +83,17 @@ struct PlanAdjustmentsTab: View {
                 Table(controller.adjustments, selection: $selectedAdjustmentIds) {
                     TableColumn("№", value: \.number)
                         .width(min: 60, ideal: 80)
-                    TableColumn(String(localized: "Дата")) { adj in
+                    TableColumn(String(localized: "Date")) { adj in
                         Text(adj.date, style: .date)
                     }
-                    TableColumn(String(localized: "Сума зміни")) { adj in
+                    TableColumn(String(localized: "Change Amount")) { adj in
                         Text(adj.amount, format: .currency(code: "UAH"))
                             .font(.system(.body, design: .monospaced))
                             .foregroundColor(adj.amount > 0 ? .green : .red)
                     }
-                    TableColumn(String(localized: "Ініціатор"), value: \.organization)
-                    TableColumn(String(localized: "Статус")) { adj in
-                        Text(String(localized: String.LocalizationValue(adj.status)))
-                            .font(.caption).bold()
-                            .padding(.horizontal, 8).padding(.vertical, 4)
-                            .background(
-                                adj.status == "Виконано"
-                                    ? Color.green
-                                    : (adj.status == "В роботі" ? Color.yellow : Color.blue)
-                            )
-                            .foregroundColor(.white)
-                            .cornerRadius(12)
+                    TableColumn(String(localized: "Initiator"), value: \.organization)
+                    TableColumn(String(localized: "Status")) { adj in
+                        AccStatusBadge(status: adj.status)
                     }
                     .width(ideal: 100)
                 }
@@ -176,18 +107,6 @@ struct PlanAdjustmentsTab: View {
                     state: state, period: controller.selectedPeriod, org: controller.selectedOrg,
                     kekv: controller.selectedKekv)
             }
-        }
-    }
-
-    private func colorFromName(_ name: String) -> Color {
-        switch name.lowercased() {
-        case "blue": return .blue
-        case "green": return .green
-        case "orange": return .orange
-        case "red": return .red
-        case "yellow": return .yellow
-        case "purple": return .purple
-        default: return .primary
         }
     }
 }

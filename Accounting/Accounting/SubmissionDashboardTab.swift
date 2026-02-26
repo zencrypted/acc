@@ -24,7 +24,7 @@ struct SubmissionDashboardTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Завантаження подання...")).foregroundColor(.secondary)
+                    Text(String(localized: "Loading submission...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -38,7 +38,7 @@ struct SubmissionDashboardTab: View {
                             )
                         }.buttonStyle(.borderedProminent)
                         Button(action: {}) {
-                            Label(String(localized: "Connect Є-Звітність"), systemImage: "link")
+                            Label(String(localized: "Connect E-Reporting"), systemImage: "link")
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
                             Label(String(localized: "Export Compliance"), systemImage: "doc.text")
@@ -59,24 +59,24 @@ struct SubmissionDashboardTab: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
                         // Kanban-style pipeline
-                        Text(String(localized: "Конвеєр подання")).font(.headline).padding(
+                        Text(String(localized: "Submission Pipeline")).font(.headline).padding(
                             .horizontal)
 
                         HStack(alignment: .top, spacing: 12) {
                             kanbanColumn(
-                                String(localized: "Готово"),
+                                String(localized: "Ready"),
                                 items: controller.submissions.filter { $0.status == "Ready" },
                                 color: .blue)
                             kanbanColumn(
-                                String(localized: "Надіслано"),
+                                String(localized: "Sent"),
                                 items: controller.submissions.filter { $0.status == "Sent" },
                                 color: .orange)
                             kanbanColumn(
-                                String(localized: "Прийнято"),
+                                String(localized: "Accepted"),
                                 items: controller.submissions.filter { $0.status == "Accepted" },
                                 color: .green)
                             kanbanColumn(
-                                String(localized: "Відхилено"),
+                                String(localized: "Rejected"),
                                 items: controller.submissions.filter { $0.status == "Rejected" },
                                 color: .red)
                         }
@@ -85,7 +85,7 @@ struct SubmissionDashboardTab: View {
                         Divider().padding(.vertical, 8)
 
                         // Portal Summary
-                        Text(String(localized: "Подання за порталами")).font(.headline).padding(
+                        Text(String(localized: "Submission by portals")).font(.headline).padding(
                             .horizontal)
 
                         ForEach(["Є-Звітність", "Пенсійний фонд", "ДПС"], id: \.self) { portal in
@@ -131,7 +131,7 @@ struct SubmissionDashboardTab: View {
             }
 
             if items.isEmpty {
-                Text(String(localized: "Порожньо")).font(.caption2).foregroundColor(.secondary)
+                Text(String(localized: "Empty")).font(.caption2).foregroundColor(.secondary)
                     .frame(maxWidth: .infinity, minHeight: 50)
             } else {
                 ForEach(items) { item in

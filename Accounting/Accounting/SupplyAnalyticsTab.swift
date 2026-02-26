@@ -25,7 +25,7 @@ struct SupplyAnalyticsTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Завантаження аналітики...")).foregroundColor(.secondary)
+                    Text(String(localized: "Loading analytics...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -35,16 +35,16 @@ struct SupplyAnalyticsTab: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         Menu {
-                            Button(String(localized: "Рейтинг постачальників")) {
+                            Button(String(localized: "Supplier Rating")) {
                                 selectedReport = "Рейтинг постачальників"
                             }
-                            Button(String(localized: "ABC/XYZ аналіз")) {
+                            Button(String(localized: "ABC/XYZ Analysis")) {
                                 selectedReport = "ABC/XYZ аналіз"
                             }
-                            Button(String(localized: "Старіння запасів")) {
+                            Button(String(localized: "Inventory Aging")) {
                                 selectedReport = "Старіння запасів"
                             }
-                            Button(String(localized: "Виконання закупівель")) {
+                            Button(String(localized: "Procurement Execution")) {
                                 selectedReport = "Виконання закупівель"
                             }
                         } label: {
@@ -83,18 +83,18 @@ struct SupplyAnalyticsTab: View {
                         // Supplier Performance Cards
                         HStack(spacing: 16) {
                             dashCard(
-                                String(localized: "ТОВ «ТехноСервіс»"), rating: "A", score: "96%",
+                                String(localized: "LLC TechnoService"), rating: "A", score: "96%",
                                 deliveries: "12/12", color: .green)
                             dashCard(
-                                String(localized: "ФОП Мельник О.А."), rating: "A", score: "92%",
+                                String(localized: "SPD Melnyk O.A."), rating: "A", score: "92%",
                                 deliveries: "8/8", color: .green)
                         }
                         HStack(spacing: 16) {
                             dashCard(
-                                String(localized: "ПАТ «Укрбуд»"), rating: "B", score: "78%",
+                                String(localized: "PJSC Ukrbud"), rating: "B", score: "78%",
                                 deliveries: "5/8", color: .orange)
                             dashCard(
-                                String(localized: "ТОВ «Канцтовари Плюс»"), rating: "C",
+                                String(localized: "LLC Stationery Plus"), rating: "C",
                                 score: "65%", deliveries: "3/4", color: .red)
                         }
 
@@ -102,7 +102,7 @@ struct SupplyAnalyticsTab: View {
 
                         // Category Breakdown
                         VStack(alignment: .leading, spacing: 0) {
-                            Text(String(localized: "Закупівлі за категоріями")).font(.headline)
+                            Text(String(localized: "Procurement by categories")).font(.headline)
                                 .padding()
                             ForEach(
                                 [
@@ -153,12 +153,12 @@ struct SupplyAnalyticsTab: View {
             }
             HStack {
                 VStack(alignment: .leading) {
-                    Text(String(localized: "Оцінка")).font(.caption2).foregroundColor(.secondary)
+                    Text(String(localized: "Score")).font(.caption2).foregroundColor(.secondary)
                     Text(score).font(.headline).foregroundColor(color)
                 }
                 Spacer()
                 VStack(alignment: .leading) {
-                    Text(String(localized: "Поставки")).font(.caption2).foregroundColor(.secondary)
+                    Text(String(localized: "Deliveries")).font(.caption2).foregroundColor(.secondary)
                     Text(deliveries).font(.headline)
                 }
             }

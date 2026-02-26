@@ -37,17 +37,17 @@ class PayrollController: ObservableObject {
             // Tab 1: Timesheets
             self.timesheetKPIs = [
                 KPIData(
-                    title: String(localized: "На штаті"), value: "248",
-                    suffix: String(localized: "осіб"), colorName: "blue"),
+                    title: String(localized: "On staff"), value: "248",
+                    suffix: String(localized: "persons"), colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Відсутні"), value: "12",
-                    suffix: String(localized: "днів"), colorName: "orange"),
+                    title: String(localized: "Absent"), value: "12",
+                    suffix: String(localized: "days"), colorName: "orange"),
                 KPIData(
-                    title: String(localized: "Понаднормові"), value: "86",
-                    suffix: String(localized: "год"), colorName: "red"),
+                    title: String(localized: "Overtime"), value: "86",
+                    suffix: String(localized: "hrs"), colorName: "red"),
                 KPIData(
-                    title: String(localized: "Відпрацьовано"), value: "4 216",
-                    suffix: String(localized: "год"), colorName: "green"),
+                    title: String(localized: "Worked"), value: "4 216",
+                    suffix: String(localized: "hrs"), colorName: "green"),
             ]
 
             self.timesheetEntries = [
@@ -76,16 +76,16 @@ class PayrollController: ObservableObject {
             // Tab 2: Payroll Calculation
             self.calcKPIs = [
                 KPIData(
-                    title: String(localized: "Нараховано"), value: "2.84",
-                    suffix: String(localized: "млн ₴"), colorName: "blue"),
+                    title: String(localized: "Accrued"), value: "2.84",
+                    suffix: String(localized: "M ₴"), colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Утримано"), value: "0.62",
-                    suffix: String(localized: "млн ₴"), colorName: "red"),
+                    title: String(localized: "Withheld"), value: "0.62",
+                    suffix: String(localized: "M ₴"), colorName: "red"),
                 KPIData(
-                    title: String(localized: "До виплати"), value: "2.22",
-                    suffix: String(localized: "млн ₴"), colorName: "green"),
+                    title: String(localized: "To Pay"), value: "2.22",
+                    suffix: String(localized: "M ₴"), colorName: "green"),
                 KPIData(
-                    title: String(localized: "Середня ЗП"), value: "11 450", suffix: "₴",
+                    title: String(localized: "Average Salary"), value: "11 450", suffix: "₴",
                     colorName: "purple"),
             ]
 
@@ -115,17 +115,17 @@ class PayrollController: ObservableObject {
             // Tab 3: Payments
             self.paymentKPIs = [
                 KPIData(
-                    title: String(localized: "Всього до виплати"), value: "2.22",
-                    suffix: String(localized: "млн ₴"), colorName: "blue"),
+                    title: String(localized: "Total to pay"), value: "2.22",
+                    suffix: String(localized: "M ₴"), colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Виплачено"), value: "1.85",
-                    suffix: String(localized: "млн ₴"), colorName: "green"),
+                    title: String(localized: "Paid"), value: "1.85",
+                    suffix: String(localized: "M ₴"), colorName: "green"),
                 KPIData(
-                    title: String(localized: "Депоновано"), value: "0.12",
-                    suffix: String(localized: "млн ₴"), colorName: "orange"),
+                    title: String(localized: "Deposited"), value: "0.12",
+                    suffix: String(localized: "M ₴"), colorName: "orange"),
                 KPIData(
-                    title: String(localized: "Не виплачено"), value: "0.25",
-                    suffix: String(localized: "млн ₴"), colorName: "red"),
+                    title: String(localized: "Not Paid"), value: "0.25",
+                    suffix: String(localized: "M ₴"), colorName: "red"),
             ]
 
             self.payments = [
@@ -154,17 +154,17 @@ class PayrollController: ObservableObject {
             // Tab 4: Employee Ledger
             self.employeeKPIs = [
                 KPIData(
-                    title: String(localized: "Активних"), value: "234",
-                    suffix: String(localized: "осіб"), colorName: "blue"),
+                    title: String(localized: "Active"), value: "234",
+                    suffix: String(localized: "persons"), colorName: "blue"),
                 KPIData(
-                    title: String(localized: "У відпустці"), value: "8", suffix: "",
+                    title: String(localized: "On vacation"), value: "8", suffix: "",
                     colorName: "orange"),
                 KPIData(
-                    title: String(localized: "Нові"), value: "3",
-                    suffix: String(localized: "за місяць"), colorName: "green"),
+                    title: String(localized: "New"), value: "3",
+                    suffix: String(localized: "per month"), colorName: "green"),
                 KPIData(
-                    title: String(localized: "Сер. стаж"), value: "4.2",
-                    suffix: String(localized: "років"), colorName: "purple"),
+                    title: String(localized: "Avg Tenure"), value: "4.2",
+                    suffix: String(localized: "years"), colorName: "purple"),
             ]
 
             self.employees = [
@@ -203,16 +203,16 @@ class PayrollController: ObservableObject {
             // Tab 5: Reports
             self.reportKPIs = [
                 KPIData(
-                    title: String(localized: "ФОП використано"), value: "87%", suffix: "",
+                    title: String(localized: "Payroll Used"), value: "87%", suffix: "",
                     colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Податків сплачено"), value: "0.62",
-                    suffix: String(localized: "млн ₴"), colorName: "green"),
+                    title: String(localized: "Taxes paid"), value: "0.62",
+                    suffix: String(localized: "M ₴"), colorName: "green"),
                 KPIData(
-                    title: String(localized: "Понаднормові"), value: "86",
-                    suffix: String(localized: "год"), colorName: "orange"),
+                    title: String(localized: "Overtime"), value: "86",
+                    suffix: String(localized: "hrs"), colorName: "orange"),
                 KPIData(
-                    title: String(localized: "Комплаєнс"), value: "98%", suffix: "",
+                    title: String(localized: "Compliance"), value: "98%", suffix: "",
                     colorName: "green"),
             ]
 
@@ -229,11 +229,11 @@ struct ModPayrollView: View {
         VStack(spacing: 0) {
             HStack {
                 Picker("", selection: $controller.selectedTab) {
-                    Text(String(localized: "Табель")).tag(0)
-                    Text(String(localized: "Нарахування")).tag(1)
-                    Text(String(localized: "Реєстр виплат")).tag(2)
-                    Text(String(localized: "Особові рахунки")).tag(3)
-                    Text(String(localized: "Звіти")).tag(4)
+                    Text(String(localized: "Timesheet")).tag(0)
+                    Text(String(localized: "Accruals")).tag(1)
+                    Text(String(localized: "Payment Register")).tag(2)
+                    Text(String(localized: "Personal Accounts")).tag(3)
+                    Text(String(localized: "Reports")).tag(4)
                 }
                 .pickerStyle(.segmented)
                 .labelsHidden()
@@ -256,15 +256,15 @@ struct ModPayrollView: View {
             }
         }
         .navigationSplitViewColumnWidth(min: 400, ideal: 600)
-        .navigationTitle(String(localized: "Розрахунок ЗП"))
+        .navigationTitle(String(localized: "Payroll Calc"))
         #if os(macOS)
             .toolbar {
                 ToolbarItem(placement: .navigation) {
-                    Text(String(localized: "МОДУЛЬ ЗП")).font(.caption).bold()
+                    Text(String(localized: "PAYROLL MODULE")).font(.caption).bold()
                     .foregroundColor(.secondary)
                 }
                 ToolbarItem(placement: .primaryAction) {
-                    Text(String(localized: "Розрахунковий період: Лютий 2026")).font(.caption)
+                    Text(String(localized: "Billing Period: February 2026")).font(.caption)
                     .foregroundColor(.secondary)
                 }
             }

@@ -24,7 +24,7 @@ struct ValidationCenterTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Перевірка звітів...")).foregroundColor(.secondary)
+                    Text(String(localized: "Validating reports...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -58,9 +58,9 @@ struct ValidationCenterTab: View {
                 }.padding(.bottom, 8)
 
                 Table(controller.validations, selection: $controller.selectedValidationIds) {
-                    TableColumn(String(localized: "Звіт"), value: \.reportName).width(
+                    TableColumn(String(localized: "Report"), value: \.reportName).width(
                         min: 200, ideal: 250)
-                    TableColumn(String(localized: "Помилки")) { v in
+                    TableColumn(String(localized: "Errors")) { v in
                         HStack(spacing: 4) {
                             Image(systemName: "xmark.circle.fill").foregroundColor(
                                 v.errorCount > 0 ? .red : .green
@@ -69,7 +69,7 @@ struct ValidationCenterTab: View {
                                 .foregroundColor(v.errorCount > 0 ? .red : .green)
                         }
                     }.width(70)
-                    TableColumn(String(localized: "Попередж.")) { v in
+                    TableColumn(String(localized: "Warnings")) { v in
                         HStack(spacing: 4) {
                             Image(systemName: "exclamationmark.triangle.fill").foregroundColor(
                                 v.warningCount > 0 ? .orange : .green
@@ -78,7 +78,7 @@ struct ValidationCenterTab: View {
                                 .foregroundColor(v.warningCount > 0 ? .orange : .green)
                         }
                     }.width(80)
-                    TableColumn(String(localized: "Звірка")) { v in
+                    TableColumn(String(localized: "Reconciliation")) { v in
                         HStack(spacing: 4) {
                             ProgressView(value: v.reconciliationScore / 100).frame(width: 60)
                                 .tint(
@@ -88,10 +88,10 @@ struct ValidationCenterTab: View {
                                 .secondary)
                         }
                     }.width(100)
-                    TableColumn(String(localized: "Перевірено")) { v in
+                    TableColumn(String(localized: "Verified")) { v in
                         Text(v.lastValidated, style: .date)
                     }.width(90)
-                    TableColumn(String(localized: "Статус")) { v in
+                    TableColumn(String(localized: "Status")) { v in
                         HStack(spacing: 4) {
                             Circle().fill(validationStatusColor(v.status)).frame(
                                 width: 10, height: 10)

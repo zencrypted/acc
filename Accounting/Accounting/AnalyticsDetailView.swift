@@ -88,7 +88,7 @@ struct AnalyticsDetailView: View {
                         Button("Excel") {}.buttonStyle(.bordered)
                         Button("Power BI") {}.buttonStyle(.bordered)
                     }
-                    Button(String(localized: "Export XML (Є-Звітність)")) {}
+                    Button(String(localized: "Export XML (E-Reporting)")) {}
                         .buttonStyle(.borderedProminent)
                         .tint(.green)
                 }

@@ -26,31 +26,12 @@ struct AnalyticalAccountingTab: View {
             let errorMessage = state.errorMessage
 
             if let error = errorMessage {
-                Spacer()
-                VStack {
-                    Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
-                        .system(size: 40))
-                    Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
-                        controller.loadBookkeepingData(
-                            state: state, period: controller.selectedPeriod)
-                    }.buttonStyle(.bordered)
+                AccErrorView(message: error) {
+                    controller.loadBookkeepingData(
+                        state: state, period: controller.selectedPeriod)
                 }
-                .frame(maxWidth: .infinity).padding(.vertical, 40)
-                .background(Color.secondary.opacity(0.05)).cornerRadius(12)
-                .padding()
-                Spacer()
             } else if isLoading {
-                Spacer()
-                VStack {
-                    ProgressView()
-                        .scaleEffect(1.5)
-                    Text(String(localized: "Loading analytical dimensions...")).foregroundColor(
-                        .secondary
-                    ).padding(.top)
-                }
-                .frame(maxWidth: .infinity, minHeight: 150)
-                Spacer()
+                AccLoadingView(message: String(localized: "Loading analytical dimensions..."))
             } else {
                 // Toolbar
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -59,10 +40,10 @@ struct AnalyticalAccountingTab: View {
                             Button(String(localized: "Видатки за КЕКВ")) {
                                 currentReport = "Видатки за КЕКВ"
                             }
-                            Button(String(localized: "Аналітика по відділах")) {
+                            Button(String(localized: "Analytics by departments")) {
                                 currentReport = "Аналітика по відділах"
                             }
-                            Button(String(localized: "Проекти / Гранти")) {
+                            Button(String(localized: "Projects / Grants")) {
                                 currentReport = "Проекти / Гранти"
                             }
                         } label: {
@@ -86,29 +67,18 @@ struct AnalyticalAccountingTab: View {
                     .padding()
                 }
 
-                // KPI Grid
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 16) {
-                        ForEach(controller.analyticsKPIs) { kpi in
-                            KPICard(
-                                title: kpi.title, value: kpi.value, suffix: kpi.suffix,
-                                valueColor: colorFromName(kpi.colorName))
-                        }
-                    }
-                    .padding(.horizontal)
-                }
-                .padding(.bottom, 8)
+                AccKPIRow(kpis: controller.analyticsKPIs)
 
                 #if os(iOS)
                 if isCompact {
                     // Dimension chips showing context
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
-                            Text(String(localized: "Рядки: КЕКВ")).font(.caption).padding(6)
+                            Text(String(localized: "Rows: KEKV")).font(.caption).padding(6)
                                 .background(Color.blue.opacity(0.1)).cornerRadius(6)
-                            Text(String(localized: "Колонки: Місяці")).font(.caption).padding(6)
+                            Text(String(localized: "Columns: Months")).font(.caption).padding(6)
                                 .background(Color.green.opacity(0.1)).cornerRadius(6)
-                            Text(String(localized: "Фільтр: \(controller.selectedPeriod)"))
+                            Text(String(localized: "Filter: \(controller.selectedPeriod)"))
                                 .font(.caption).padding(6)
                                 .background(Color.orange.opacity(0.1)).cornerRadius(6)
                         }
@@ -130,21 +100,21 @@ struct AnalyticalAccountingTab: View {
                             if !row.isHeader {
                                 HStack {
                                     VStack(alignment: .leading, spacing: 1) {
-                                        Text(String(localized: "Січень")).font(.caption2)
+                                        Text(String(localized: "January")).font(.caption2)
                                             .foregroundColor(.secondary)
                                         Text(row.q1Actual, format: .currency(code: "UAH"))
                                             .font(.caption).bold()
                                     }
                                     Spacer()
                                     VStack(alignment: .center, spacing: 1) {
-                                        Text(String(localized: "Лютий")).font(.caption2)
+                                        Text(String(localized: "February")).font(.caption2)
                                             .foregroundColor(.secondary)
                                         Text(row.q2Actual, format: .currency(code: "UAH"))
                                             .font(.caption).bold()
                                     }
                                     Spacer()
                                     VStack(alignment: .trailing, spacing: 1) {
-                                        Text(String(localized: "Відхилення")).font(.caption2)
+                                        Text(String(localized: "Variance")).font(.caption2)
                                             .foregroundColor(.secondary)
                                         Text(
                                             "\(row.totalVariance >= 0 ? "+" : "")\(row.totalVariance, specifier: "%.1f")%"
@@ -163,11 +133,11 @@ struct AnalyticalAccountingTab: View {
                 } else {
                     VStack(spacing: 0) {
                         HStack {
-                            Text(String(localized: "Рядки: КЕКВ")).font(.caption).padding(6)
+                            Text(String(localized: "Rows: KEKV")).font(.caption).padding(6)
                                 .background(Color.blue.opacity(0.1)).cornerRadius(6)
-                            Text(String(localized: "Колонки: Місяці")).font(.caption).padding(6)
+                            Text(String(localized: "Columns: Months")).font(.caption).padding(6)
                                 .background(Color.green.opacity(0.1)).cornerRadius(6)
-                            Text(String(localized: "Фільтр: \(controller.selectedPeriod)")).font(
+                            Text(String(localized: "Filter: \(controller.selectedPeriod)")).font(
                                 .caption
                             ).padding(6).background(Color.orange.opacity(0.1)).cornerRadius(6)
                             Spacer()
@@ -176,7 +146,7 @@ struct AnalyticalAccountingTab: View {
                         .background(Color.secondary.opacity(0.05))
 
                         Table(controller.analyticsDimensions, selection: $selectedRowIds) {
-                            TableColumn(String(localized: "Вимір")) { row in
+                            TableColumn(String(localized: "Dimension")) { row in
                                 HStack {
                                     if row.isHeader {
                                         Image(systemName: "folder.fill").foregroundColor(.blue)
@@ -186,19 +156,19 @@ struct AnalyticalAccountingTab: View {
                                 }
                             }.width(min: 250, ideal: 300)
 
-                            TableColumn(String(localized: "Січень")) { row in
+                            TableColumn(String(localized: "January")) { row in
                                 Text(row.q1Actual, format: .currency(code: "UAH")).font(
                                     .system(.body, design: .monospaced))
                             }.width(100)
-                            TableColumn(String(localized: "Лютий")) { row in
+                            TableColumn(String(localized: "February")) { row in
                                 Text(row.q2Actual, format: .currency(code: "UAH")).font(
                                     .system(.body, design: .monospaced))
                             }.width(100)
-                            TableColumn(String(localized: "Березень(План)")) { row in
+                            TableColumn(String(localized: "March (Plan)")) { row in
                                 Text(row.q3Forecast, format: .currency(code: "UAH"))
                                     .foregroundColor(.orange).font(.system(.body, design: .monospaced))
                             }.width(120)
-                            TableColumn(String(localized: "Всього")) { row in
+                            TableColumn(String(localized: "Total")) { row in
                                 Text(row.q1Actual + row.q2Actual, format: .currency(code: "UAH"))
                                     .bold().font(.system(.body, design: .monospaced))
                             }.width(120)
@@ -208,12 +178,12 @@ struct AnalyticalAccountingTab: View {
                 #else
                 VStack(spacing: 0) {
                     HStack {
-                        Text(String(localized: "Рядки: КЕКВ")).font(.caption).padding(6).background(
+                        Text(String(localized: "Rows: KEKV")).font(.caption).padding(6).background(
                             Color.blue.opacity(0.1)
                         ).cornerRadius(6)
-                        Text(String(localized: "Колонки: Місяці")).font(.caption).padding(6)
+                        Text(String(localized: "Columns: Months")).font(.caption).padding(6)
                             .background(Color.green.opacity(0.1)).cornerRadius(6)
-                        Text(String(localized: "Фільтр: \(controller.selectedPeriod)")).font(
+                        Text(String(localized: "Filter: \(controller.selectedPeriod)")).font(
                             .caption
                         ).padding(6).background(Color.orange.opacity(0.1)).cornerRadius(6)
                         Spacer()
@@ -222,7 +192,7 @@ struct AnalyticalAccountingTab: View {
                     .background(Color.secondary.opacity(0.05))
 
                     Table(controller.analyticsDimensions, selection: $selectedRowIds) {
-                        TableColumn(String(localized: "Вимір")) { row in
+                        TableColumn(String(localized: "Dimension")) { row in
                             HStack {
                                 if row.isHeader {
                                     Image(systemName: "folder.fill").foregroundColor(.blue)
@@ -232,20 +202,20 @@ struct AnalyticalAccountingTab: View {
                             }
                         }.width(min: 250, ideal: 300)
 
-                        TableColumn(String(localized: "Січень")) { row in
+                        TableColumn(String(localized: "January")) { row in
                             Text(row.q1Actual, format: .currency(code: "UAH")).font(
                                 .system(.body, design: .monospaced))
                         }.width(100)
-                        TableColumn(String(localized: "Лютий")) { row in
+                        TableColumn(String(localized: "February")) { row in
                             Text(row.q2Actual, format: .currency(code: "UAH")).font(
                                 .system(.body, design: .monospaced))
                         }.width(100)
-                        TableColumn(String(localized: "Березень(План)")) { row in
+                        TableColumn(String(localized: "March (Plan)")) { row in
                             Text(row.q3Forecast, format: .currency(code: "UAH")).foregroundColor(
                                 .orange
                             ).font(.system(.body, design: .monospaced))
                         }.width(120)
-                        TableColumn(String(localized: "Всього")) { row in
+                        TableColumn(String(localized: "Total")) { row in
                             Text(row.q1Actual + row.q2Actual, format: .currency(code: "UAH")).bold()
                                 .font(.system(.body, design: .monospaced))
                         }.width(120)
@@ -259,17 +229,6 @@ struct AnalyticalAccountingTab: View {
             if controller.analyticsDimensions.isEmpty {
                 controller.loadBookkeepingData(state: state, period: controller.selectedPeriod)
             }
-        }
-    }
-
-    private func colorFromName(_ name: String) -> Color {
-        switch name.lowercased() {
-        case "blue": return .blue
-        case "green": return .green
-        case "orange": return .orange
-        case "red": return .red
-        case "purple": return .purple
-        default: return .primary
         }
     }
 }

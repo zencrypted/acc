@@ -22,7 +22,7 @@ struct ModDashboardView: View {
             VStack(alignment: .leading, spacing: 20) {
                 // Header Region
                 HStack {
-                    Text(String(localized: "Головна панель"))
+                    Text(String(localized: "Dashboard"))
                         .font(.largeTitle)
                         .bold()
                     Spacer()
@@ -97,17 +97,17 @@ struct ModDashboardView: View {
                         HStack {
                             Image(systemName: "exclamationmark.triangle.fill").foregroundColor(
                                 .orange)
-                            Text(String(localized: "Монітор сповіщень"))
+                            Text(String(localized: "Notification Monitor"))
                                 .font(.headline)
                         }
 
                         VStack(alignment: .leading, spacing: 4) {
                             Label(
-                                String(localized: "Перевищення ліміту КЕКВ 2210 (Зарплата)"),
+                                String(localized: "Exceeded limit KEKV 2210 (Salary)"),
                                 systemImage: "xmark.circle.fill"
                             ).foregroundColor(.red)
                             Label(
-                                String(localized: "2 документи очікують підпису"),
+                                String(localized: "2 documents awaiting signature"),
                                 systemImage: "exclamationmark.circle.fill"
                             ).foregroundColor(.orange)
                             Label(
@@ -146,9 +146,9 @@ struct ModDashboardView: View {
     @ViewBuilder
     private var barChartCard: some View {
         VStack(alignment: .leading) {
-            Text(String(localized: "Динаміка фінансування"))
+            Text(String(localized: "Financing Dynamics"))
                 .font(.headline)
-            Text(String(localized: "млн ₴"))
+            Text(String(localized: "M ₴"))
                 .font(.caption)
                 .foregroundColor(.secondary)
 
@@ -187,7 +187,7 @@ struct ModDashboardView: View {
     @ViewBuilder
     private var pieChartCard: some View {
         VStack(alignment: .leading) {
-            Text(String(localized: "Видатки\nза КЕКВ"))
+            Text(String(localized: "Expenditures\nby KEKV"))
                 .font(.headline)
                 .multilineTextAlignment(.leading)
 
@@ -209,11 +209,11 @@ struct ModDashboardView: View {
             .frame(width: 120, height: 120)
 
             VStack(alignment: .leading, spacing: 4) {
-                Label(String(localized: "Зарплата 65%"), systemImage: "circle.fill")
+                Label(String(localized: "Salary 65%"), systemImage: "circle.fill")
                     .foregroundColor(.blue).font(.caption2)
-                Label(String(localized: "Капітальні 20%"), systemImage: "circle.fill")
+                Label(String(localized: "Capital 20%"), systemImage: "circle.fill")
                     .foregroundColor(.green).font(.caption2)
-                Label(String(localized: "Інші 15%"), systemImage: "circle.fill")
+                Label(String(localized: "Other 15%"), systemImage: "circle.fill")
                     .foregroundColor(.orange).font(.caption2)
             }
         }
@@ -230,19 +230,19 @@ struct ModDashboardView: View {
     @ViewBuilder
     private var recentDocumentsCard: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(String(localized: "Останні документи на увагу"))
+            Text(String(localized: "Recent documents for attention"))
                 .font(.headline)
                 .padding(.horizontal)
 
             Grid(alignment: .leading, horizontalSpacing: 20, verticalSpacing: 12) {
                 GridRow {
-                    Text(String(localized: "Дата")).foregroundColor(.secondary)
-                    Text(String(localized: "Тип")).foregroundColor(.secondary)
-                    Text(String(localized: "Сума")).foregroundColor(.secondary)
+                    Text(String(localized: "Date")).foregroundColor(.secondary)
+                    Text(String(localized: "Type")).foregroundColor(.secondary)
+                    Text(String(localized: "Amount")).foregroundColor(.secondary)
                         .gridColumnAlignment(.trailing)
-                    Text(String(localized: "Статус")).foregroundColor(.secondary)
+                    Text(String(localized: "Status")).foregroundColor(.secondary)
                         .gridColumnAlignment(.center)
-                    Text(String(localized: "Контрагент")).foregroundColor(.secondary)
+                    Text(String(localized: "Counterparty")).foregroundColor(.secondary)
                 }
                 .font(.subheadline)
 
@@ -321,33 +321,33 @@ struct ModDashboardView: View {
             if period == "2026 - Січень" {
                 self.metrics = [
                     DashboardMetric(
-                        title: String(localized: "Виконання бюджету"), value: "12,1%", suffix: "",
-                        description: String(localized: "від плану 2026"), percentage: 0.121),
+                        title: String(localized: "Budget Execution"), value: "12,1%", suffix: "",
+                        description: String(localized: "of 2026 plan"), percentage: 0.121),
                     DashboardMetric(
-                        title: String(localized: "Касові видатки"), value: "45,2 млн", suffix: "₴",
-                        description: String(localized: "січень 2026"), percentage: nil),
+                        title: String(localized: "Cash Expenditures"), value: "45,2 млн", suffix: "₴",
+                        description: String(localized: "Jan 2026"), percentage: nil),
                     DashboardMetric(
-                        title: String(localized: "ЗП нараховано"), value: "39,8 млн", suffix: "₴",
-                        description: String(localized: "поточний місяць"), percentage: nil),
+                        title: String(localized: "Salary Accrued"), value: "39,8 млн", suffix: "₴",
+                        description: String(localized: "current month"), percentage: nil),
                     DashboardMetric(
-                        title: String(localized: "Залишок на рахунках"), value: "12,4 млн",
-                        suffix: "₴", description: String(localized: "на кінець періоду"),
+                        title: String(localized: "Account Balances"), value: "12,4 млн",
+                        suffix: "₴", description: String(localized: "at the end of period"),
                         percentage: nil),
                 ]
             } else {
                 self.metrics = [
                     DashboardMetric(
-                        title: String(localized: "Виконання бюджету"), value: "87,4%", suffix: "",
-                        description: String(localized: "від плану 2026"), percentage: 0.874),
+                        title: String(localized: "Budget Execution"), value: "87,4%", suffix: "",
+                        description: String(localized: "of 2026 plan"), percentage: 0.874),
                     DashboardMetric(
-                        title: String(localized: "Касові видатки"), value: "248,7 млн", suffix: "₴",
-                        description: String(localized: "лютий 2026"), percentage: nil),
+                        title: String(localized: "Cash Expenditures"), value: "248,7 млн", suffix: "₴",
+                        description: String(localized: "Feb 2026"), percentage: nil),
                     DashboardMetric(
-                        title: String(localized: "ЗП нараховано"), value: "41,2 млн", suffix: "₴",
-                        description: String(localized: "поточний місяць"), percentage: nil),
+                        title: String(localized: "Salary Accrued"), value: "41,2 млн", suffix: "₴",
+                        description: String(localized: "current month"), percentage: nil),
                     DashboardMetric(
-                        title: String(localized: "Залишок на рахунках"), value: "8,1 млн",
-                        suffix: "₴", description: String(localized: "на кінець періоду"),
+                        title: String(localized: "Account Balances"), value: "8,1 млн",
+                        suffix: "₴", description: String(localized: "at the end of period"),
                         percentage: nil),
                 ]
             }

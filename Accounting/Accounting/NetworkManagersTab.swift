@@ -52,40 +52,19 @@ struct NetworkManagersTab: View {
             let errorMessage = state.errorMessage
 
             if let error = errorMessage {
-                Spacer()
-                VStack {
-                    Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
-                        .system(size: 40))
-                    Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
-                        controller.loadFinanceData(
-                            state: state, period: controller.selectedPeriod,
-                            org: controller.selectedOrg, kekv: controller.selectedKekv)
-                    }.buttonStyle(.bordered)
+                AccErrorView(message: error) {
+                    controller.loadFinanceData(
+                        state: state, period: controller.selectedPeriod,
+                        org: controller.selectedOrg, kekv: controller.selectedKekv)
                 }
-                .frame(maxWidth: .infinity).padding(.vertical, 40)
-                .background(Color.secondary.opacity(0.05)).cornerRadius(12)
-                .padding()
-                Spacer()
             } else if isLoading {
-                Spacer()
-                VStack {
-                    ProgressView()
-                        .scaleEffect(1.5)
-                    Text(String(localized: "Loading manager hierarchy...")).foregroundColor(
-                        .secondary
-                    ).padding(.top)
-                }
-                .frame(maxWidth: .infinity, minHeight: 150)
-                Spacer()
+                AccLoadingView(message: String(localized: "Loading manager hierarchy..."))
             } else {
                 #if os(iOS)
                 if isCompact {
                     let flatNodes = flattenNodes(controller.managersHierarchy)
                     List(flatNodes, id: \.0.id) { (manager, depth) in
-                        Button(action: {
-                            controller.selectedManagerId = manager.id
-                        }) {
+                        NavigationLink(value: FinanceDest.managerDetail(manager.id)) {
                             HStack(spacing: 8) {
                                 if depth > 0 {
                                     Rectangle()
@@ -106,13 +85,12 @@ struct NetworkManagersTab: View {
                                     Text(manager.remaining, format: .currency(code: "UAH"))
                                         .font(.caption).bold()
                                         .foregroundColor(manager.statusColor)
-                                    Text(String(localized: "залишок")).font(.caption2)
+                                    Text(String(localized: "remaining")).font(.caption2)
                                         .foregroundColor(.secondary)
                                 }
                             }
                             .padding(.vertical, 4)
                         }
-                        .buttonStyle(.plain)
                     }
                     .listStyle(.plain)
                 } else {

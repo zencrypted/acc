@@ -24,7 +24,7 @@ struct ReportsArchiveTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Завантаження архіву...")).foregroundColor(.secondary)
+                    Text(String(localized: "Loading archive...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -38,7 +38,7 @@ struct ReportsArchiveTab: View {
                             controller.selectedArchiveIds.isEmpty)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Submit to Є-Звітність"),
+                                String(localized: "Submit to E-Reporting"),
                                 systemImage: "paperplane")
                         }.buttonStyle(.bordered).disabled(controller.selectedArchiveIds.isEmpty)
                         Button(action: {}) {
@@ -47,7 +47,7 @@ struct ReportsArchiveTab: View {
                         Divider().frame(height: 20)
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Пошук за назвою")
+                            placeholder: String(localized: "Search by name")
                         ).frame(width: 200)
                     }.padding()
                 }
@@ -63,21 +63,21 @@ struct ReportsArchiveTab: View {
                 }.padding(.bottom, 8)
 
                 Table(controller.generatedReports, selection: $controller.selectedArchiveIds) {
-                    TableColumn(String(localized: "Звіт"), value: \.reportName).width(
+                    TableColumn(String(localized: "Report"), value: \.reportName).width(
                         min: 200, ideal: 250)
-                    TableColumn(String(localized: "Період"), value: \.period).width(100)
-                    TableColumn(String(localized: "Дата")) { r in
+                    TableColumn(String(localized: "Period"), value: \.period).width(100)
+                    TableColumn(String(localized: "Date")) { r in
                         Text(r.generatedDate, style: .date)
                     }.width(90)
-                    TableColumn(String(localized: "Версія")) { r in
+                    TableColumn(String(localized: "Version")) { r in
                         Text("v\(r.version)").font(.system(.body, design: .monospaced))
                     }.width(50)
-                    TableColumn(String(localized: "Розмір"), value: \.fileSize).width(70)
-                    TableColumn(String(localized: "Підписав")) { r in
+                    TableColumn(String(localized: "Size"), value: \.fileSize).width(70)
+                    TableColumn(String(localized: "Signed by")) { r in
                         Text(r.signedBy.isEmpty ? "—" : r.signedBy).foregroundColor(
                             r.signedBy.isEmpty ? .secondary : .primary)
                     }.width(110)
-                    TableColumn(String(localized: "Статус")) { r in
+                    TableColumn(String(localized: "Status")) { r in
                         Text(r.status).font(.caption).bold().padding(.horizontal, 8).padding(
                             .vertical, 4
                         )

@@ -23,31 +23,12 @@ struct PrimaryDocumentsRegisterTab: View {
             let errorMessage = state.errorMessage
 
             if let error = errorMessage {
-                Spacer()
-                VStack {
-                    Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
-                        .system(size: 40))
-                    Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
-                        controller.loadBookkeepingData(
-                            state: state, period: controller.selectedPeriod)
-                    }.buttonStyle(.bordered)
+                AccErrorView(message: error) {
+                    controller.loadBookkeepingData(
+                        state: state, period: controller.selectedPeriod)
                 }
-                .frame(maxWidth: .infinity).padding(.vertical, 40)
-                .background(Color.secondary.opacity(0.05)).cornerRadius(12)
-                .padding()
-                Spacer()
             } else if isLoading {
-                Spacer()
-                VStack {
-                    ProgressView()
-                        .scaleEffect(1.5)
-                    Text(String(localized: "Loading primary documents...")).foregroundColor(
-                        .secondary
-                    ).padding(.top)
-                }
-                .frame(maxWidth: .infinity, minHeight: 150)
-                Spacer()
+                AccLoadingView(message: String(localized: "Loading primary documents..."))
             } else {
                 // Toolbar
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -70,9 +51,9 @@ struct PrimaryDocumentsRegisterTab: View {
                         Divider().frame(height: 20)
 
                         Menu {
-                            Button(String(localized: "Акт виконаних робіт")) {}
-                            Button(String(localized: "Рахунок-фактура")) {}
-                            Button(String(localized: "Накладна")) {}
+                            Button(String(localized: "Act of Completed Works")) {}
+                            Button(String(localized: "Invoice")) {}
+                            Button(String(localized: "Waybill")) {}
                         } label: {
                             Label(
                                 String(localized: "Type"),
@@ -88,25 +69,12 @@ struct PrimaryDocumentsRegisterTab: View {
                     .padding()
                 }
 
-                // KPI Grid
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 16) {
-                        ForEach(controller.primaryDocKPIs) { kpi in
-                            KPICard(
-                                title: kpi.title, value: kpi.value, suffix: kpi.suffix,
-                                valueColor: colorFromName(kpi.colorName))
-                        }
-                    }
-                    .padding(.horizontal)
-                }
-                .padding(.bottom, 8)
+                AccKPIRow(kpis: controller.primaryDocKPIs)
 
                 #if os(iOS)
                 if isCompact {
                     List(controller.primaryDocuments) { doc in
-                        Button(action: {
-                            controller.selectedDocumentIds = [doc.id]
-                        }) {
+                        NavigationLink(value: BookkeepingDest.primaryDocDetail(doc)) {
                             VStack(alignment: .leading, spacing: 4) {
                                 HStack {
                                     Text(doc.documentNumber).font(.headline)
@@ -114,12 +82,7 @@ struct PrimaryDocumentsRegisterTab: View {
                                     Text(doc.type).font(.caption).foregroundColor(.secondary)
                                         .lineLimit(1)
                                     Spacer()
-                                    Text(String(localized: String.LocalizationValue(doc.status)))
-                                        .font(.caption).bold()
-                                        .padding(.horizontal, 8).padding(.vertical, 4)
-                                        .background(statusColor(doc.status))
-                                        .foregroundColor(.white)
-                                        .cornerRadius(12)
+                                    AccStatusBadge(status: doc.status)
                                 }
                                 Text(doc.counterparty).font(.subheadline)
                                     .foregroundColor(.secondary)
@@ -134,7 +97,6 @@ struct PrimaryDocumentsRegisterTab: View {
                             }
                             .padding(.vertical, 4)
                         }
-                        .buttonStyle(.plain)
                     }
                     .listStyle(.plain)
                 } else {
@@ -153,11 +115,11 @@ struct PrimaryDocumentsRegisterTab: View {
                         TableColumn(String(localized: "Counterparty"), value: \.counterparty)
                             .width(min: 150, ideal: 200)
 
-                        TableColumn(String(localized: "Дт")) { doc in
+                        TableColumn(String(localized: "Dr")) { doc in
                             Text(doc.debitAccount).font(.system(.caption, design: .monospaced))
                         }.width(40)
 
-                        TableColumn(String(localized: "Кт")) { doc in
+                        TableColumn(String(localized: "Cr")) { doc in
                             Text(doc.creditAccount).font(.system(.caption, design: .monospaced))
                         }.width(40)
 
@@ -168,12 +130,7 @@ struct PrimaryDocumentsRegisterTab: View {
                         }.width(120)
 
                         TableColumn(String(localized: "Status")) { doc in
-                            Text(String(localized: String.LocalizationValue(doc.status)))
-                                .font(.caption).bold()
-                                .padding(.horizontal, 8).padding(.vertical, 4)
-                                .background(statusColor(doc.status))
-                                .foregroundColor(.white)
-                                .cornerRadius(12)
+                            AccStatusBadge(status: doc.status)
                         }.width(100)
                     }
                 }
@@ -193,11 +150,11 @@ struct PrimaryDocumentsRegisterTab: View {
                     TableColumn(String(localized: "Counterparty"), value: \.counterparty)
                         .width(min: 150, ideal: 200)
 
-                    TableColumn(String(localized: "Дт")) { doc in
+                    TableColumn(String(localized: "Dr")) { doc in
                         Text(doc.debitAccount).font(.system(.caption, design: .monospaced))
                     }.width(40)
 
-                    TableColumn(String(localized: "Кт")) { doc in
+                    TableColumn(String(localized: "Cr")) { doc in
                         Text(doc.creditAccount).font(.system(.caption, design: .monospaced))
                     }.width(40)
 
@@ -208,12 +165,7 @@ struct PrimaryDocumentsRegisterTab: View {
                     }.width(120)
 
                     TableColumn(String(localized: "Status")) { doc in
-                        Text(String(localized: String.LocalizationValue(doc.status)))
-                            .font(.caption).bold()
-                            .padding(.horizontal, 8).padding(.vertical, 4)
-                            .background(statusColor(doc.status))
-                            .foregroundColor(.white)
-                            .cornerRadius(12)
+                        AccStatusBadge(status: doc.status)
                     }.width(100)
                 }
                 .tableStyle(.bordered)
@@ -224,27 +176,6 @@ struct PrimaryDocumentsRegisterTab: View {
             if controller.primaryDocuments.isEmpty {
                 controller.loadBookkeepingData(state: state, period: controller.selectedPeriod)
             }
-        }
-    }
-
-    private func colorFromName(_ name: String) -> Color {
-        switch name.lowercased() {
-        case "blue": return .blue
-        case "green": return .green
-        case "orange": return .orange
-        case "red": return .red
-        case "yellow": return .yellow
-        case "purple": return .purple
-        default: return .primary
-        }
-    }
-
-    private func statusColor(_ status: String) -> Color {
-        switch status {
-        case "Проведено": return .green
-        case "Чернетка": return .orange
-        case "В обробці": return .blue
-        default: return .secondary
         }
     }
 }
@@ -265,12 +196,7 @@ struct PrimaryDocDetailView: View {
                         Text(doc.type).font(.subheadline).foregroundColor(.secondary)
                     }
                     Spacer()
-                    Text(String(localized: String.LocalizationValue(doc.status)))
-                        .font(.caption).bold()
-                        .padding(.horizontal, 10).padding(.vertical, 5)
-                        .background(statusColor(doc.status))
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
+                    AccStatusBadge(status: doc.status)
                 }
 
                 Divider()
@@ -305,14 +231,5 @@ struct PrimaryDocDetailView: View {
         }
         .navigationTitle(doc.documentNumber)
         .background(Color.secondary.opacity(0.02))
-    }
-
-    private func statusColor(_ status: String) -> Color {
-        switch status {
-        case "Проведено": return .green
-        case "Чернетка": return .orange
-        case "В обробці": return .blue
-        default: return .secondary
-        }
     }
 }

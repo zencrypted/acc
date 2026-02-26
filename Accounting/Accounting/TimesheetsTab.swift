@@ -24,7 +24,7 @@ struct TimesheetsTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Завантаження табелю...")).foregroundColor(.secondary)
+                    Text(String(localized: "Loading timesheet...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -48,7 +48,7 @@ struct TimesheetsTab: View {
                         Divider().frame(height: 20)
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Пошук за ПІБ або ID")
+                            placeholder: String(localized: "Search by Name or ID")
                         ).frame(width: 220)
                     }.padding()
                 }
@@ -66,27 +66,27 @@ struct TimesheetsTab: View {
 
                 // Timesheet Table
                 Table(controller.timesheetEntries, selection: $controller.selectedTimesheetIds) {
-                    TableColumn(String(localized: "ПІБ"), value: \.employeeName).width(
+                    TableColumn(String(localized: "Full Name"), value: \.employeeName).width(
                         min: 150, ideal: 200)
-                    TableColumn(String(localized: "Підрозділ"), value: \.department).width(120)
-                    TableColumn(String(localized: "Днів відпрац.")) { e in
+                    TableColumn(String(localized: "Department"), value: \.department).width(120)
+                    TableColumn(String(localized: "Days worked")) { e in
                         Text("\(e.daysWorked)").font(.system(.body, design: .monospaced))
                     }.width(80)
-                    TableColumn(String(localized: "Відсутні")) { e in
+                    TableColumn(String(localized: "Absent")) { e in
                         Text("\(e.daysAbsent)").font(.system(.body, design: .monospaced))
                             .foregroundColor(e.daysAbsent > 0 ? .orange : .secondary)
                     }.width(60)
-                    TableColumn(String(localized: "Понаднормові")) { e in
+                    TableColumn(String(localized: "Overtime")) { e in
                         Text("\(e.overtimeHours, specifier: "%.1f") год").font(
                             .system(.body, design: .monospaced)
                         ).foregroundColor(e.overtimeHours > 0 ? .red : .secondary)
                     }.width(100)
-                    TableColumn(String(localized: "Всього год")) { e in
+                    TableColumn(String(localized: "Total hrs")) { e in
                         Text("\(e.totalHours, specifier: "%.0f")").font(
                             .system(.body, design: .monospaced)
                         ).bold()
                     }.width(80)
-                    TableColumn(String(localized: "Статус")) { e in
+                    TableColumn(String(localized: "Status")) { e in
                         Text(e.status).font(.caption).bold().padding(.horizontal, 8).padding(
                             .vertical, 4
                         )

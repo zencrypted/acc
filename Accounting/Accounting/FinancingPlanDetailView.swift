@@ -7,12 +7,12 @@ struct FinancingPlanDetailView: View {
     var body: some View {
         if let doc = doc {
             VStack(alignment: .leading, spacing: 20) {
-                Text(String(localized: "План Фінансування: \(doc.organization)")).font(.title3).bold()
+                Text(String(localized: "Financing Plan: \(doc.organization)")).font(.title3).bold()
                     .padding(.top)
                 
                 // Monthly breakdown chart (bar + line) mock
                 VStack(alignment: .leading) {
-                    Text(String(localized: "Помісячний графік (млн ₴)")).font(.headline)
+                    Text(String(localized: "Monthly Schedule (M ₴)")).font(.headline)
                     
                     // Simple mock bar chart
                     HStack(alignment: .bottom, spacing: 8) {
@@ -38,9 +38,9 @@ struct FinancingPlanDetailView: View {
                     
                     HStack {
                         Circle().fill(Color.green).frame(width: 8, height: 8)
-                        Text(String(localized: "Профінансовано")).font(.caption)
+                        Text(String(localized: "Financed")).font(.caption)
                         Circle().fill(Color.blue).frame(width: 8, height: 8).padding(.leading)
-                        Text(String(localized: "План")).font(.caption)
+                        Text(String(localized: "Plan")).font(.caption)
                     }
                 }
                 
@@ -48,17 +48,17 @@ struct FinancingPlanDetailView: View {
                 
                 // Wizard Button
                 Button(action: {}) {
-                    Label(String(localized: "Створити платіжки"), systemImage: "wand.and.stars")
+                    Label(String(localized: "Create Payments"), systemImage: "wand.and.stars")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
                 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(String(localized: "Деталі")).font(.headline)
-                    HStack { Text(String(localized: "Загальний план:")); Spacer(); Text(doc.amount, format: .currency(code: "UAH")) }
-                    HStack { Text(String(localized: "Профінансовано:")); Spacer(); Text(doc.financedAmount, format: .currency(code: "UAH")).foregroundColor(.green) }
-                    HStack { Text(String(localized: "Залишок:")); Spacer(); Text(doc.amount - doc.financedAmount, format: .currency(code: "UAH")).foregroundColor(.orange) }
+                    Text(String(localized: "Details")).font(.headline)
+                    HStack { Text(String(localized: "Total Plan:")); Spacer(); Text(doc.amount, format: .currency(code: "UAH")) }
+                    HStack { Text(String(localized: "Financed:")); Spacer(); Text(doc.financedAmount, format: .currency(code: "UAH")).foregroundColor(.green) }
+                    HStack { Text(String(localized: "Balance:")); Spacer(); Text(doc.amount - doc.financedAmount, format: .currency(code: "UAH")).foregroundColor(.orange) }
                 }
                 .font(.subheadline)
                 .padding()

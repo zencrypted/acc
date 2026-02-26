@@ -38,16 +38,16 @@ class SupplyController: ObservableObject {
             // Tab 1: Contracts
             self.contractKPIs = [
                 KPIData(
-                    title: String(localized: "Активних договорів"), value: "34", suffix: "",
+                    title: String(localized: "Active Contracts"), value: "34", suffix: "",
                     colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Загальна вартість"), value: "12.4",
-                    suffix: String(localized: "млн ₴"), colorName: "green"),
+                    title: String(localized: "Total Cost"), value: "12.4",
+                    suffix: String(localized: "M ₴"), colorName: "green"),
                 KPIData(
-                    title: String(localized: "Виконано"), value: "8.1",
-                    suffix: String(localized: "млн ₴"), colorName: "purple"),
+                    title: String(localized: "Completed"), value: "8.1",
+                    suffix: String(localized: "M ₴"), colorName: "purple"),
                 KPIData(
-                    title: String(localized: "Прострочені етапи"), value: "3", suffix: "",
+                    title: String(localized: "Overdue stages"), value: "3", suffix: "",
                     colorName: "red"),
             ]
             self.contracts = [
@@ -88,16 +88,16 @@ class SupplyController: ObservableObject {
             // Tab 2: Warehouse
             self.warehouseKPIs = [
                 KPIData(
-                    title: String(localized: "Вартість запасів"), value: "4.8",
-                    suffix: String(localized: "млн ₴"), colorName: "blue"),
+                    title: String(localized: "Inventory Value"), value: "4.8",
+                    suffix: String(localized: "M ₴"), colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Найменувань"), value: "1 247", suffix: "",
+                    title: String(localized: "Items"), value: "1 247", suffix: "",
                     colorName: "green"),
                 KPIData(
-                    title: String(localized: "Низький залишок"), value: "18", suffix: "",
+                    title: String(localized: "Low Balance"), value: "18", suffix: "",
                     colorName: "orange"),
                 KPIData(
-                    title: String(localized: "Оборотність"), value: "3.2", suffix: "x",
+                    title: String(localized: "Turnover"), value: "3.2", suffix: "x",
                     colorName: "purple"),
             ]
             self.warehouseItems = [
@@ -141,16 +141,16 @@ class SupplyController: ObservableObject {
             // Tab 3: Catalog
             self.catalogKPIs = [
                 KPIData(
-                    title: String(localized: "Всього ТМЦ"), value: "3 842", suffix: "",
+                    title: String(localized: "Total TMC"), value: "3 842", suffix: "",
                     colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Активних"), value: "3 210", suffix: "",
+                    title: String(localized: "Active"), value: "3 210", suffix: "",
                     colorName: "green"),
                 KPIData(
-                    title: String(localized: "Стандартизовано"), value: "2 890", suffix: "",
+                    title: String(localized: "Standardized"), value: "2 890", suffix: "",
                     colorName: "purple"),
                 KPIData(
-                    title: String(localized: "Нестандартні"), value: "320", suffix: "",
+                    title: String(localized: "Non-standard"), value: "320", suffix: "",
                     colorName: "orange"),
             ]
             self.catalogItems = [
@@ -175,17 +175,17 @@ class SupplyController: ObservableObject {
             // Tab 4: Procurement
             self.procurementKPIs = [
                 KPIData(
-                    title: String(localized: "План закупівель"), value: "18.5",
-                    suffix: String(localized: "млн ₴"), colorName: "blue"),
+                    title: String(localized: "Procurement Plan"), value: "18.5",
+                    suffix: String(localized: "M ₴"), colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Затверджено"), value: "14.2",
-                    suffix: String(localized: "млн ₴"), colorName: "green"),
+                    title: String(localized: "Approved"), value: "14.2",
+                    suffix: String(localized: "M ₴"), colorName: "green"),
                 KPIData(
-                    title: String(localized: "У виконанні"), value: "8.1",
-                    suffix: String(localized: "млн ₴"), colorName: "purple"),
+                    title: String(localized: "In Progress"), value: "8.1",
+                    suffix: String(localized: "M ₴"), colorName: "purple"),
                 KPIData(
-                    title: String(localized: "Економія"), value: "1.3",
-                    suffix: String(localized: "млн ₴"), colorName: "green"),
+                    title: String(localized: "Savings"), value: "1.3",
+                    suffix: String(localized: "M ₴"), colorName: "green"),
             ]
             self.procurementLines = [
                 ProcurementLine(
@@ -213,16 +213,16 @@ class SupplyController: ObservableObject {
             // Tab 5: Analytics
             self.analyticsKPIs = [
                 KPIData(
-                    title: String(localized: "Надійність постач."), value: "94%", suffix: "",
+                    title: String(localized: "Supplier Reliability"), value: "94%", suffix: "",
                     colorName: "green"),
                 KPIData(
-                    title: String(localized: "Сер. час поставки"), value: "4.2",
-                    suffix: String(localized: "дні"), colorName: "blue"),
+                    title: String(localized: "Avg delivery time"), value: "4.2",
+                    suffix: String(localized: "days"), colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Оборотність"), value: "3.2", suffix: "x",
+                    title: String(localized: "Turnover"), value: "3.2", suffix: "x",
                     colorName: "purple"),
                 KPIData(
-                    title: String(localized: "Економія закупівель"), value: "7.1%", suffix: "",
+                    title: String(localized: "Procurement Savings"), value: "7.1%", suffix: "",
                     colorName: "green"),
             ]
 
@@ -239,11 +239,11 @@ struct ModSupplyView: View {
         VStack(spacing: 0) {
             HStack {
                 Picker("", selection: $controller.selectedTab) {
-                    Text(String(localized: "Договори")).tag(0)
-                    Text(String(localized: "Склад")).tag(1)
-                    Text(String(localized: "Каталог ТМЦ")).tag(2)
-                    Text(String(localized: "Закупівлі")).tag(3)
-                    Text(String(localized: "Аналітика")).tag(4)
+                    Text(String(localized: "Contracts")).tag(0)
+                    Text(String(localized: "Warehouse")).tag(1)
+                    Text(String(localized: "TMC Catalog")).tag(2)
+                    Text(String(localized: "Procurement")).tag(3)
+                    Text(String(localized: "Analytics")).tag(4)
                 }
                 .pickerStyle(.segmented)
                 .labelsHidden()
@@ -260,15 +260,15 @@ struct ModSupplyView: View {
             }
         }
         .navigationSplitViewColumnWidth(min: 400, ideal: 600)
-        .navigationTitle(String(localized: "Постачання / Склад"))
+        .navigationTitle(String(localized: "Supply / Warehouse"))
         #if os(macOS)
             .toolbar {
                 ToolbarItem(placement: .navigation) {
-                    Text(String(localized: "МОДУЛЬ ПОСТАЧАННЯ")).font(.caption).bold()
+                    Text(String(localized: "SUPPLY MODULE")).font(.caption).bold()
                     .foregroundColor(.secondary)
                 }
                 ToolbarItem(placement: .primaryAction) {
-                    Text(String(localized: "Звітний період: 2026")).font(.caption).foregroundColor(
+                    Text(String(localized: "Reporting Period: 2026")).font(.caption).foregroundColor(
                         .secondary)
                 }
             }

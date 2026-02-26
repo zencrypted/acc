@@ -23,7 +23,7 @@ struct PayrollCalculationTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Розрахунок зарплати...")).foregroundColor(.secondary)
+                    Text(String(localized: "Calculating salary...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -48,7 +48,7 @@ struct PayrollCalculationTab: View {
                         Divider().frame(height: 20)
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Пошук за ПІБ")
+                            placeholder: String(localized: "Search by Name")
                         ).frame(width: 200)
                     }.padding()
                 }
@@ -66,34 +66,34 @@ struct PayrollCalculationTab: View {
 
                 // Payroll Calculation Table
                 Table(controller.payrollLines, selection: $controller.selectedPayrollIds) {
-                    TableColumn(String(localized: "ПІБ"), value: \.employeeName).width(
+                    TableColumn(String(localized: "Full Name"), value: \.employeeName).width(
                         min: 150, ideal: 200)
-                    TableColumn(String(localized: "Підрозділ"), value: \.department).width(100)
-                    TableColumn(String(localized: "Посада"), value: \.position).width(120)
-                    TableColumn(String(localized: "Нараховано")) { p in
+                    TableColumn(String(localized: "Department"), value: \.department).width(100)
+                    TableColumn(String(localized: "Position"), value: \.position).width(120)
+                    TableColumn(String(localized: "Accrued")) { p in
                         Text(p.grossPay, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced))
                     }.width(110)
-                    TableColumn(String(localized: "ПДФО")) { p in
+                    TableColumn(String(localized: "PIT")) { p in
                         Text(p.pit, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced)
                         ).foregroundColor(.red)
                     }.width(90)
-                    TableColumn(String(localized: "Військ. збір")) { p in
+                    TableColumn(String(localized: "Military task")) { p in
                         Text(p.militaryTax, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced)
                         ).foregroundColor(.orange)
                     }.width(90)
-                    TableColumn(String(localized: "Інші утрим.")) { p in
+                    TableColumn(String(localized: "Other deduc.")) { p in
                         Text(p.otherDeductions, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced))
                     }.width(80)
-                    TableColumn(String(localized: "До виплати")) { p in
+                    TableColumn(String(localized: "To Pay")) { p in
                         Text(p.netPay, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced)
                         ).bold().foregroundColor(.green)
                     }.width(110)
-                    TableColumn(String(localized: "Статус")) { p in
+                    TableColumn(String(localized: "Status")) { p in
                         Text(p.status).font(.caption).bold().padding(.horizontal, 8).padding(
                             .vertical, 4
                         )

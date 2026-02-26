@@ -23,7 +23,7 @@ struct TMCCatalogTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Завантаження каталогу...")).foregroundColor(.secondary)
+                    Text(String(localized: "Loading catalog...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -53,7 +53,7 @@ struct TMCCatalogTab: View {
                         Divider().frame(height: 20)
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Пошук за кодом або назвою")
+                            placeholder: String(localized: "Search by code or name")
                         ).frame(width: 220)
                     }.padding()
                 }
@@ -71,28 +71,28 @@ struct TMCCatalogTab: View {
 
                 // Catalog Table
                 Table(controller.catalogItems, selection: $controller.selectedCatalogIds) {
-                    TableColumn(String(localized: "Код"), value: \.code).width(70)
-                    TableColumn(String(localized: "Найменування"), value: \.name).width(
+                    TableColumn(String(localized: "Code"), value: \.code).width(70)
+                    TableColumn(String(localized: "Name"), value: \.name).width(
                         min: 200, ideal: 280)
-                    TableColumn(String(localized: "Од."), value: \.unit).width(50)
-                    TableColumn(String(localized: "Категорія"), value: \.category).width(100)
-                    TableColumn(String(localized: "Станд. ціна")) { item in
+                    TableColumn(String(localized: "Unit"), value: \.unit).width(50)
+                    TableColumn(String(localized: "Category"), value: \.category).width(100)
+                    TableColumn(String(localized: "Std. Price")) { item in
                         Text(item.standardPrice, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced))
                     }.width(100)
-                    TableColumn(String(localized: "Остання ціна")) { item in
+                    TableColumn(String(localized: "Last Price")) { item in
                         Text(item.lastPurchasePrice, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced)
                         )
                         .foregroundColor(
                             item.lastPurchasePrice > item.standardPrice ? .red : .green)
                     }.width(100)
-                    TableColumn(String(localized: "Залишок")) { item in
+                    TableColumn(String(localized: "Balance")) { item in
                         Text("\(item.stockLevel, specifier: "%.0f")").font(
                             .system(.body, design: .monospaced)
                         ).bold()
                     }.width(60)
-                    TableColumn(String(localized: "Стандарт")) { item in
+                    TableColumn(String(localized: "Standard")) { item in
                         Image(
                             systemName: item.isStandardized
                                 ? "checkmark.circle.fill" : "xmark.circle"

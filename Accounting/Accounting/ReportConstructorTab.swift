@@ -24,7 +24,7 @@ struct ReportConstructorTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Завантаження конструктора...")).foregroundColor(
+                    Text(String(localized: "Loading constructor...")).foregroundColor(
                         .secondary
                     ).padding(.top)
                 }
@@ -67,12 +67,12 @@ struct ReportConstructorTab: View {
 
                 // Templates Table
                 Table(controller.templates, selection: $controller.selectedTemplateIds) {
-                    TableColumn(String(localized: "Шаблон"), value: \.name).width(
+                    TableColumn(String(localized: "Template"), value: \.name).width(
                         min: 200, ideal: 280)
-                    TableColumn(String(localized: "Елементів")) { t in
+                    TableColumn(String(localized: "Elements")) { t in
                         Text("\(t.elementsCount)").font(.system(.body, design: .monospaced))
                     }.width(70)
-                    TableColumn(String(localized: "Помилки")) { t in
+                    TableColumn(String(localized: "Errors")) { t in
                         HStack(spacing: 4) {
                             Circle().fill(t.validationErrors > 0 ? Color.red : Color.green).frame(
                                 width: 8, height: 8)
@@ -80,13 +80,13 @@ struct ReportConstructorTab: View {
                                 .foregroundColor(t.validationErrors > 0 ? .red : .green)
                         }
                     }.width(60)
-                    TableColumn(String(localized: "Змінено")) { t in
+                    TableColumn(String(localized: "Changed")) { t in
                         Text(t.lastModified, style: .date)
                     }.width(90)
-                    TableColumn(String(localized: "Статус")) { t in
+                    TableColumn(String(localized: "Status")) { t in
                         Text(
                             t.isPublished
-                                ? String(localized: "Опубліковано") : String(localized: "Чернетка")
+                                ? String(localized: "Published") : String(localized: "Draft")
                         )
                         .font(.caption).bold().padding(.horizontal, 8).padding(.vertical, 4)
                         .background(t.isPublished ? Color.green : Color.orange).foregroundColor(
@@ -103,7 +103,7 @@ struct ReportConstructorTab: View {
                     Divider()
                     HStack(spacing: 20) {
                         VStack(alignment: .leading, spacing: 8) {
-                            Text(String(localized: "Палітра елементів")).font(.caption).bold()
+                            Text(String(localized: "Element Palette")).font(.caption).bold()
                                 .foregroundColor(.secondary)
                             HStack(spacing: 8) {
                                 designerTool("Текст", icon: "textformat")
@@ -114,7 +114,7 @@ struct ReportConstructorTab: View {
                             }
                         }
                         Spacer()
-                        Text(String(localized: "Оберіть шаблон для редагування")).font(.caption)
+                        Text(String(localized: "Select a template to edit")).font(.caption)
                             .foregroundColor(.secondary)
                     }
                     .padding()

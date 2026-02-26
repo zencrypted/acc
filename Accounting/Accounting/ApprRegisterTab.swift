@@ -23,25 +23,25 @@ struct ApprRegisterTab: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
                     HStack {
-                        Text(String(localized: "Період:")).foregroundColor(.secondary)
+                        Text(String(localized: "Period:")).foregroundColor(.secondary)
                         Picker("", selection: $controller.selectedPeriod) {
-                            Text(String(localized: "2026 рік")).tag("2026 рік")
+                            Text(String(localized: "Year 2026")).tag("2026 рік")
                         }.frame(width: 100).labelsHidden()
                     }.padding(.horizontal, 8).frame(height: 28).overlay(
                         RoundedRectangle(cornerRadius: 6).stroke(Color.secondary.opacity(0.2)))
 
                     HStack {
-                        Text(String(localized: "Розпорядник:")).foregroundColor(.secondary)
+                        Text(String(localized: "Fund Manager:")).foregroundColor(.secondary)
                         Picker("", selection: $controller.selectedOrg) {
-                            Text(String(localized: "Всі розпорядники")).tag("Всі розпорядники")
+                            Text(String(localized: "All Fund Managers")).tag("Всі розпорядники")
                         }.labelsHidden()
                     }.padding(.horizontal, 8).frame(height: 28).overlay(
                         RoundedRectangle(cornerRadius: 6).stroke(Color.secondary.opacity(0.2)))
 
                     HStack {
-                        Text(String(localized: "КЕКВ:")).foregroundColor(.secondary)
+                        Text(String(localized: "KEKV:")).foregroundColor(.secondary)
                         Picker("", selection: $controller.selectedKekv) {
-                            Text(String(localized: "Всі КЕКВ")).tag("Всі КЕКВ")
+                            Text(String(localized: "All KEKV")).tag("Всі КЕКВ")
                         }.labelsHidden()
                     }.padding(.horizontal, 8).frame(height: 28).overlay(
                         RoundedRectangle(cornerRadius: 6).stroke(Color.secondary.opacity(0.2)))
@@ -54,43 +54,25 @@ struct ApprRegisterTab: View {
             let errorMessage = state.errorMessage
 
             if let error = errorMessage {
-                Spacer()
-                VStack {
-                    Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
-                        .system(size: 40))
-                    Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
-                        controller.loadFinanceData(
-                            state: state, period: controller.selectedPeriod,
-                            org: controller.selectedOrg, kekv: controller.selectedKekv)
-                    }.buttonStyle(.bordered)
+                AccErrorView(message: error) {
+                    controller.loadFinanceData(
+                        state: state, period: controller.selectedPeriod,
+                        org: controller.selectedOrg, kekv: controller.selectedKekv)
                 }
-                .frame(maxWidth: .infinity).padding(.vertical, 40)
-                .background(Color.secondary.opacity(0.05)).cornerRadius(12)
-                .padding()
-                Spacer()
             } else if isLoading {
-                Spacer()
-                VStack {
-                    ProgressView()
-                        .scaleEffect(1.5)
-                    Text(String(localized: "Loading data...")).foregroundColor(.secondary).padding(
-                        .top)
-                }
-                .frame(maxWidth: .infinity, minHeight: 150)
-                Spacer()
+                AccLoadingView()
             } else {
-                // KPI Grid
+                // KPI Grid — standard KPIs + custom "% виконання" card
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
                         ForEach(controller.apprKPIs) { kpi in
                             KPICard(
                                 title: kpi.title, value: kpi.value, suffix: kpi.suffix,
-                                valueColor: colorFromName(kpi.colorName))
+                                valueColor: .acc(kpi.colorName))
                         }
 
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(String(localized: "% виконання бюджету")).font(.caption)
+                            Text(String(localized: "Budget execution %")).font(.caption)
                                 .foregroundColor(.secondary)
                             Text("73,2%").font(.title).bold()
                         }
@@ -106,23 +88,12 @@ struct ApprRegisterTab: View {
                 #if os(iOS)
                 if isCompact {
                     List(controller.documents) { doc in
-                        Button(action: {
-                            controller.selectedDocumentIds = [doc.id]
-                        }) {
+                        NavigationLink(value: FinanceDest.apprDetail(doc)) {
                             VStack(alignment: .leading, spacing: 4) {
                                 HStack {
                                     Text(doc.planNumber).font(.headline)
                                     Spacer()
-                                    Text(String(localized: String.LocalizationValue(doc.status)))
-                                        .font(.caption).bold()
-                                        .padding(.horizontal, 8).padding(.vertical, 4)
-                                        .background(
-                                            doc.status == "Виконано" ? Color.green
-                                                : (doc.status == "В роботі"
-                                                    ? Color.yellow : Color.blue)
-                                        )
-                                        .foregroundColor(.white)
-                                        .cornerRadius(12)
+                                    AccStatusBadge(status: doc.status)
                                 }
                                 Text(doc.organization).font(.subheadline)
                                     .foregroundColor(.secondary)
@@ -136,42 +107,32 @@ struct ApprRegisterTab: View {
                             }
                             .padding(.vertical, 4)
                         }
-                        .buttonStyle(.plain)
                     }
                     .listStyle(.plain)
                 } else {
                     Table(controller.documents, selection: $controller.selectedDocumentIds) {
                         TableColumn("№", value: \.documentNumber)
                             .width(min: 30, ideal: 40)
-                        TableColumn(String(localized: "Дата")) { doc in
+                        TableColumn(String(localized: "Date")) { doc in
                             Text(doc.date, style: .date)
                         }
-                        TableColumn(String(localized: "№ плану"), value: \.planNumber)
-                        TableColumn(String(localized: "Розпорядник"), value: \.organization)
-                        TableColumn(String(localized: "Сума асигнувань")) { doc in
+                        TableColumn(String(localized: "Plan No"), value: \.planNumber)
+                        TableColumn(String(localized: "Fund Manager"), value: \.organization)
+                        TableColumn(String(localized: "Appropriations Amount")) { doc in
                             Text(doc.amount, format: .currency(code: "UAH")).font(
                                 .system(.body, design: .monospaced))
                         }
-                        TableColumn(String(localized: "Профінансовано")) { doc in
+                        TableColumn(String(localized: "Financed")) { doc in
                             Text(doc.financedAmount, format: .currency(code: "UAH")).font(
                                 .system(.body, design: .monospaced)
                             ).foregroundColor(.green)
                         }
-                        TableColumn(String(localized: "% викон.")) { doc in
+                        TableColumn(String(localized: "% Exec.")) { doc in
                             Text("\(doc.executionPercentage, specifier: "%.1f")%")
                                 .foregroundColor(.green)
                         }
-                        TableColumn(String(localized: "Статус")) { doc in
-                            Text(String(localized: String.LocalizationValue(doc.status)))
-                                .font(.caption).bold()
-                                .padding(.horizontal, 8).padding(.vertical, 4)
-                                .background(
-                                    doc.status == "Виконано"
-                                        ? Color.green
-                                        : (doc.status == "В роботі" ? Color.yellow : Color.blue)
-                                )
-                                .foregroundColor(.white)
-                                .cornerRadius(12)
+                        TableColumn(String(localized: "Status")) { doc in
+                            AccStatusBadge(status: doc.status)
                         }
                         .width(ideal: 100)
                     }
@@ -180,35 +141,26 @@ struct ApprRegisterTab: View {
                 Table(controller.documents, selection: $controller.selectedDocumentIds) {
                     TableColumn("№", value: \.documentNumber)
                         .width(min: 30, ideal: 40)
-                    TableColumn(String(localized: "Дата")) { doc in
+                    TableColumn(String(localized: "Date")) { doc in
                         Text(doc.date, style: .date)
                     }
-                    TableColumn(String(localized: "№ плану"), value: \.planNumber)
-                    TableColumn(String(localized: "Розпорядник"), value: \.organization)
-                    TableColumn(String(localized: "Сума асигнувань")) { doc in
+                    TableColumn(String(localized: "Plan No"), value: \.planNumber)
+                    TableColumn(String(localized: "Fund Manager"), value: \.organization)
+                    TableColumn(String(localized: "Appropriations Amount")) { doc in
                         Text(doc.amount, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced))
                     }
-                    TableColumn(String(localized: "Профінансовано")) { doc in
+                    TableColumn(String(localized: "Financed")) { doc in
                         Text(doc.financedAmount, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced)
                         ).foregroundColor(.green)
                     }
-                    TableColumn(String(localized: "% викон.")) { doc in
+                    TableColumn(String(localized: "% Exec.")) { doc in
                         Text("\(doc.executionPercentage, specifier: "%.1f")%")
                             .foregroundColor(.green)
                     }
-                    TableColumn(String(localized: "Статус")) { doc in
-                        Text(String(localized: String.LocalizationValue(doc.status)))
-                            .font(.caption).bold()
-                            .padding(.horizontal, 8).padding(.vertical, 4)
-                            .background(
-                                doc.status == "Виконано"
-                                    ? Color.green
-                                    : (doc.status == "В роботі" ? Color.yellow : Color.blue)
-                            )
-                            .foregroundColor(.white)
-                            .cornerRadius(12)
+                    TableColumn(String(localized: "Status")) { doc in
+                        AccStatusBadge(status: doc.status)
                     }
                     .width(ideal: 100)
                 }
@@ -227,18 +179,6 @@ struct ApprRegisterTab: View {
             controller.loadFinanceData(
                 state: state, period: newValue, org: controller.selectedOrg,
                 kekv: controller.selectedKekv)
-        }
-    }
-
-    private func colorFromName(_ name: String) -> Color {
-        switch name.lowercased() {
-        case "blue": return .blue
-        case "green": return .green
-        case "orange": return .orange
-        case "red": return .red
-        case "yellow": return .yellow
-        case "purple": return .purple
-        default: return .primary
         }
     }
 }

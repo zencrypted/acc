@@ -23,7 +23,7 @@ struct EmployeeLedgerTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Завантаження особових рахунків...")).foregroundColor(
+                    Text(String(localized: "Loading personal accounts...")).foregroundColor(
                         .secondary
                     ).padding(.top)
                 }
@@ -47,7 +47,7 @@ struct EmployeeLedgerTab: View {
                         Divider().frame(height: 20)
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Пошук за ПІБ або таб. №")
+                            placeholder: String(localized: "Search by Name or Emp No")
                         ).frame(width: 230)
                     }.padding()
                 }
@@ -65,20 +65,20 @@ struct EmployeeLedgerTab: View {
 
                 // Employee Table
                 Table(controller.employees, selection: $controller.selectedEmployeeIds) {
-                    TableColumn(String(localized: "Таб. №"), value: \.personnelNumber).width(60)
-                    TableColumn(String(localized: "ПІБ"), value: \.fullName).width(
+                    TableColumn(String(localized: "Emp No"), value: \.personnelNumber).width(60)
+                    TableColumn(String(localized: "Full Name"), value: \.fullName).width(
                         min: 200, ideal: 250)
-                    TableColumn(String(localized: "Підрозділ"), value: \.department).width(120)
-                    TableColumn(String(localized: "Посада"), value: \.position).width(140)
-                    TableColumn(String(localized: "Дата прийому")) { e in
+                    TableColumn(String(localized: "Department"), value: \.department).width(120)
+                    TableColumn(String(localized: "Position"), value: \.position).width(140)
+                    TableColumn(String(localized: "Admission Date")) { e in
                         Text(e.hireDate, style: .date)
                     }.width(100)
-                    TableColumn(String(localized: "Оклад")) { e in
+                    TableColumn(String(localized: "Base Salary")) { e in
                         Text(e.salary, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced)
                         ).bold()
                     }.width(110)
-                    TableColumn(String(localized: "Статус")) { e in
+                    TableColumn(String(localized: "Status")) { e in
                         Text(e.status).font(.caption).bold().padding(.horizontal, 8).padding(
                             .vertical, 4
                         )

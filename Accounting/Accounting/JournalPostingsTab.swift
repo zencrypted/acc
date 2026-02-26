@@ -25,31 +25,12 @@ struct JournalPostingsTab: View {
             let errorMessage = state.errorMessage
 
             if let error = errorMessage {
-                Spacer()
-                VStack {
-                    Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
-                        .system(size: 40))
-                    Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
-                        controller.loadBookkeepingData(
-                            state: state, period: controller.selectedPeriod)
-                    }.buttonStyle(.bordered)
+                AccErrorView(message: error) {
+                    controller.loadBookkeepingData(
+                        state: state, period: controller.selectedPeriod)
                 }
-                .frame(maxWidth: .infinity).padding(.vertical, 40)
-                .background(Color.secondary.opacity(0.05)).cornerRadius(12)
-                .padding()
-                Spacer()
             } else if isLoading {
-                Spacer()
-                VStack {
-                    ProgressView()
-                        .scaleEffect(1.5)
-                    Text(String(localized: "Loading journal postings...")).foregroundColor(
-                        .secondary
-                    ).padding(.top)
-                }
-                .frame(maxWidth: .infinity, minHeight: 150)
-                Spacer()
+                AccLoadingView(message: String(localized: "Loading journal postings..."))
             } else {
                 // Toolbar
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -85,18 +66,7 @@ struct JournalPostingsTab: View {
                     .padding()
                 }
 
-                // KPI Grid
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 16) {
-                        ForEach(controller.journalKPIs) { kpi in
-                            KPICard(
-                                title: kpi.title, value: kpi.value, suffix: kpi.suffix,
-                                valueColor: colorFromName(kpi.colorName))
-                        }
-                    }
-                    .padding(.horizontal)
-                }
-                .padding(.bottom, 8)
+                AccKPIRow(kpis: controller.journalKPIs)
 
                 #if os(iOS)
                 if isCompact {
@@ -109,12 +79,7 @@ struct JournalPostingsTab: View {
                                     .font(.system(.caption, design: .monospaced))
                                     .foregroundColor(.secondary)
                                 Spacer()
-                                Text(String(localized: String.LocalizationValue(post.status)))
-                                    .font(.caption).bold()
-                                    .padding(.horizontal, 8).padding(.vertical, 4)
-                                    .background(post.status == "Активно" ? Color.green : Color.red)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(12)
+                                AccStatusBadge(status: post.status)
                             }
                             Text(post.description).font(.subheadline)
                                 .foregroundColor(.secondary).lineLimit(1)
@@ -143,12 +108,12 @@ struct JournalPostingsTab: View {
                         TableColumn(String(localized: "Description"), value: \.description)
                             .width(min: 200, ideal: 300)
 
-                        TableColumn(String(localized: "Дт")) { post in
+                        TableColumn(String(localized: "Dr")) { post in
                             Text(post.debitAccount).font(.system(.body, design: .monospaced))
                                 .foregroundColor(.blue)
                         }.width(60)
 
-                        TableColumn(String(localized: "Кт")) { post in
+                        TableColumn(String(localized: "Cr")) { post in
                             Text(post.creditAccount).font(.system(.body, design: .monospaced))
                                 .foregroundColor(.purple)
                         }.width(60)
@@ -163,12 +128,7 @@ struct JournalPostingsTab: View {
                         TableColumn(String(localized: "Department"), value: \.department).width(120)
 
                         TableColumn(String(localized: "Status")) { post in
-                            Text(String(localized: String.LocalizationValue(post.status)))
-                                .font(.caption).bold()
-                                .padding(.horizontal, 8).padding(.vertical, 4)
-                                .background(post.status == "Активно" ? Color.green : Color.red)
-                                .foregroundColor(.white)
-                                .cornerRadius(12)
+                            AccStatusBadge(status: post.status)
                         }.width(100)
                     }
                 }
@@ -185,12 +145,12 @@ struct JournalPostingsTab: View {
                     TableColumn(String(localized: "Description"), value: \.description)
                         .width(min: 200, ideal: 300)
 
-                    TableColumn(String(localized: "Дт")) { post in
+                    TableColumn(String(localized: "Dr")) { post in
                         Text(post.debitAccount).font(.system(.body, design: .monospaced))
                             .foregroundColor(.blue)
                     }.width(60)
 
-                    TableColumn(String(localized: "Кт")) { post in
+                    TableColumn(String(localized: "Cr")) { post in
                         Text(post.creditAccount).font(.system(.body, design: .monospaced))
                             .foregroundColor(.purple)
                     }.width(60)
@@ -205,12 +165,7 @@ struct JournalPostingsTab: View {
                     TableColumn(String(localized: "Department"), value: \.department).width(120)
 
                     TableColumn(String(localized: "Status")) { post in
-                        Text(String(localized: String.LocalizationValue(post.status)))
-                            .font(.caption).bold()
-                            .padding(.horizontal, 8).padding(.vertical, 4)
-                            .background(post.status == "Активно" ? Color.green : Color.red)
-                            .foregroundColor(.white)
-                            .cornerRadius(12)
+                        AccStatusBadge(status: post.status)
                     }.width(100)
                 }
                 .tableStyle(.bordered)
@@ -221,18 +176,6 @@ struct JournalPostingsTab: View {
             if controller.journalPostings.isEmpty {
                 controller.loadBookkeepingData(state: state, period: controller.selectedPeriod)
             }
-        }
-    }
-
-    private func colorFromName(_ name: String) -> Color {
-        switch name.lowercased() {
-        case "blue": return .blue
-        case "green": return .green
-        case "orange": return .orange
-        case "red": return .red
-        case "yellow": return .yellow
-        case "purple": return .purple
-        default: return .primary
         }
     }
 }

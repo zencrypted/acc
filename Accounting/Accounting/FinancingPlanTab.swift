@@ -29,7 +29,7 @@ struct FinancingPlanTab: View {
                     }.buttonStyle(.bordered)
                     Button(action: {}) {
                         Label(
-                            String(localized: "Import from Є-Казна"), systemImage: "arrow.down.doc")
+                            String(localized: "Import from E-Kazna"), systemImage: "arrow.down.doc")
                     }.buttonStyle(.bordered)
                     Button(action: {}) {
                         Label(
@@ -44,39 +44,21 @@ struct FinancingPlanTab: View {
             let errorMessage = state.errorMessage
 
             if let error = errorMessage {
-                Spacer()
-                VStack {
-                    Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
-                        .system(size: 40))
-                    Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
-                        controller.loadFinanceData(
-                            state: state, period: controller.selectedPeriod,
-                            org: controller.selectedOrg, kekv: controller.selectedKekv)
-                    }.buttonStyle(.bordered)
+                AccErrorView(message: error) {
+                    controller.loadFinanceData(
+                        state: state, period: controller.selectedPeriod,
+                        org: controller.selectedOrg, kekv: controller.selectedKekv)
                 }
-                .frame(maxWidth: .infinity).padding(.vertical, 40)
-                .background(Color.secondary.opacity(0.05)).cornerRadius(12)
-                .padding()
-                Spacer()
             } else if isLoading {
-                Spacer()
-                VStack {
-                    ProgressView()
-                        .scaleEffect(1.5)
-                    Text(String(localized: "Loading data...")).foregroundColor(.secondary).padding(
-                        .top)
-                }
-                .frame(maxWidth: .infinity, minHeight: 150)
-                Spacer()
+                AccLoadingView()
             } else {
-                // KPI Grid
+                // KPI Grid — standard KPIs + custom "Forecast deviation" card
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
                         ForEach(controller.financingPlanKPIs) { kpi in
                             KPICard(
                                 title: kpi.title, value: kpi.value, suffix: kpi.suffix,
-                                valueColor: colorFromName(kpi.colorName))
+                                valueColor: .acc(kpi.colorName))
                         }
 
                         VStack(alignment: .leading, spacing: 4) {
@@ -96,40 +78,40 @@ struct FinancingPlanTab: View {
                 #if os(iOS)
                 if isCompact {
                     List(controller.documents) { doc in
-                        Button(action: {
-                            controller.selectedDocumentIds = [doc.id]
-                        }) {
+                        NavigationLink(value: FinanceDest.financingDetail(doc)) {
                             VStack(alignment: .leading, spacing: 4) {
                                 HStack {
                                     Text(doc.organization).font(.headline)
                                     Spacer()
-                                    let pct = doc.executionPercentage
-                                    Text(pct >= 100 ? String(localized: "OK") : String(localized: "Pending"))
-                                        .font(.caption).bold()
-                                        .padding(.horizontal, 8).padding(.vertical, 4)
-                                        .background(pct >= 100 ? Color.green : Color.orange)
-                                        .foregroundColor(.white)
-                                        .cornerRadius(12)
+                                    AccStatusBadge(
+                                        status: doc.executionPercentage >= 100 ? "OK" : "Pending")
                                 }
                                 HStack {
                                     VStack(alignment: .leading, spacing: 2) {
-                                        Text(String(localized: "План:")).font(.caption).foregroundColor(.secondary)
-                                        Text(doc.amount / 1_000_000, format: .number.precision(.fractionLength(1)))
-                                            .font(.caption).bold()
+                                        Text(String(localized: "Plan:")).font(.caption)
+                                            .foregroundColor(.secondary)
+                                        Text(
+                                            doc.amount / 1_000_000,
+                                            format: .number.precision(.fractionLength(1))
+                                        )
+                                        .font(.caption).bold()
                                         + Text(" млн ₴").font(.caption)
                                     }
                                     Spacer()
                                     VStack(alignment: .trailing, spacing: 2) {
-                                        Text(String(localized: "Перенесено:")).font(.caption).foregroundColor(.secondary)
-                                        Text(doc.financedAmount / 1_000_000, format: .number.precision(.fractionLength(1)))
-                                            .font(.caption).bold().foregroundColor(.green)
+                                        Text(String(localized: "Transferred:")).font(.caption)
+                                            .foregroundColor(.secondary)
+                                        Text(
+                                            doc.financedAmount / 1_000_000,
+                                            format: .number.precision(.fractionLength(1))
+                                        )
+                                        .font(.caption).bold().foregroundColor(.green)
                                         + Text(" млн ₴").font(.caption).foregroundColor(.green)
                                     }
                                 }
                             }
                             .padding(.vertical, 4)
                         }
-                        .buttonStyle(.plain)
                     }
                     .listStyle(.plain)
                 } else {
@@ -193,16 +175,8 @@ struct FinancingPlanTab: View {
                             }.width(80)
 
                             TableColumn(String(localized: "Status")) { (doc: AccDocument) in
-                                let percent = doc.executionPercentage
-                                Text(
-                                    percent >= 100
-                                        ? String(localized: "OK") : String(localized: "Pending")
-                                )
-                                .font(.caption).bold()
-                                .padding(.horizontal, 8).padding(.vertical, 4)
-                                .background(percent >= 100 ? Color.green : Color.orange)
-                                .foregroundColor(.white)
-                                .cornerRadius(12)
+                                AccStatusBadge(
+                                    status: doc.executionPercentage >= 100 ? "OK" : "Pending")
                             }
                             .width(ideal: 80)
                         }
@@ -269,16 +243,8 @@ struct FinancingPlanTab: View {
                         }.width(80)
 
                         TableColumn(String(localized: "Status")) { (doc: AccDocument) in
-                            let percent = doc.executionPercentage
-                            Text(
-                                percent >= 100
-                                    ? String(localized: "OK") : String(localized: "Pending")
-                            )
-                            .font(.caption).bold()
-                            .padding(.horizontal, 8).padding(.vertical, 4)
-                            .background(percent >= 100 ? Color.green : Color.orange)
-                            .foregroundColor(.white)
-                            .cornerRadius(12)
+                            AccStatusBadge(
+                                status: doc.executionPercentage >= 100 ? "OK" : "Pending")
                         }
                         .width(ideal: 80)
                     }
@@ -293,18 +259,6 @@ struct FinancingPlanTab: View {
                     state: state, period: controller.selectedPeriod, org: controller.selectedOrg,
                     kekv: controller.selectedKekv)
             }
-        }
-    }
-
-    private func colorFromName(_ name: String) -> Color {
-        switch name.lowercased() {
-        case "blue": return .blue
-        case "green": return .green
-        case "orange": return .orange
-        case "red": return .red
-        case "yellow": return .yellow
-        case "purple": return .purple
-        default: return .primary
         }
     }
 }
