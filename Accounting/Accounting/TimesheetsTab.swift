@@ -12,7 +12,7 @@ struct TimesheetsTab: View {
                     Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
                         .system(size: 40))
                     Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
+                    Button(appLocalized("Retry")) {
                         controller.loadPayrollData(state: state, period: controller.selectedPeriod)
                     }.buttonStyle(.bordered)
                 }
@@ -24,7 +24,7 @@ struct TimesheetsTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Loading timesheet...")).foregroundColor(.secondary)
+                    Text(appLocalized("Loading timesheet...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -35,20 +35,20 @@ struct TimesheetsTab: View {
                     HStack(spacing: 12) {
                         Button(action: {}) {
                             Label(
-                                String(localized: "Approve Selected"), systemImage: "checkmark.seal"
+                                appLocalized("Approve Selected"), systemImage: "checkmark.seal"
                             )
                         }.buttonStyle(.borderedProminent).disabled(
                             controller.selectedTimesheetIds.isEmpty)
                         Button(action: {}) {
-                            Label(String(localized: "Bulk Import"), systemImage: "arrow.down.doc")
+                            Label(appLocalized("Bulk Import"), systemImage: "arrow.down.doc")
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
-                            Label(String(localized: "Export"), systemImage: "square.and.arrow.up")
+                            Label(appLocalized("Export"), systemImage: "square.and.arrow.up")
                         }.buttonStyle(.bordered)
                         Divider().frame(height: 20)
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Search by Name or ID")
+                            placeholder: appLocalized("Search by Name or ID")
                         ).frame(width: 220)
                     }.padding()
                 }
@@ -66,27 +66,27 @@ struct TimesheetsTab: View {
 
                 // Timesheet Table
                 Table(controller.timesheetEntries, selection: $controller.selectedTimesheetIds) {
-                    TableColumn(String(localized: "Full Name"), value: \.employeeName).width(
+                    TableColumn(appLocalized("Full Name"), value: \.employeeName).width(
                         min: 150, ideal: 200)
-                    TableColumn(String(localized: "Department"), value: \.department).width(120)
-                    TableColumn(String(localized: "Days worked")) { e in
+                    TableColumn(appLocalized("Department"), value: \.department).width(120)
+                    TableColumn(appLocalized("Days worked")) { e in
                         Text("\(e.daysWorked)").font(.system(.body, design: .monospaced))
                     }.width(80)
-                    TableColumn(String(localized: "Absent")) { e in
+                    TableColumn(appLocalized("Absent")) { e in
                         Text("\(e.daysAbsent)").font(.system(.body, design: .monospaced))
                             .foregroundColor(e.daysAbsent > 0 ? .orange : .secondary)
                     }.width(60)
-                    TableColumn(String(localized: "Overtime")) { e in
+                    TableColumn(appLocalized("Overtime")) { e in
                         Text("\(e.overtimeHours, specifier: "%.1f") год").font(
                             .system(.body, design: .monospaced)
                         ).foregroundColor(e.overtimeHours > 0 ? .red : .secondary)
                     }.width(100)
-                    TableColumn(String(localized: "Total hrs")) { e in
+                    TableColumn(appLocalized("Total hrs")) { e in
                         Text("\(e.totalHours, specifier: "%.0f")").font(
                             .system(.body, design: .monospaced)
                         ).bold()
                     }.width(80)
-                    TableColumn(String(localized: "Status")) { e in
+                    TableColumn(appLocalized("Status")) { e in
                         Text(e.status).font(.caption).bold().padding(.horizontal, 8).padding(
                             .vertical, 4
                         )

@@ -18,7 +18,7 @@ struct DocDetailView: View {
                     
                     Spacer()
                     
-                    Button(String(localized: "Edit"), action: onEdit)
+                    Button(appLocalized("Edit"), action: onEdit)
                         .buttonStyle(.bordered)
                 }
                 
@@ -26,28 +26,28 @@ struct DocDetailView: View {
                 
                 Grid(alignment: .leading, horizontalSpacing: 20, verticalSpacing: 16) {
                     GridRow {
-                        Text(String(localized: "Status:"))
+                        Text(appLocalized("Status:"))
                             .foregroundColor(.secondary)
                         Text(String(localized: String.LocalizationValue(document.status)))
                             .bold()
                     }
                     GridRow {
-                        Text(String(localized: "Type:"))
+                        Text(appLocalized("Type:"))
                             .foregroundColor(.secondary)
                         Text(String(localized: String.LocalizationValue(document.type)))
                     }
                     GridRow {
-                        Text(String(localized: "Date:"))
+                        Text(appLocalized("Date:"))
                             .foregroundColor(.secondary)
                         Text(document.date, style: .date)
                     }
                     GridRow {
-                        Text(String(localized: "Organization:"))
+                        Text(appLocalized("Organization:"))
                             .foregroundColor(.secondary)
                         Text(document.organization)
                     }
                     GridRow {
-                        Text(String(localized: "Amount:"))
+                        Text(appLocalized("Amount:"))
                             .foregroundColor(.secondary)
                         Text(document.amount, format: .currency(code: "UAH"))
                             .bold()
@@ -61,7 +61,7 @@ struct DocDetailView: View {
             .padding(24)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .navigationTitle(String(localized: "Document Details"))
+        .navigationTitle(appLocalized("Document Details"))
         .background(Color.secondary.opacity(0.02))
     }
 }

@@ -12,7 +12,7 @@ struct ValidationCenterTab: View {
                     Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
                         .system(size: 40))
                     Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
+                    Button(appLocalized("Retry")) {
                         controller.loadReportingData(
                             state: state, period: controller.selectedPeriod)
                     }.buttonStyle(.bordered)
@@ -24,7 +24,7 @@ struct ValidationCenterTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Validating reports...")).foregroundColor(.secondary)
+                    Text(appLocalized("Validating reports...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -34,15 +34,15 @@ struct ValidationCenterTab: View {
                     HStack(spacing: 12) {
                         Button(action: {}) {
                             Label(
-                                String(localized: "Validate All"), systemImage: "checkmark.shield")
+                                appLocalized("Validate All"), systemImage: "checkmark.shield")
                         }.buttonStyle(.borderedProminent)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Fix & Regenerate"),
+                                appLocalized("Fix & Regenerate"),
                                 systemImage: "wrench.and.screwdriver")
                         }.buttonStyle(.bordered).disabled(controller.selectedValidationIds.isEmpty)
                         Button(action: {}) {
-                            Label(String(localized: "Approve & Lock"), systemImage: "lock.shield")
+                            Label(appLocalized("Approve & Lock"), systemImage: "lock.shield")
                         }.buttonStyle(.bordered).disabled(controller.selectedValidationIds.isEmpty)
                     }.padding()
                 }
@@ -58,9 +58,9 @@ struct ValidationCenterTab: View {
                 }.padding(.bottom, 8)
 
                 Table(controller.validations, selection: $controller.selectedValidationIds) {
-                    TableColumn(String(localized: "Report"), value: \.reportName).width(
+                    TableColumn(appLocalized("Report"), value: \.reportName).width(
                         min: 200, ideal: 250)
-                    TableColumn(String(localized: "Errors")) { v in
+                    TableColumn(appLocalized("Errors")) { v in
                         HStack(spacing: 4) {
                             Image(systemName: "xmark.circle.fill").foregroundColor(
                                 v.errorCount > 0 ? .red : .green
@@ -69,7 +69,7 @@ struct ValidationCenterTab: View {
                                 .foregroundColor(v.errorCount > 0 ? .red : .green)
                         }
                     }.width(70)
-                    TableColumn(String(localized: "Warnings")) { v in
+                    TableColumn(appLocalized("Warnings")) { v in
                         HStack(spacing: 4) {
                             Image(systemName: "exclamationmark.triangle.fill").foregroundColor(
                                 v.warningCount > 0 ? .orange : .green
@@ -78,7 +78,7 @@ struct ValidationCenterTab: View {
                                 .foregroundColor(v.warningCount > 0 ? .orange : .green)
                         }
                     }.width(80)
-                    TableColumn(String(localized: "Reconciliation")) { v in
+                    TableColumn(appLocalized("Reconciliation")) { v in
                         HStack(spacing: 4) {
                             ProgressView(value: v.reconciliationScore / 100).frame(width: 60)
                                 .tint(
@@ -88,10 +88,10 @@ struct ValidationCenterTab: View {
                                 .secondary)
                         }
                     }.width(100)
-                    TableColumn(String(localized: "Verified")) { v in
+                    TableColumn(appLocalized("Verified")) { v in
                         Text(v.lastValidated, style: .date)
                     }.width(90)
-                    TableColumn(String(localized: "Status")) { v in
+                    TableColumn(appLocalized("Status")) { v in
                         HStack(spacing: 4) {
                             Circle().fill(validationStatusColor(v.status)).frame(
                                 width: 10, height: 10)

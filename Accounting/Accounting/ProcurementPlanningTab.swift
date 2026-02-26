@@ -12,7 +12,7 @@ struct ProcurementPlanningTab: View {
                     Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
                         .system(size: 40))
                     Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
+                    Button(appLocalized("Retry")) {
                         controller.loadSupplyData(state: state, period: controller.selectedPeriod)
                     }.buttonStyle(.bordered)
                 }.frame(maxWidth: .infinity).padding(.vertical, 40).background(
@@ -23,7 +23,7 @@ struct ProcurementPlanningTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Loading procurement plan...")).foregroundColor(
+                    Text(appLocalized("Loading procurement plan...")).foregroundColor(
                         .secondary
                     ).padding(.top)
                 }
@@ -34,22 +34,22 @@ struct ProcurementPlanningTab: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         Button(action: {}) {
-                            Label(String(localized: "New Request"), systemImage: "plus.square")
+                            Label(appLocalized("New Request"), systemImage: "plus.square")
                         }.buttonStyle(.borderedProminent)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Submit for Approval"), systemImage: "paperplane")
+                                appLocalized("Submit for Approval"), systemImage: "paperplane")
                         }.buttonStyle(.bordered).disabled(controller.selectedProcurementIds.isEmpty)
                         Button(action: {}) {
-                            Label(String(localized: "Link to Budget"), systemImage: "link")
+                            Label(appLocalized("Link to Budget"), systemImage: "link")
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
-                            Label(String(localized: "Auto-generate"), systemImage: "wand.and.stars")
+                            Label(appLocalized("Auto-generate"), systemImage: "wand.and.stars")
                         }.buttonStyle(.bordered)
                         Divider().frame(height: 20)
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Search by name")
+                            placeholder: appLocalized("Search by name")
                         ).frame(width: 200)
                     }.padding()
                 }
@@ -67,29 +67,29 @@ struct ProcurementPlanningTab: View {
 
                 // Procurement Table
                 Table(controller.procurementLines, selection: $controller.selectedProcurementIds) {
-                    TableColumn(String(localized: "Name"), value: \.item).width(
+                    TableColumn(appLocalized("Name"), value: \.item).width(
                         min: 180, ideal: 220)
-                    TableColumn(String(localized: "Qty")) { p in
+                    TableColumn(appLocalized("Qty")) { p in
                         Text("\(p.quantity, specifier: "%.0f")").font(
                             .system(.body, design: .monospaced))
                     }.width(50)
-                    TableColumn(String(localized: "Price")) { p in
+                    TableColumn(appLocalized("Price")) { p in
                         Text(p.estimatedPrice, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced))
                     }.width(90)
-                    TableColumn(String(localized: "Total")) { p in
+                    TableColumn(appLocalized("Total")) { p in
                         Text(p.totalEstimate, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced)
                         ).bold()
                     }.width(100)
-                    TableColumn(String(localized: "Customer"), value: \.requestedBy).width(100)
-                    TableColumn(String(localized: "KEKV"), value: \.kekv).width(50)
-                    TableColumn(String(localized: "Contract")) { p in
+                    TableColumn(appLocalized("Customer"), value: \.requestedBy).width(100)
+                    TableColumn(appLocalized("KEKV"), value: \.kekv).width(50)
+                    TableColumn(appLocalized("Contract")) { p in
                         Text(p.linkedContract.isEmpty ? "—" : p.linkedContract)
                             .font(.caption).foregroundColor(
                                 p.linkedContract.isEmpty ? .secondary : .blue)
                     }.width(100)
-                    TableColumn(String(localized: "Status")) { p in
+                    TableColumn(appLocalized("Status")) { p in
                         Text(p.approvalStatus).font(.caption).bold().padding(.horizontal, 8)
                             .padding(.vertical, 4)
                             .background(approvalColor(p.approvalStatus)).foregroundColor(.white)

@@ -30,26 +30,26 @@ struct GeneralLedgerTab: View {
                         state: state, period: controller.selectedPeriod)
                 }
             } else if isLoading {
-                AccLoadingView(message: String(localized: "Loading general ledger..."))
+                AccLoadingView(message: appLocalized("Loading general ledger..."))
             } else {
                 // Toolbar
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         Button(action: {}) {
-                            Label(String(localized: "Account Card"), systemImage: "doc.plaintext")
+                            Label(appLocalized("Account Card"), systemImage: "doc.plaintext")
                         }.buttonStyle(.bordered).disabled(selectedAccountIds.isEmpty)
                         Button(action: {}) {
-                            Label(String(localized: "T-Account"), systemImage: "t.square")
+                            Label(appLocalized("T-Account"), systemImage: "t.square")
                         }.buttonStyle(.bordered).disabled(selectedAccountIds.isEmpty)
                         Button(action: {}) {
-                            Label(String(localized: "Export"), systemImage: "square.and.arrow.up")
+                            Label(appLocalized("Export"), systemImage: "square.and.arrow.up")
                         }.buttonStyle(.bordered)
 
                         Divider().frame(height: 20)
 
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Search by account code or name")
+                            placeholder: appLocalized("Search by account code or name")
                         )
                         .frame(width: 250)
                     }
@@ -70,7 +70,7 @@ struct GeneralLedgerTab: View {
                             }
                             HStack {
                                 VStack(alignment: .leading, spacing: 1) {
-                                    Text(String(localized: "Closing")).font(.caption2)
+                                    Text(appLocalized("Closing")).font(.caption2)
                                         .foregroundColor(.secondary)
                                     Text(acc.closingBalance, format: .currency(code: "UAH"))
                                         .font(.caption).bold()
@@ -78,7 +78,7 @@ struct GeneralLedgerTab: View {
                                 }
                                 Spacer()
                                 VStack(alignment: .center, spacing: 1) {
-                                    Text(String(localized: "Dr")).font(.caption2)
+                                    Text(appLocalized("Dr")).font(.caption2)
                                         .foregroundColor(.blue)
                                     Text(acc.debitTurnover, format: .currency(code: "UAH"))
                                         .font(.caption)
@@ -86,7 +86,7 @@ struct GeneralLedgerTab: View {
                                 }
                                 Spacer()
                                 VStack(alignment: .trailing, spacing: 1) {
-                                    Text(String(localized: "Cr")).font(.caption2)
+                                    Text(appLocalized("Cr")).font(.caption2)
                                         .foregroundColor(.purple)
                                     Text(acc.creditTurnover, format: .currency(code: "UAH"))
                                         .font(.caption)
@@ -100,31 +100,31 @@ struct GeneralLedgerTab: View {
                     .listStyle(.plain)
                 } else {
                     Table(controller.ledgerAccounts, selection: $selectedAccountIds) {
-                        TableColumn(String(localized: "Code")) { acc in
+                        TableColumn(appLocalized("Code")) { acc in
                             Text(acc.code).font(.system(.body, design: .monospaced)).bold()
                         }.width(60)
 
-                        TableColumn(String(localized: "Account Name"), value: \.name)
+                        TableColumn(appLocalized("Account Name"), value: \.name)
                             .width(min: 200, ideal: 280)
 
-                        TableColumn(String(localized: "Opening Bal.")) { acc in
+                        TableColumn(appLocalized("Opening Bal.")) { acc in
                             Text(acc.openingBalance, format: .currency(code: "UAH"))
                                 .font(.system(.body, design: .monospaced))
                         }.width(130)
 
-                        TableColumn(String(localized: "Debit Turn.")) { acc in
+                        TableColumn(appLocalized("Debit Turn.")) { acc in
                             Text(acc.debitTurnover, format: .currency(code: "UAH"))
                                 .font(.system(.body, design: .monospaced))
                                 .foregroundColor(acc.debitTurnover > 0 ? .blue : .secondary)
                         }.width(130)
 
-                        TableColumn(String(localized: "Credit Turn.")) { acc in
+                        TableColumn(appLocalized("Credit Turn.")) { acc in
                             Text(acc.creditTurnover, format: .currency(code: "UAH"))
                                 .font(.system(.body, design: .monospaced))
                                 .foregroundColor(acc.creditTurnover > 0 ? .purple : .secondary)
                         }.width(130)
 
-                        TableColumn(String(localized: "Closing Bal.")) { acc in
+                        TableColumn(appLocalized("Closing Bal.")) { acc in
                             Text(acc.closingBalance, format: .currency(code: "UAH"))
                                 .font(.system(.body, design: .monospaced))
                                 .bold()
@@ -134,31 +134,31 @@ struct GeneralLedgerTab: View {
                 }
                 #else
                 Table(controller.ledgerAccounts, selection: $selectedAccountIds) {
-                    TableColumn(String(localized: "Code")) { acc in
+                    TableColumn(appLocalized("Code")) { acc in
                         Text(acc.code).font(.system(.body, design: .monospaced)).bold()
                     }.width(60)
 
-                    TableColumn(String(localized: "Account Name"), value: \.name)
+                    TableColumn(appLocalized("Account Name"), value: \.name)
                         .width(min: 200, ideal: 280)
 
-                    TableColumn(String(localized: "Opening Bal.")) { acc in
+                    TableColumn(appLocalized("Opening Bal.")) { acc in
                         Text(acc.openingBalance, format: .currency(code: "UAH"))
                             .font(.system(.body, design: .monospaced))
                     }.width(130)
 
-                    TableColumn(String(localized: "Debit Turn.")) { acc in
+                    TableColumn(appLocalized("Debit Turn.")) { acc in
                         Text(acc.debitTurnover, format: .currency(code: "UAH"))
                             .font(.system(.body, design: .monospaced))
                             .foregroundColor(acc.debitTurnover > 0 ? .blue : .secondary)
                     }.width(130)
 
-                    TableColumn(String(localized: "Credit Turn.")) { acc in
+                    TableColumn(appLocalized("Credit Turn.")) { acc in
                         Text(acc.creditTurnover, format: .currency(code: "UAH"))
                             .font(.system(.body, design: .monospaced))
                             .foregroundColor(acc.creditTurnover > 0 ? .purple : .secondary)
                     }.width(130)
 
-                    TableColumn(String(localized: "Closing Bal.")) { acc in
+                    TableColumn(appLocalized("Closing Bal.")) { acc in
                         Text(acc.closingBalance, format: .currency(code: "UAH"))
                             .font(.system(.body, design: .monospaced))
                             .bold()

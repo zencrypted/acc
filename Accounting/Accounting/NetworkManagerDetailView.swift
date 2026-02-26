@@ -22,12 +22,12 @@ struct NetworkManagerDetailView: View {
                         .padding(.top)
                     
                     HStack {
-                        Text(String(localized: "Code:")).foregroundColor(.secondary)
+                        Text(appLocalized("Code:")).foregroundColor(.secondary)
                         Text(manager.code).font(.system(.body, design: .monospaced))
                     }
                     
                     VStack(alignment: .leading, spacing: 8) {
-                        Text(String(localized: "Limit Overview")).font(.headline)
+                        Text(appLocalized("Limit Overview")).font(.headline)
                         
                         GeometryReader { geo in 
                             ZStack(alignment: .leading) {
@@ -37,10 +37,10 @@ struct NetworkManagerDetailView: View {
                         }.frame(height: 12)
                         
                         HStack {
-                            Text(String(localized: "Used:")).foregroundColor(.secondary)
+                            Text(appLocalized("Used:")).foregroundColor(.secondary)
                             Text("\(Int(manager.executionPercent * 100))%")
                             Spacer()
-                            Text(String(localized: "Remaining:")).foregroundColor(.secondary)
+                            Text(appLocalized("Remaining:")).foregroundColor(.secondary)
                             Text(manager.remaining, format: .currency(code: "UAH")).foregroundColor(manager.statusColor)
                         }.font(.caption)
                     }
@@ -50,7 +50,7 @@ struct NetworkManagerDetailView: View {
                     
                     Divider()
                     
-                    Text(String(localized: "Detailed Limits by KEKV")).font(.headline)
+                    Text(appLocalized("Detailed Limits by KEKV")).font(.headline)
                     VStack(spacing: 8) {
                         HStack {
                             Text("2210"); Spacer(); Text(manager.limit * 0.6, format: .currency(code: "UAH"))
@@ -70,7 +70,7 @@ struct NetworkManagerDetailView: View {
                     Divider()
                     
                     // Historical limit changes mock chart
-                    Text(String(localized: "Historical Limit Changes")).font(.headline)
+                    Text(appLocalized("Historical Limit Changes")).font(.headline)
                     HStack(alignment: .bottom, spacing: 4) {
                         ForEach(0..<10) { i in
                             Rectangle()

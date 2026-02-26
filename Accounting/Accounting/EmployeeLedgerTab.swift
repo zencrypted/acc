@@ -12,7 +12,7 @@ struct EmployeeLedgerTab: View {
                     Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
                         .system(size: 40))
                     Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
+                    Button(appLocalized("Retry")) {
                         controller.loadPayrollData(state: state, period: controller.selectedPeriod)
                     }.buttonStyle(.bordered)
                 }.frame(maxWidth: .infinity).padding(.vertical, 40).background(
@@ -23,7 +23,7 @@ struct EmployeeLedgerTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Loading personal accounts...")).foregroundColor(
+                    Text(appLocalized("Loading personal accounts...")).foregroundColor(
                         .secondary
                     ).padding(.top)
                 }
@@ -35,19 +35,19 @@ struct EmployeeLedgerTab: View {
                     HStack(spacing: 12) {
                         Button(action: {}) {
                             Label(
-                                String(localized: "New Employee"), systemImage: "person.badge.plus")
+                                appLocalized("New Employee"), systemImage: "person.badge.plus")
                         }.buttonStyle(.borderedProminent)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Import from HR"), systemImage: "arrow.down.doc")
+                                appLocalized("Import from HR"), systemImage: "arrow.down.doc")
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
-                            Label(String(localized: "Export"), systemImage: "square.and.arrow.up")
+                            Label(appLocalized("Export"), systemImage: "square.and.arrow.up")
                         }.buttonStyle(.bordered)
                         Divider().frame(height: 20)
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Search by Name or Emp No")
+                            placeholder: appLocalized("Search by Name or Emp No")
                         ).frame(width: 230)
                     }.padding()
                 }
@@ -65,20 +65,20 @@ struct EmployeeLedgerTab: View {
 
                 // Employee Table
                 Table(controller.employees, selection: $controller.selectedEmployeeIds) {
-                    TableColumn(String(localized: "Emp No"), value: \.personnelNumber).width(60)
-                    TableColumn(String(localized: "Full Name"), value: \.fullName).width(
+                    TableColumn(appLocalized("Emp No"), value: \.personnelNumber).width(60)
+                    TableColumn(appLocalized("Full Name"), value: \.fullName).width(
                         min: 200, ideal: 250)
-                    TableColumn(String(localized: "Department"), value: \.department).width(120)
-                    TableColumn(String(localized: "Position"), value: \.position).width(140)
-                    TableColumn(String(localized: "Admission Date")) { e in
+                    TableColumn(appLocalized("Department"), value: \.department).width(120)
+                    TableColumn(appLocalized("Position"), value: \.position).width(140)
+                    TableColumn(appLocalized("Admission Date")) { e in
                         Text(e.hireDate, style: .date)
                     }.width(100)
-                    TableColumn(String(localized: "Base Salary")) { e in
+                    TableColumn(appLocalized("Base Salary")) { e in
                         Text(e.salary, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced)
                         ).bold()
                     }.width(110)
-                    TableColumn(String(localized: "Status")) { e in
+                    TableColumn(appLocalized("Status")) { e in
                         Text(e.status).font(.caption).bold().padding(.horizontal, 8).padding(
                             .vertical, 4
                         )

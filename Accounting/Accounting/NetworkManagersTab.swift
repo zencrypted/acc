@@ -34,14 +34,14 @@ struct NetworkManagersTab: View {
             // Toolbar
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
-                    Button(action: {}) { Label(String(localized: "Add Unit"), systemImage: "plus") }
+                    Button(action: {}) { Label(appLocalized("Add Unit"), systemImage: "plus") }
                         .buttonStyle(.bordered)
                     Button(action: {}) {
-                        Label(String(localized: "Edit Limits"), systemImage: "pencil")
+                        Label(appLocalized("Edit Limits"), systemImage: "pencil")
                     }.buttonStyle(.bordered)
                     Button(action: {}) {
                         Label(
-                            String(localized: "Mass Distribution"),
+                            appLocalized("Mass Distribution"),
                             systemImage: "arrow.up.arrow.down.square")
                     }.buttonStyle(.bordered)
                 }
@@ -58,7 +58,7 @@ struct NetworkManagersTab: View {
                         org: controller.selectedOrg, kekv: controller.selectedKekv)
                 }
             } else if isLoading {
-                AccLoadingView(message: String(localized: "Loading manager hierarchy..."))
+                AccLoadingView(message: appLocalized("Loading manager hierarchy..."))
             } else {
                 #if os(iOS)
                 if isCompact {
@@ -85,7 +85,7 @@ struct NetworkManagersTab: View {
                                     Text(manager.remaining, format: .currency(code: "UAH"))
                                         .font(.caption).bold()
                                         .foregroundColor(manager.statusColor)
-                                    Text(String(localized: "remaining")).font(.caption2)
+                                    Text(appLocalized("remaining")).font(.caption2)
                                         .foregroundColor(.secondary)
                                 }
                             }
@@ -98,25 +98,25 @@ struct NetworkManagersTab: View {
                         controller.managersHierarchy, children: \.children,
                         selection: $controller.selectedManagerId
                     ) {
-                        TableColumn(String(localized: "Name"), value: \.name)
+                        TableColumn(appLocalized("Name"), value: \.name)
                             .width(min: 250, ideal: 300)
-                        TableColumn(String(localized: "Code"), value: \.code)
+                        TableColumn(appLocalized("Code"), value: \.code)
                             .width(80)
-                        TableColumn(String(localized: "Total Limit")) { manager in
+                        TableColumn(appLocalized("Total Limit")) { manager in
                             Text(manager.limit, format: .currency(code: "UAH"))
                                 .font(.system(.body, design: .monospaced))
                         }.width(120)
-                        TableColumn(String(localized: "Used")) { manager in
+                        TableColumn(appLocalized("Used")) { manager in
                             Text(manager.used, format: .currency(code: "UAH"))
                                 .font(.system(.body, design: .monospaced))
                                 .foregroundColor(.secondary)
                         }.width(120)
-                        TableColumn(String(localized: "Remaining")) { manager in
+                        TableColumn(appLocalized("Remaining")) { manager in
                             Text(manager.remaining, format: .currency(code: "UAH"))
                                 .font(.system(.body, design: .monospaced))
                                 .foregroundColor(manager.statusColor)
                         }.width(120)
-                        TableColumn(String(localized: "Status")) { manager in
+                        TableColumn(appLocalized("Status")) { manager in
                             Circle()
                                 .fill(manager.statusColor)
                                 .frame(width: 10, height: 10)
@@ -128,25 +128,25 @@ struct NetworkManagersTab: View {
                     controller.managersHierarchy, children: \.children,
                     selection: $controller.selectedManagerId
                 ) {
-                    TableColumn(String(localized: "Name"), value: \.name)
+                    TableColumn(appLocalized("Name"), value: \.name)
                         .width(min: 250, ideal: 300)
-                    TableColumn(String(localized: "Code"), value: \.code)
+                    TableColumn(appLocalized("Code"), value: \.code)
                         .width(80)
-                    TableColumn(String(localized: "Total Limit")) { manager in
+                    TableColumn(appLocalized("Total Limit")) { manager in
                         Text(manager.limit, format: .currency(code: "UAH"))
                             .font(.system(.body, design: .monospaced))
                     }.width(120)
-                    TableColumn(String(localized: "Used")) { manager in
+                    TableColumn(appLocalized("Used")) { manager in
                         Text(manager.used, format: .currency(code: "UAH"))
                             .font(.system(.body, design: .monospaced))
                             .foregroundColor(.secondary)
                     }.width(120)
-                    TableColumn(String(localized: "Remaining")) { manager in
+                    TableColumn(appLocalized("Remaining")) { manager in
                         Text(manager.remaining, format: .currency(code: "UAH"))
                             .font(.system(.body, design: .monospaced))
                             .foregroundColor(manager.statusColor)
                     }.width(120)
-                    TableColumn(String(localized: "Status")) { manager in
+                    TableColumn(appLocalized("Status")) { manager in
                         Circle()
                             .fill(manager.statusColor)
                             .frame(width: 10, height: 10)

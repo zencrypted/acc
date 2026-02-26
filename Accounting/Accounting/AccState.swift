@@ -35,7 +35,25 @@ class AccState: ObservableObject {
 
     // Settings
     @Published var theme: AppTheme = .system
-    @Published var language: AppLanguage = .system
+    @Published var language: AppLanguage = .system {
+        didSet {
+            if let id = language.identifier {
+                UserDefaults.standard.set(id, forKey: "selected_lang")
+            } else {
+                UserDefaults.standard.removeObject(forKey: "selected_lang")
+            }
+        }
+    }
+
+    init() {
+        if let langId = UserDefaults.standard.string(forKey: "selected_lang"),
+            let savedLang = AppLanguage.allCases.first(where: {
+                $0.identifier == langId || ($0 == .ukrainian && langId == "uk")
+            })
+        {
+            self.language = savedLang
+        }
+    }
 
     // Async State
     @Published var isLoading: Bool = false
@@ -62,4 +80,15 @@ enum AppModule: String, CaseIterable, Identifiable {
         case .reporting: return "doc.text.magnifyingglass"
         }
     }
+}
+import Foundation
+import SwiftUI
+
+func appLocalized(_ key: String) -> String {
+    let lang = UserDefaults.standard.string(forKey: "selected_lang") ?? "en"
+    let bundlePath = Bundle.main.path(forResource: lang, ofType: "lproj") ?? Bundle.main.bundlePath
+    if let bundle = Bundle(path: bundlePath) {
+        return bundle.localizedString(forKey: key, value: nil, table: nil)
+    }
+    return Bundle.main.localizedString(forKey: key, value: nil, table: nil)
 }

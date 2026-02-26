@@ -28,41 +28,41 @@ struct PrimaryDocumentsRegisterTab: View {
                         state: state, period: controller.selectedPeriod)
                 }
             } else if isLoading {
-                AccLoadingView(message: String(localized: "Loading primary documents..."))
+                AccLoadingView(message: appLocalized("Loading primary documents..."))
             } else {
                 // Toolbar
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         Button(action: {}) {
-                            Label(String(localized: "New Document"), systemImage: "doc.badge.plus")
+                            Label(appLocalized("New Document"), systemImage: "doc.badge.plus")
                         }.buttonStyle(.borderedProminent)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Import from Vchasno"),
+                                appLocalized("Import from Vchasno"),
                                 systemImage: "arrow.down.doc")
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
-                            Label(String(localized: "Post Selected"), systemImage: "checkmark.seal")
+                            Label(appLocalized("Post Selected"), systemImage: "checkmark.seal")
                         }.buttonStyle(.bordered).disabled(controller.selectedDocumentIds.isEmpty)
                         Button(action: {}) {
-                            Label(String(localized: "Export"), systemImage: "square.and.arrow.up")
+                            Label(appLocalized("Export"), systemImage: "square.and.arrow.up")
                         }.buttonStyle(.bordered)
 
                         Divider().frame(height: 20)
 
                         Menu {
-                            Button(String(localized: "Act of Completed Works")) {}
-                            Button(String(localized: "Invoice")) {}
-                            Button(String(localized: "Waybill")) {}
+                            Button(appLocalized("Act of Completed Works")) {}
+                            Button(appLocalized("Invoice")) {}
+                            Button(appLocalized("Waybill")) {}
                         } label: {
                             Label(
-                                String(localized: "Type"),
+                                appLocalized("Type"),
                                 systemImage: "line.3.horizontal.decrease.circle")
                         }
 
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Search No. or counterparty")
+                            placeholder: appLocalized("Search No. or counterparty")
                         )
                         .frame(width: 200)
                     }
@@ -101,70 +101,70 @@ struct PrimaryDocumentsRegisterTab: View {
                     .listStyle(.plain)
                 } else {
                     Table(controller.primaryDocuments, selection: $controller.selectedDocumentIds) {
-                        TableColumn(String(localized: "Date")) { doc in
+                        TableColumn(appLocalized("Date")) { doc in
                             Text(doc.date, style: .date)
                         }
                         .width(100)
 
-                        TableColumn(String(localized: "Doc №"), value: \.documentNumber)
+                        TableColumn(appLocalized("Doc №"), value: \.documentNumber)
                             .width(80)
 
-                        TableColumn(String(localized: "Type"), value: \.type)
+                        TableColumn(appLocalized("Type"), value: \.type)
                             .width(180)
 
-                        TableColumn(String(localized: "Counterparty"), value: \.counterparty)
+                        TableColumn(appLocalized("Counterparty"), value: \.counterparty)
                             .width(min: 150, ideal: 200)
 
-                        TableColumn(String(localized: "Dr")) { doc in
+                        TableColumn(appLocalized("Dr")) { doc in
                             Text(doc.debitAccount).font(.system(.caption, design: .monospaced))
                         }.width(40)
 
-                        TableColumn(String(localized: "Cr")) { doc in
+                        TableColumn(appLocalized("Cr")) { doc in
                             Text(doc.creditAccount).font(.system(.caption, design: .monospaced))
                         }.width(40)
 
-                        TableColumn(String(localized: "Amount")) { doc in
+                        TableColumn(appLocalized("Amount")) { doc in
                             Text(doc.amount, format: .currency(code: "UAH"))
                                 .font(.system(.body, design: .monospaced))
                                 .bold()
                         }.width(120)
 
-                        TableColumn(String(localized: "Status")) { doc in
+                        TableColumn(appLocalized("Status")) { doc in
                             AccStatusBadge(status: doc.status)
                         }.width(100)
                     }
                 }
                 #else
                 Table(controller.primaryDocuments, selection: $controller.selectedDocumentIds) {
-                    TableColumn(String(localized: "Date")) { doc in
+                    TableColumn(appLocalized("Date")) { doc in
                         Text(doc.date, style: .date)
                     }
                     .width(100)
 
-                    TableColumn(String(localized: "Doc №"), value: \.documentNumber)
+                    TableColumn(appLocalized("Doc №"), value: \.documentNumber)
                         .width(80)
 
-                    TableColumn(String(localized: "Type"), value: \.type)
+                    TableColumn(appLocalized("Type"), value: \.type)
                         .width(180)
 
-                    TableColumn(String(localized: "Counterparty"), value: \.counterparty)
+                    TableColumn(appLocalized("Counterparty"), value: \.counterparty)
                         .width(min: 150, ideal: 200)
 
-                    TableColumn(String(localized: "Dr")) { doc in
+                    TableColumn(appLocalized("Dr")) { doc in
                         Text(doc.debitAccount).font(.system(.caption, design: .monospaced))
                     }.width(40)
 
-                    TableColumn(String(localized: "Cr")) { doc in
+                    TableColumn(appLocalized("Cr")) { doc in
                         Text(doc.creditAccount).font(.system(.caption, design: .monospaced))
                     }.width(40)
 
-                    TableColumn(String(localized: "Amount")) { doc in
+                    TableColumn(appLocalized("Amount")) { doc in
                         Text(doc.amount, format: .currency(code: "UAH"))
                             .font(.system(.body, design: .monospaced))
                             .bold()
                     }.width(120)
 
-                    TableColumn(String(localized: "Status")) { doc in
+                    TableColumn(appLocalized("Status")) { doc in
                         AccStatusBadge(status: doc.status)
                     }.width(100)
                 }
@@ -202,23 +202,23 @@ struct PrimaryDocDetailView: View {
                 Divider()
 
                 Group {
-                    LabeledContent(String(localized: "Date")) {
+                    LabeledContent(appLocalized("Date")) {
                         Text(doc.date, style: .date)
                     }
-                    LabeledContent(String(localized: "Counterparty")) {
+                    LabeledContent(appLocalized("Counterparty")) {
                         Text(doc.counterparty)
                     }
-                    LabeledContent(String(localized: "Debit Account")) {
+                    LabeledContent(appLocalized("Debit Account")) {
                         Text(doc.debitAccount).font(.system(.body, design: .monospaced))
                     }
-                    LabeledContent(String(localized: "Credit Account")) {
+                    LabeledContent(appLocalized("Credit Account")) {
                         Text(doc.creditAccount).font(.system(.body, design: .monospaced))
                     }
-                    LabeledContent(String(localized: "Amount")) {
+                    LabeledContent(appLocalized("Amount")) {
                         Text(doc.amount, format: .currency(code: "UAH")).bold()
                     }
                     if doc.vat > 0 {
-                        LabeledContent(String(localized: "VAT")) {
+                        LabeledContent(appLocalized("VAT")) {
                             Text(doc.vat, format: .currency(code: "UAH"))
                         }
                     }

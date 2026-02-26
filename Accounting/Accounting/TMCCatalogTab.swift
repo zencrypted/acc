@@ -12,7 +12,7 @@ struct TMCCatalogTab: View {
                     Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
                         .system(size: 40))
                     Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
+                    Button(appLocalized("Retry")) {
                         controller.loadSupplyData(state: state, period: controller.selectedPeriod)
                     }.buttonStyle(.bordered)
                 }.frame(maxWidth: .infinity).padding(.vertical, 40).background(
@@ -23,7 +23,7 @@ struct TMCCatalogTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Loading catalog...")).foregroundColor(.secondary)
+                    Text(appLocalized("Loading catalog...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -33,27 +33,27 @@ struct TMCCatalogTab: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         Button(action: {}) {
-                            Label(String(localized: "Add TMC"), systemImage: "plus.square")
+                            Label(appLocalized("Add TMC"), systemImage: "plus.square")
                         }.buttonStyle(.borderedProminent)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Import from Excel"),
+                                appLocalized("Import from Excel"),
                                 systemImage: "arrow.down.doc")
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Mass Standardize"), systemImage: "checkmark.seal"
+                                appLocalized("Mass Standardize"), systemImage: "checkmark.seal"
                             )
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Export Catalog"),
+                                appLocalized("Export Catalog"),
                                 systemImage: "square.and.arrow.up")
                         }.buttonStyle(.bordered)
                         Divider().frame(height: 20)
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Search by code or name")
+                            placeholder: appLocalized("Search by code or name")
                         ).frame(width: 220)
                     }.padding()
                 }
@@ -71,28 +71,28 @@ struct TMCCatalogTab: View {
 
                 // Catalog Table
                 Table(controller.catalogItems, selection: $controller.selectedCatalogIds) {
-                    TableColumn(String(localized: "Code"), value: \.code).width(70)
-                    TableColumn(String(localized: "Name"), value: \.name).width(
+                    TableColumn(appLocalized("Code"), value: \.code).width(70)
+                    TableColumn(appLocalized("Name"), value: \.name).width(
                         min: 200, ideal: 280)
-                    TableColumn(String(localized: "Unit"), value: \.unit).width(50)
-                    TableColumn(String(localized: "Category"), value: \.category).width(100)
-                    TableColumn(String(localized: "Std. Price")) { item in
+                    TableColumn(appLocalized("Unit"), value: \.unit).width(50)
+                    TableColumn(appLocalized("Category"), value: \.category).width(100)
+                    TableColumn(appLocalized("Std. Price")) { item in
                         Text(item.standardPrice, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced))
                     }.width(100)
-                    TableColumn(String(localized: "Last Price")) { item in
+                    TableColumn(appLocalized("Last Price")) { item in
                         Text(item.lastPurchasePrice, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced)
                         )
                         .foregroundColor(
                             item.lastPurchasePrice > item.standardPrice ? .red : .green)
                     }.width(100)
-                    TableColumn(String(localized: "Balance")) { item in
+                    TableColumn(appLocalized("Balance")) { item in
                         Text("\(item.stockLevel, specifier: "%.0f")").font(
                             .system(.body, design: .monospaced)
                         ).bold()
                     }.width(60)
-                    TableColumn(String(localized: "Standard")) { item in
+                    TableColumn(appLocalized("Standard")) { item in
                         Image(
                             systemName: item.isStandardized
                                 ? "checkmark.circle.fill" : "xmark.circle"

@@ -12,7 +12,7 @@ struct FinancingPlanDetailView: View {
                 
                 // Monthly breakdown chart (bar + line) mock
                 VStack(alignment: .leading) {
-                    Text(String(localized: "Monthly Schedule (M ₴)")).font(.headline)
+                    Text(appLocalized("Monthly Schedule (M ₴)")).font(.headline)
                     
                     // Simple mock bar chart
                     HStack(alignment: .bottom, spacing: 8) {
@@ -38,9 +38,9 @@ struct FinancingPlanDetailView: View {
                     
                     HStack {
                         Circle().fill(Color.green).frame(width: 8, height: 8)
-                        Text(String(localized: "Financed")).font(.caption)
+                        Text(appLocalized("Financed")).font(.caption)
                         Circle().fill(Color.blue).frame(width: 8, height: 8).padding(.leading)
-                        Text(String(localized: "Plan")).font(.caption)
+                        Text(appLocalized("Plan")).font(.caption)
                     }
                 }
                 
@@ -48,17 +48,17 @@ struct FinancingPlanDetailView: View {
                 
                 // Wizard Button
                 Button(action: {}) {
-                    Label(String(localized: "Create Payments"), systemImage: "wand.and.stars")
+                    Label(appLocalized("Create Payments"), systemImage: "wand.and.stars")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
                 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(String(localized: "Details")).font(.headline)
-                    HStack { Text(String(localized: "Total Plan:")); Spacer(); Text(doc.amount, format: .currency(code: "UAH")) }
-                    HStack { Text(String(localized: "Financed:")); Spacer(); Text(doc.financedAmount, format: .currency(code: "UAH")).foregroundColor(.green) }
-                    HStack { Text(String(localized: "Balance:")); Spacer(); Text(doc.amount - doc.financedAmount, format: .currency(code: "UAH")).foregroundColor(.orange) }
+                    Text(appLocalized("Details")).font(.headline)
+                    HStack { Text(appLocalized("Total Plan:")); Spacer(); Text(doc.amount, format: .currency(code: "UAH")) }
+                    HStack { Text(appLocalized("Financed:")); Spacer(); Text(doc.financedAmount, format: .currency(code: "UAH")).foregroundColor(.green) }
+                    HStack { Text(appLocalized("Balance:")); Spacer(); Text(doc.amount - doc.financedAmount, format: .currency(code: "UAH")).foregroundColor(.orange) }
                 }
                 .font(.subheadline)
                 .padding()

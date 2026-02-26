@@ -14,7 +14,7 @@ struct SupplyAnalyticsTab: View {
                     Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
                         .system(size: 40))
                     Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
+                    Button(appLocalized("Retry")) {
                         controller.loadSupplyData(state: state, period: controller.selectedPeriod)
                     }.buttonStyle(.bordered)
                 }.frame(maxWidth: .infinity).padding(.vertical, 40).background(
@@ -25,7 +25,7 @@ struct SupplyAnalyticsTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Loading analytics...")).foregroundColor(.secondary)
+                    Text(appLocalized("Loading analytics...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -35,16 +35,16 @@ struct SupplyAnalyticsTab: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         Menu {
-                            Button(String(localized: "Supplier Rating")) {
+                            Button(appLocalized("Supplier Rating")) {
                                 selectedReport = "Рейтинг постачальників"
                             }
-                            Button(String(localized: "ABC/XYZ Analysis")) {
+                            Button(appLocalized("ABC/XYZ Analysis")) {
                                 selectedReport = "ABC/XYZ аналіз"
                             }
-                            Button(String(localized: "Inventory Aging")) {
+                            Button(appLocalized("Inventory Aging")) {
                                 selectedReport = "Старіння запасів"
                             }
-                            Button(String(localized: "Procurement Execution")) {
+                            Button(appLocalized("Procurement Execution")) {
                                 selectedReport = "Виконання закупівель"
                             }
                         } label: {
@@ -53,15 +53,15 @@ struct SupplyAnalyticsTab: View {
                         Divider().frame(height: 20)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Annual Supply Report"),
+                                appLocalized("Annual Supply Report"),
                                 systemImage: "doc.badge.gearshape")
                         }.buttonStyle(.borderedProminent)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Supplier Scorecard"), systemImage: "star.square")
+                                appLocalized("Supplier Scorecard"), systemImage: "star.square")
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
-                            Label(String(localized: "Export PDF"), systemImage: "doc.text")
+                            Label(appLocalized("Export PDF"), systemImage: "doc.text")
                         }.buttonStyle(.bordered)
                     }.padding()
                 }
@@ -83,18 +83,18 @@ struct SupplyAnalyticsTab: View {
                         // Supplier Performance Cards
                         HStack(spacing: 16) {
                             dashCard(
-                                String(localized: "LLC TechnoService"), rating: "A", score: "96%",
+                                appLocalized("LLC TechnoService"), rating: "A", score: "96%",
                                 deliveries: "12/12", color: .green)
                             dashCard(
-                                String(localized: "SPD Melnyk O.A."), rating: "A", score: "92%",
+                                appLocalized("SPD Melnyk O.A."), rating: "A", score: "92%",
                                 deliveries: "8/8", color: .green)
                         }
                         HStack(spacing: 16) {
                             dashCard(
-                                String(localized: "PJSC Ukrbud"), rating: "B", score: "78%",
+                                appLocalized("PJSC Ukrbud"), rating: "B", score: "78%",
                                 deliveries: "5/8", color: .orange)
                             dashCard(
-                                String(localized: "LLC Stationery Plus"), rating: "C",
+                                appLocalized("LLC Stationery Plus"), rating: "C",
                                 score: "65%", deliveries: "3/4", color: .red)
                         }
 
@@ -102,7 +102,7 @@ struct SupplyAnalyticsTab: View {
 
                         // Category Breakdown
                         VStack(alignment: .leading, spacing: 0) {
-                            Text(String(localized: "Procurement by categories")).font(.headline)
+                            Text(appLocalized("Procurement by categories")).font(.headline)
                                 .padding()
                             ForEach(
                                 [
@@ -153,12 +153,12 @@ struct SupplyAnalyticsTab: View {
             }
             HStack {
                 VStack(alignment: .leading) {
-                    Text(String(localized: "Score")).font(.caption2).foregroundColor(.secondary)
+                    Text(appLocalized("Score")).font(.caption2).foregroundColor(.secondary)
                     Text(score).font(.headline).foregroundColor(color)
                 }
                 Spacer()
                 VStack(alignment: .leading) {
-                    Text(String(localized: "Deliveries")).font(.caption2).foregroundColor(.secondary)
+                    Text(appLocalized("Deliveries")).font(.caption2).foregroundColor(.secondary)
                     Text(deliveries).font(.headline)
                 }
             }

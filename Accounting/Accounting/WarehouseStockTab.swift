@@ -12,7 +12,7 @@ struct WarehouseStockTab: View {
                     Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
                         .system(size: 40))
                     Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
+                    Button(appLocalized("Retry")) {
                         controller.loadSupplyData(state: state, period: controller.selectedPeriod)
                     }.buttonStyle(.bordered)
                 }.frame(maxWidth: .infinity).padding(.vertical, 40).background(
@@ -23,7 +23,7 @@ struct WarehouseStockTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Loading warehouse...")).foregroundColor(.secondary)
+                    Text(appLocalized("Loading warehouse...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -33,23 +33,23 @@ struct WarehouseStockTab: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         Button(action: {}) {
-                            Label(String(localized: "New Receipt"), systemImage: "arrow.down.doc")
+                            Label(appLocalized("New Receipt"), systemImage: "arrow.down.doc")
                         }.buttonStyle(.borderedProminent)
                         Button(action: {}) {
-                            Label(String(localized: "New Issue"), systemImage: "arrow.up.doc")
+                            Label(appLocalized("New Issue"), systemImage: "arrow.up.doc")
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Internal Transfer"),
+                                appLocalized("Internal Transfer"),
                                 systemImage: "arrow.left.arrow.right")
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
-                            Label(String(localized: "Inventory Count"), systemImage: "checklist")
+                            Label(appLocalized("Inventory Count"), systemImage: "checklist")
                         }.buttonStyle(.bordered)
                         Divider().frame(height: 20)
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Search by name or code")
+                            placeholder: appLocalized("Search by name or code")
                         ).frame(width: 220)
                     }.padding()
                 }
@@ -67,30 +67,30 @@ struct WarehouseStockTab: View {
 
                 // Stock Balance Table
                 Table(controller.warehouseItems, selection: $controller.selectedWarehouseIds) {
-                    TableColumn(String(localized: "Code"), value: \.code).width(70)
-                    TableColumn(String(localized: "Name"), value: \.name).width(
+                    TableColumn(appLocalized("Code"), value: \.code).width(70)
+                    TableColumn(appLocalized("Name"), value: \.name).width(
                         min: 180, ideal: 250)
-                    TableColumn(String(localized: "Unit"), value: \.unit).width(50)
-                    TableColumn(String(localized: "Quantity")) { item in
+                    TableColumn(appLocalized("Unit"), value: \.unit).width(50)
+                    TableColumn(appLocalized("Quantity")) { item in
                         Text("\(item.quantity, specifier: "%.0f")").font(
                             .system(.body, design: .monospaced)
                         ).bold()
                     }.width(70)
-                    TableColumn(String(localized: "Price")) { item in
+                    TableColumn(appLocalized("Price")) { item in
                         Text(item.price, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced))
                     }.width(90)
-                    TableColumn(String(localized: "Value")) { item in
+                    TableColumn(appLocalized("Value")) { item in
                         Text(item.totalValue, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced))
                     }.width(100)
-                    TableColumn(String(localized: "Min.")) { item in
+                    TableColumn(appLocalized("Min.")) { item in
                         Text("\(item.minStock, specifier: "%.0f")").font(
                             .system(.caption, design: .monospaced)
                         ).foregroundColor(.secondary)
                     }.width(40)
-                    TableColumn(String(localized: "Warehouse"), value: \.warehouse).width(80)
-                    TableColumn(String(localized: "Level")) { item in
+                    TableColumn(appLocalized("Warehouse"), value: \.warehouse).width(80)
+                    TableColumn(appLocalized("Level")) { item in
                         HStack(spacing: 4) {
                             Circle().fill(stockLevelColor(item.stockLevel)).frame(
                                 width: 8, height: 8)
@@ -120,9 +120,9 @@ struct WarehouseStockTab: View {
     }
     private func stockLevelLabel(_ level: String) -> String {
         switch level {
-        case "normal": return String(localized: "Quota")
-        case "low": return String(localized: "Low")
-        case "critical": return String(localized: "Critical")
+        case "normal": return appLocalized("Quota")
+        case "low": return appLocalized("Low")
+        case "critical": return appLocalized("Critical")
         default: return ""
         }
     }

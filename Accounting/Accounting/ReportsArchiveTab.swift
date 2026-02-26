@@ -12,7 +12,7 @@ struct ReportsArchiveTab: View {
                     Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
                         .system(size: 40))
                     Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
+                    Button(appLocalized("Retry")) {
                         controller.loadReportingData(
                             state: state, period: controller.selectedPeriod)
                     }.buttonStyle(.bordered)
@@ -24,7 +24,7 @@ struct ReportsArchiveTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Loading archive...")).foregroundColor(.secondary)
+                    Text(appLocalized("Loading archive...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -33,21 +33,21 @@ struct ReportsArchiveTab: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         Button(action: {}) {
-                            Label(String(localized: "Mass Sign"), systemImage: "signature")
+                            Label(appLocalized("Mass Sign"), systemImage: "signature")
                         }.buttonStyle(.borderedProminent).disabled(
                             controller.selectedArchiveIds.isEmpty)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Submit to E-Reporting"),
+                                appLocalized("Submit to E-Reporting"),
                                 systemImage: "paperplane")
                         }.buttonStyle(.bordered).disabled(controller.selectedArchiveIds.isEmpty)
                         Button(action: {}) {
-                            Label(String(localized: "Archive Old"), systemImage: "archivebox")
+                            Label(appLocalized("Archive Old"), systemImage: "archivebox")
                         }.buttonStyle(.bordered)
                         Divider().frame(height: 20)
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Search by name")
+                            placeholder: appLocalized("Search by name")
                         ).frame(width: 200)
                     }.padding()
                 }
@@ -63,21 +63,21 @@ struct ReportsArchiveTab: View {
                 }.padding(.bottom, 8)
 
                 Table(controller.generatedReports, selection: $controller.selectedArchiveIds) {
-                    TableColumn(String(localized: "Report"), value: \.reportName).width(
+                    TableColumn(appLocalized("Report"), value: \.reportName).width(
                         min: 200, ideal: 250)
-                    TableColumn(String(localized: "Period"), value: \.period).width(100)
-                    TableColumn(String(localized: "Date")) { r in
+                    TableColumn(appLocalized("Period"), value: \.period).width(100)
+                    TableColumn(appLocalized("Date")) { r in
                         Text(r.generatedDate, style: .date)
                     }.width(90)
-                    TableColumn(String(localized: "Version")) { r in
+                    TableColumn(appLocalized("Version")) { r in
                         Text("v\(r.version)").font(.system(.body, design: .monospaced))
                     }.width(50)
-                    TableColumn(String(localized: "Size"), value: \.fileSize).width(70)
-                    TableColumn(String(localized: "Signed by")) { r in
+                    TableColumn(appLocalized("Size"), value: \.fileSize).width(70)
+                    TableColumn(appLocalized("Signed by")) { r in
                         Text(r.signedBy.isEmpty ? "—" : r.signedBy).foregroundColor(
                             r.signedBy.isEmpty ? .secondary : .primary)
                     }.width(110)
-                    TableColumn(String(localized: "Status")) { r in
+                    TableColumn(appLocalized("Status")) { r in
                         Text(r.status).font(.caption).bold().padding(.horizontal, 8).padding(
                             .vertical, 4
                         )

@@ -12,7 +12,7 @@ struct ContractsRegisterTab: View {
                     Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
                         .system(size: 40))
                     Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
+                    Button(appLocalized("Retry")) {
                         controller.loadSupplyData(state: state, period: controller.selectedPeriod)
                     }.buttonStyle(.bordered)
                 }.frame(maxWidth: .infinity).padding(.vertical, 40).background(
@@ -23,7 +23,7 @@ struct ContractsRegisterTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Loading contracts...")).foregroundColor(.secondary)
+                    Text(appLocalized("Loading contracts...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -33,20 +33,20 @@ struct ContractsRegisterTab: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         Button(action: {}) {
-                            Label(String(localized: "New Contract"), systemImage: "doc.badge.plus")
+                            Label(appLocalized("New Contract"), systemImage: "doc.badge.plus")
                         }.buttonStyle(.borderedProminent)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Add Stage"), systemImage: "calendar.badge.plus")
+                                appLocalized("Add Stage"), systemImage: "calendar.badge.plus")
                         }.buttonStyle(.bordered).disabled(controller.selectedContractIds.isEmpty)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Export to E-Data"), systemImage: "arrow.up.doc")
+                                appLocalized("Export to E-Data"), systemImage: "arrow.up.doc")
                         }.buttonStyle(.bordered)
                         Divider().frame(height: 20)
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Search by No or supplier")
+                            placeholder: appLocalized("Search by No or supplier")
                         ).frame(width: 250)
                     }.padding()
                 }
@@ -64,16 +64,16 @@ struct ContractsRegisterTab: View {
 
                 // Contracts Table
                 Table(controller.contracts, selection: $controller.selectedContractIds) {
-                    TableColumn(String(localized: "Contract No"), value: \.contractNumber).width(110)
-                    TableColumn(String(localized: "Date")) { c in Text(c.date, style: .date) }
+                    TableColumn(appLocalized("Contract No"), value: \.contractNumber).width(110)
+                    TableColumn(appLocalized("Date")) { c in Text(c.date, style: .date) }
                         .width(90)
-                    TableColumn(String(localized: "Supplier"), value: \.supplier).width(
+                    TableColumn(appLocalized("Supplier"), value: \.supplier).width(
                         min: 150, ideal: 200)
-                    TableColumn(String(localized: "Amount")) { c in
+                    TableColumn(appLocalized("Amount")) { c in
                         Text(c.totalValue, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced))
                     }.width(110)
-                    TableColumn(String(localized: "Completed")) { c in
+                    TableColumn(appLocalized("Completed")) { c in
                         HStack(spacing: 4) {
                             ProgressView(
                                 value: c.totalValue > 0 ? c.executedAmount / c.totalValue : 0
@@ -84,14 +84,14 @@ struct ContractsRegisterTab: View {
                             ).font(.caption).foregroundColor(.secondary)
                         }
                     }.width(100)
-                    TableColumn(String(localized: "Stages")) { c in
+                    TableColumn(appLocalized("Stages")) { c in
                         Text("\(c.stagesCompleted)/\(c.totalStages)").font(
                             .system(.body, design: .monospaced))
                     }.width(60)
-                    TableColumn(String(localized: "End Date")) { c in
+                    TableColumn(appLocalized("End Date")) { c in
                         Text(c.endDate, style: .date)
                     }.width(90)
-                    TableColumn(String(localized: "Status")) { c in
+                    TableColumn(appLocalized("Status")) { c in
                         Text(c.status).font(.caption).bold().padding(.horizontal, 8).padding(
                             .vertical, 4
                         )

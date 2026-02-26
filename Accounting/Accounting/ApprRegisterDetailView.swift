@@ -7,16 +7,16 @@ struct ApprRegisterDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                Text(String(localized: "DETAILS + MONITOR"))
+                Text(appLocalized("DETAILS + MONITOR"))
                     .font(.caption).bold().foregroundColor(.secondary)
                     .padding(.top)
                 
                 VStack(alignment: .leading, spacing: 16) {
-                    Text(String(localized: "Plan Details")).font(.headline)
+                    Text(appLocalized("Plan Details")).font(.headline)
                     Text("\(doc.planNumber) • \(doc.organization)").font(.subheadline).foregroundColor(.secondary)
                     
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(String(localized: "KEKV 2210 (Salaries)")).font(.caption)
+                        Text(appLocalized("KEKV 2210 (Salaries)")).font(.caption)
                         GeometryReader { geo in 
                             ZStack(alignment: .leading) {
                                 Capsule().fill(Color.secondary.opacity(0.2))
@@ -27,7 +27,7 @@ struct ApprRegisterDetailView: View {
                     }
                     
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(String(localized: "KEKV 3110 (Capital)")).font(.caption)
+                        Text(appLocalized("KEKV 3110 (Capital)")).font(.caption)
                         GeometryReader { geo in 
                             ZStack(alignment: .leading) {
                                 Capsule().fill(Color.secondary.opacity(0.2))
@@ -40,11 +40,11 @@ struct ApprRegisterDetailView: View {
                     Spacer().frame(height: 20)
                     
                     Button(action: { controller.editDocument(id: doc.id) }) {
-                        Text(String(localized: "Adjust Plan")).frame(maxWidth: .infinity)
+                        Text(appLocalized("Adjust Plan")).frame(maxWidth: .infinity)
                     }.buttonStyle(.borderedProminent)
                     
                     Button(action: {}) {
-                        Text(String(localized: "Submit for Approval")).frame(maxWidth: .infinity)
+                        Text(appLocalized("Submit for Approval")).frame(maxWidth: .infinity)
                     }.buttonStyle(.borderedProminent).tint(.green)
                 }
                 .padding()

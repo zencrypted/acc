@@ -30,36 +30,36 @@ struct JournalPostingsTab: View {
                         state: state, period: controller.selectedPeriod)
                 }
             } else if isLoading {
-                AccLoadingView(message: String(localized: "Loading journal postings..."))
+                AccLoadingView(message: appLocalized("Loading journal postings..."))
             } else {
                 // Toolbar
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         Button(action: {}) {
-                            Label(String(localized: "New Posting"), systemImage: "plus.square")
+                            Label(appLocalized("New Posting"), systemImage: "plus.square")
                         }.buttonStyle(.borderedProminent)
                         Button(action: {}) {
-                            Label(String(localized: "Reverse"), systemImage: "arrow.uturn.backward")
+                            Label(appLocalized("Reverse"), systemImage: "arrow.uturn.backward")
                         }.buttonStyle(.bordered).disabled(selectedPostingIds.isEmpty)
                         Button(action: {}) {
-                            Label(String(localized: "Export"), systemImage: "square.and.arrow.up")
+                            Label(appLocalized("Export"), systemImage: "square.and.arrow.up")
                         }.buttonStyle(.bordered)
 
                         Divider().frame(height: 20)
 
                         Menu {
-                            Button(String(localized: "Account")) {}
-                            Button(String(localized: "Transaction Type")) {}
-                            Button(String(localized: "Analytic dimensions")) {}
+                            Button(appLocalized("Account")) {}
+                            Button(appLocalized("Transaction Type")) {}
+                            Button(appLocalized("Analytic dimensions")) {}
                         } label: {
                             Label(
-                                String(localized: "Filter"),
+                                appLocalized("Filter"),
                                 systemImage: "line.3.horizontal.decrease.circle")
                         }
 
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Search account or description")
+                            placeholder: appLocalized("Search account or description")
                         )
                         .frame(width: 250)
                     }
@@ -97,74 +97,74 @@ struct JournalPostingsTab: View {
                     .listStyle(.plain)
                 } else {
                     Table(controller.journalPostings, selection: $selectedPostingIds) {
-                        TableColumn(String(localized: "Date")) { post in
+                        TableColumn(appLocalized("Date")) { post in
                             Text(post.date, style: .date)
                         }
                         .width(100)
 
-                        TableColumn(String(localized: "Doc №"), value: \.documentNumber)
+                        TableColumn(appLocalized("Doc №"), value: \.documentNumber)
                             .width(80)
 
-                        TableColumn(String(localized: "Description"), value: \.description)
+                        TableColumn(appLocalized("Description"), value: \.description)
                             .width(min: 200, ideal: 300)
 
-                        TableColumn(String(localized: "Dr")) { post in
+                        TableColumn(appLocalized("Dr")) { post in
                             Text(post.debitAccount).font(.system(.body, design: .monospaced))
                                 .foregroundColor(.blue)
                         }.width(60)
 
-                        TableColumn(String(localized: "Cr")) { post in
+                        TableColumn(appLocalized("Cr")) { post in
                             Text(post.creditAccount).font(.system(.body, design: .monospaced))
                                 .foregroundColor(.purple)
                         }.width(60)
 
-                        TableColumn(String(localized: "Amount")) { post in
+                        TableColumn(appLocalized("Amount")) { post in
                             Text(post.amount, format: .currency(code: "UAH"))
                                 .font(.system(.body, design: .monospaced))
                                 .bold()
                         }.width(120)
 
-                        TableColumn(String(localized: "KEKV"), value: \.kekv).width(60)
-                        TableColumn(String(localized: "Department"), value: \.department).width(120)
+                        TableColumn(appLocalized("KEKV"), value: \.kekv).width(60)
+                        TableColumn(appLocalized("Department"), value: \.department).width(120)
 
-                        TableColumn(String(localized: "Status")) { post in
+                        TableColumn(appLocalized("Status")) { post in
                             AccStatusBadge(status: post.status)
                         }.width(100)
                     }
                 }
                 #else
                 Table(controller.journalPostings, selection: $selectedPostingIds) {
-                    TableColumn(String(localized: "Date")) { post in
+                    TableColumn(appLocalized("Date")) { post in
                         Text(post.date, style: .date)
                     }
                     .width(100)
 
-                    TableColumn(String(localized: "Doc №"), value: \.documentNumber)
+                    TableColumn(appLocalized("Doc №"), value: \.documentNumber)
                         .width(80)
 
-                    TableColumn(String(localized: "Description"), value: \.description)
+                    TableColumn(appLocalized("Description"), value: \.description)
                         .width(min: 200, ideal: 300)
 
-                    TableColumn(String(localized: "Dr")) { post in
+                    TableColumn(appLocalized("Dr")) { post in
                         Text(post.debitAccount).font(.system(.body, design: .monospaced))
                             .foregroundColor(.blue)
                     }.width(60)
 
-                    TableColumn(String(localized: "Cr")) { post in
+                    TableColumn(appLocalized("Cr")) { post in
                         Text(post.creditAccount).font(.system(.body, design: .monospaced))
                             .foregroundColor(.purple)
                     }.width(60)
 
-                    TableColumn(String(localized: "Amount")) { post in
+                    TableColumn(appLocalized("Amount")) { post in
                         Text(post.amount, format: .currency(code: "UAH"))
                             .font(.system(.body, design: .monospaced))
                             .bold()
                     }.width(120)
 
-                    TableColumn(String(localized: "KEKV"), value: \.kekv).width(60)
-                    TableColumn(String(localized: "Department"), value: \.department).width(120)
+                    TableColumn(appLocalized("KEKV"), value: \.kekv).width(60)
+                    TableColumn(appLocalized("Department"), value: \.department).width(120)
 
-                    TableColumn(String(localized: "Status")) { post in
+                    TableColumn(appLocalized("Status")) { post in
                         AccStatusBadge(status: post.status)
                     }.width(100)
                 }

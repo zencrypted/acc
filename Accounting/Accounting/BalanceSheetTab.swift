@@ -28,21 +28,21 @@ struct BalanceSheetTab: View {
                         state: state, period: controller.selectedPeriod)
                 }
             } else if isLoading {
-                AccLoadingView(message: String(localized: "Loading balance sheet..."))
+                AccLoadingView(message: appLocalized("Loading balance sheet..."))
             } else {
                 // Toolbar
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         Button(action: {}) {
-                            Label(String(localized: "Print Official Form"), systemImage: "printer")
+                            Label(appLocalized("Print Official Form"), systemImage: "printer")
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Export XML (E-Reporting)"),
+                                appLocalized("Export XML (E-Reporting)"),
                                 systemImage: "doc.badge.arrow.up")
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
-                            Label(String(localized: "Send to Manager"), systemImage: "envelope")
+                            Label(appLocalized("Send to Manager"), systemImage: "envelope")
                         }.buttonStyle(.bordered)
                     }
                     .padding()
@@ -54,7 +54,7 @@ struct BalanceSheetTab: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
                         // ASSETS SECTION
-                        sectionHeader(String(localized: "ASSETS"), color: .blue)
+                        sectionHeader(appLocalized("ASSETS"), color: .blue)
 
                         ForEach(controller.balanceAssets) { item in
                             balanceRow(item)
@@ -62,7 +62,7 @@ struct BalanceSheetTab: View {
 
                         // Assets Total
                         totalRow(
-                            String(localized: "Total Assets"),
+                            appLocalized("Total Assets"),
                             beginning: controller.balanceAssets.filter { !$0.isHeader }.reduce(0) {
                                 $0 + $1.beginningBalance
                             },
@@ -76,7 +76,7 @@ struct BalanceSheetTab: View {
 
                         // LIABILITIES SECTION
                         sectionHeader(
-                            String(localized: "LIABILITIES & EQUITY"), color: .orange)
+                            appLocalized("LIABILITIES & EQUITY"), color: .orange)
 
                         ForEach(controller.balanceLiabilities) { item in
                             balanceRow(item)
@@ -84,7 +84,7 @@ struct BalanceSheetTab: View {
 
                         // Liabilities Total
                         totalRow(
-                            String(localized: "Total Liabilities & Equity"),
+                            appLocalized("Total Liabilities & Equity"),
                             beginning: controller.balanceLiabilities.filter { !$0.isHeader }.reduce(
                                 0
                             ) { $0 + $1.beginningBalance },
@@ -110,7 +110,7 @@ struct BalanceSheetTab: View {
                             .font(.title2)
                             Text(
                                 diff == 0
-                                    ? String(localized: "Assets = Liabilities ✓ Balance confirmed")
+                                    ? appLocalized("Assets = Liabilities ✓ Balance confirmed")
                                     : String(
                                         localized:
                                             "⚠ Розбіжність: \(diff, format: .currency(code: "UAH"))"
@@ -152,11 +152,11 @@ struct BalanceSheetTab: View {
                 HStack {
                     Text(title).font(.headline).bold().foregroundColor(color)
                     Spacer()
-                    Text(String(localized: "Opening Bal.")).font(.caption).foregroundColor(.secondary)
+                    Text(appLocalized("Opening Bal.")).font(.caption).foregroundColor(.secondary)
                         .frame(width: 120, alignment: .trailing)
-                    Text(String(localized: "Closing Bal.")).font(.caption).foregroundColor(.secondary)
+                    Text(appLocalized("Closing Bal.")).font(.caption).foregroundColor(.secondary)
                         .frame(width: 120, alignment: .trailing)
-                    Text(String(localized: "Change")).font(.caption).foregroundColor(.secondary)
+                    Text(appLocalized("Change")).font(.caption).foregroundColor(.secondary)
                         .frame(width: 100, alignment: .trailing)
                 }
                 .padding(.horizontal)
@@ -185,12 +185,12 @@ struct BalanceSheetTab: View {
                         HStack {
                             Text(item.endingBalance, format: .currency(code: "UAH"))
                                 .font(.system(.caption, design: .monospaced)).bold()
-                            Text(String(localized: "end")).font(.caption2).foregroundColor(.secondary)
+                            Text(appLocalized("end")).font(.caption2).foregroundColor(.secondary)
                             Spacer()
                             Text(item.beginningBalance, format: .currency(code: "UAH"))
                                 .font(.system(.caption2, design: .monospaced))
                                 .foregroundColor(.secondary)
-                            Text(String(localized: "beg.")).font(.caption2).foregroundColor(.secondary)
+                            Text(appLocalized("beg.")).font(.caption2).foregroundColor(.secondary)
                         }
                     }
                 }
@@ -240,11 +240,11 @@ struct BalanceSheetTab: View {
                     HStack {
                         Text(ending, format: .currency(code: "UAH"))
                             .font(.system(.subheadline, design: .monospaced)).bold()
-                        Text(String(localized: "end")).font(.caption2).foregroundColor(.secondary)
+                        Text(appLocalized("end")).font(.caption2).foregroundColor(.secondary)
                         Spacer()
                         Text(beginning, format: .currency(code: "UAH"))
                             .font(.system(.caption, design: .monospaced)).foregroundColor(.secondary)
-                        Text(String(localized: "beg.")).font(.caption2).foregroundColor(.secondary)
+                        Text(appLocalized("beg.")).font(.caption2).foregroundColor(.secondary)
                     }
                 }
                 .padding()

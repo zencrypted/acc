@@ -27,10 +27,7 @@ struct AccMainView: View {
                         .font(.system(size: 60))
                         .foregroundColor(.secondary)
                     Text(
-                        String(
-                            localized:
-                                "\(String(localized: String.LocalizationValue(state.selectedModule?.rawValue ?? "None"))) Module - In Progress"
-                        )
+                        "\(appLocalized(state.selectedModule?.rawValue ?? "None")) \(appLocalized("Module - In Progress"))"
                     )
                     .font(.title2)
                     .foregroundColor(.secondary)
@@ -47,6 +44,7 @@ struct AccMainView: View {
                 ? Locale.current : Locale(identifier: state.language.identifier!)
         )
         .environment(\.layoutDirection, state.language == .arabic ? .rightToLeft : .leftToRight)
+        .id(state.language)
     }
 }
 

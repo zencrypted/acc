@@ -38,16 +38,16 @@ class ReportingController: ObservableObject {
             // Tab 1: Registry
             self.registryKPIs = [
                 KPIData(
-                    title: String(localized: "Total reports"), value: "42", suffix: "",
+                    title: appLocalized("Total reports"), value: "42", suffix: "",
                     colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Ready to submit"), value: "8", suffix: "",
+                    title: appLocalized("Ready to submit"), value: "8", suffix: "",
                     colorName: "green"),
                 KPIData(
-                    title: String(localized: "Due this month"), value: "5", suffix: "",
+                    title: appLocalized("Due this month"), value: "5", suffix: "",
                     colorName: "orange"),
                 KPIData(
-                    title: String(localized: "Compliance"), value: "96%", suffix: "",
+                    title: appLocalized("Compliance"), value: "96%", suffix: "",
                     colorName: "green"),
             ]
             self.reports = [
@@ -94,17 +94,17 @@ class ReportingController: ObservableObject {
             // Tab 2: Constructor
             self.constructorKPIs = [
                 KPIData(
-                    title: String(localized: "Active Templates"), value: "18", suffix: "",
+                    title: appLocalized("Active Templates"), value: "18", suffix: "",
                     colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Used elements"), value: "124", suffix: "",
+                    title: appLocalized("Used elements"), value: "124", suffix: "",
                     colorName: "green"),
                 KPIData(
-                    title: String(localized: "Validation Errors"), value: "2", suffix: "",
+                    title: appLocalized("Validation Errors"), value: "2", suffix: "",
                     colorName: "red"),
                 KPIData(
-                    title: String(localized: "Generation time"), value: "1.2",
-                    suffix: String(localized: "sec"), colorName: "purple"),
+                    title: appLocalized("Generation time"), value: "1.2",
+                    suffix: appLocalized("sec"), colorName: "purple"),
             ]
             self.templates = [
                 ReportTemplate(
@@ -127,16 +127,16 @@ class ReportingController: ObservableObject {
             // Tab 3: Archive
             self.archiveKPIs = [
                 KPIData(
-                    title: String(localized: "Generated this month"), value: "14", suffix: "",
+                    title: appLocalized("Generated this month"), value: "14", suffix: "",
                     colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Under Review"), value: "3", suffix: "",
+                    title: appLocalized("Under Review"), value: "3", suffix: "",
                     colorName: "orange"),
                 KPIData(
-                    title: String(localized: "Signed"), value: "9", suffix: "",
+                    title: appLocalized("Signed"), value: "9", suffix: "",
                     colorName: "green"),
                 KPIData(
-                    title: String(localized: "Sent"), value: "8", suffix: "",
+                    title: appLocalized("Sent"), value: "8", suffix: "",
                     colorName: "purple"),
             ]
             self.generatedReports = [
@@ -165,14 +165,14 @@ class ReportingController: ObservableObject {
             // Tab 4: Validation
             self.validationKPIs = [
                 KPIData(
-                    title: String(localized: "Passed"), value: "9", suffix: "", colorName: "green"),
+                    title: appLocalized("Passed"), value: "9", suffix: "", colorName: "green"),
                 KPIData(
-                    title: String(localized: "Warnings"), value: "3", suffix: "",
+                    title: appLocalized("Warnings"), value: "3", suffix: "",
                     colorName: "orange"),
                 KPIData(
-                    title: String(localized: "Critical"), value: "1", suffix: "", colorName: "red"),
+                    title: appLocalized("Critical"), value: "1", suffix: "", colorName: "red"),
                 KPIData(
-                    title: String(localized: "Reconciliation"), value: "94%", suffix: "", colorName: "blue"),
+                    title: appLocalized("Reconciliation"), value: "94%", suffix: "", colorName: "blue"),
             ]
             self.validations = [
                 ValidationResult(
@@ -200,16 +200,16 @@ class ReportingController: ObservableObject {
             // Tab 5: Submission
             self.submissionKPIs = [
                 KPIData(
-                    title: String(localized: "Sent"), value: "8", suffix: "", colorName: "blue"
+                    title: appLocalized("Sent"), value: "8", suffix: "", colorName: "blue"
                 ),
                 KPIData(
-                    title: String(localized: "Accepted"), value: "6", suffix: "", colorName: "green"
+                    title: appLocalized("Accepted"), value: "6", suffix: "", colorName: "green"
                 ),
                 KPIData(
-                    title: String(localized: "Rejected"), value: "1", suffix: "", colorName: "red"),
+                    title: appLocalized("Rejected"), value: "1", suffix: "", colorName: "red"),
                 KPIData(
-                    title: String(localized: "Avg Time"), value: "2.4",
-                    suffix: String(localized: "hrs"), colorName: "purple"),
+                    title: appLocalized("Avg Time"), value: "2.4",
+                    suffix: appLocalized("hrs"), colorName: "purple"),
             ]
             self.submissions = [
                 SubmissionRecord(
@@ -246,11 +246,11 @@ struct ModReportingView: View {
         VStack(spacing: 0) {
             HStack {
                 Picker("", selection: $controller.selectedTab) {
-                    Text(String(localized: "Reports Register")).tag(0)
-                    Text(String(localized: "Constructor")).tag(1)
-                    Text(String(localized: "Archive")).tag(2)
-                    Text(String(localized: "Validation")).tag(3)
-                    Text(String(localized: "Submission")).tag(4)
+                    Text(appLocalized("Reports Register")).tag(0)
+                    Text(appLocalized("Constructor")).tag(1)
+                    Text(appLocalized("Archive")).tag(2)
+                    Text(appLocalized("Validation")).tag(3)
+                    Text(appLocalized("Submission")).tag(4)
                 }
                 .pickerStyle(.segmented)
                 .labelsHidden()
@@ -267,15 +267,15 @@ struct ModReportingView: View {
             }
         }
         .navigationSplitViewColumnWidth(min: 400, ideal: 600)
-        .navigationTitle(String(localized: "Reporting"))
+        .navigationTitle(appLocalized("Reporting"))
         #if os(macOS)
             .toolbar {
                 ToolbarItem(placement: .navigation) {
-                    Text(String(localized: "REPORTING MODULE")).font(.caption).bold()
+                    Text(appLocalized("REPORTING MODULE")).font(.caption).bold()
                     .foregroundColor(.secondary)
                 }
                 ToolbarItem(placement: .primaryAction) {
-                    Text(String(localized: "Reporting Period: February 2026")).font(.caption)
+                    Text(appLocalized("Reporting Period: February 2026")).font(.caption)
                     .foregroundColor(.secondary)
                 }
             }

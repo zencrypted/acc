@@ -64,16 +64,16 @@ struct PlanAdjustmentsTab: View {
                     Table(controller.adjustments, selection: $selectedAdjustmentIds) {
                         TableColumn("№", value: \.number)
                             .width(min: 60, ideal: 80)
-                        TableColumn(String(localized: "Date")) { adj in
+                        TableColumn(appLocalized("Date")) { adj in
                             Text(adj.date, style: .date)
                         }
-                        TableColumn(String(localized: "Change Amount")) { adj in
+                        TableColumn(appLocalized("Change Amount")) { adj in
                             Text(adj.amount, format: .currency(code: "UAH"))
                                 .font(.system(.body, design: .monospaced))
                                 .foregroundColor(adj.amount > 0 ? .green : .red)
                         }
-                        TableColumn(String(localized: "Initiator"), value: \.organization)
-                        TableColumn(String(localized: "Status")) { adj in
+                        TableColumn(appLocalized("Initiator"), value: \.organization)
+                        TableColumn(appLocalized("Status")) { adj in
                             AccStatusBadge(status: adj.status)
                         }
                         .width(ideal: 100)
@@ -83,16 +83,16 @@ struct PlanAdjustmentsTab: View {
                 Table(controller.adjustments, selection: $selectedAdjustmentIds) {
                     TableColumn("№", value: \.number)
                         .width(min: 60, ideal: 80)
-                    TableColumn(String(localized: "Date")) { adj in
+                    TableColumn(appLocalized("Date")) { adj in
                         Text(adj.date, style: .date)
                     }
-                    TableColumn(String(localized: "Change Amount")) { adj in
+                    TableColumn(appLocalized("Change Amount")) { adj in
                         Text(adj.amount, format: .currency(code: "UAH"))
                             .font(.system(.body, design: .monospaced))
                             .foregroundColor(adj.amount > 0 ? .green : .red)
                     }
-                    TableColumn(String(localized: "Initiator"), value: \.organization)
-                    TableColumn(String(localized: "Status")) { adj in
+                    TableColumn(appLocalized("Initiator"), value: \.organization)
+                    TableColumn(appLocalized("Status")) { adj in
                         AccStatusBadge(status: adj.status)
                     }
                     .width(ideal: 100)

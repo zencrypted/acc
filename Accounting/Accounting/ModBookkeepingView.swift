@@ -83,20 +83,20 @@ struct ModBookkeepingView: View {
             AccTabBar(
                 tabs: [
                     AccTabItem(
-                        label: String(localized: "Primary Documents"),
-                        short: String(localized: "Primary"), tag: 0),
+                        label: appLocalized("Primary Documents"),
+                        short: appLocalized("Primary"), tag: 0),
                     AccTabItem(
-                        label: String(localized: "Journal Postings"),
-                        short: String(localized: "Journal"), tag: 1),
+                        label: appLocalized("Journal Postings"),
+                        short: appLocalized("Journal"), tag: 1),
                     AccTabItem(
-                        label: String(localized: "Analytical Accounting"),
-                        short: String(localized: "Analytics"), tag: 2),
+                        label: appLocalized("Analytical Accounting"),
+                        short: appLocalized("Analytics"), tag: 2),
                     AccTabItem(
-                        label: String(localized: "General Ledger"),
-                        short: String(localized: "Gen. Ledger"), tag: 3),
+                        label: appLocalized("General Ledger"),
+                        short: appLocalized("Gen. Ledger"), tag: 3),
                     AccTabItem(
-                        label: String(localized: "Balance Sheet"),
-                        short: String(localized: "Balance Sheet"), tag: 4),
+                        label: appLocalized("Balance Sheet"),
+                        short: appLocalized("Balance Sheet"), tag: 4),
                 ],
                 selection: $controller.selectedTab
             )
@@ -117,15 +117,15 @@ struct ModBookkeepingView: View {
             }
         }
         .navigationSplitViewColumnWidth(min: 400, ideal: 600)
-        .navigationTitle(String(localized: "Bookkeeping"))
+        .navigationTitle(appLocalized("Bookkeeping"))
         #if os(macOS)
             .toolbar {
                 ToolbarItem(placement: .navigation) {
-                    Text(String(localized: "ACCOUNTING MODULE")).font(.caption).bold()
+                    Text(appLocalized("ACCOUNTING MODULE")).font(.caption).bold()
                         .foregroundColor(.secondary)
                 }
                 ToolbarItem(placement: .primaryAction) {
-                    Text(String(localized: "Reporting Month: February 2026")).font(.caption)
+                    Text(appLocalized("Reporting Month: February 2026")).font(.caption)
                         .foregroundColor(.secondary)
                 }
             }

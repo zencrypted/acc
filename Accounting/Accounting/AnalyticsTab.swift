@@ -26,18 +26,18 @@ struct AnalyticsTab: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
                     Picker("", selection: $selectedDashboard) {
-                        Text(String(localized: "Execution Trend")).tag("Execution Trend")
-                        Text(String(localized: "Structure by KEKV")).tag("Structure by KEKV")
-                        Text(String(localized: "Fund Managers Heatmap")).tag(
+                        Text(appLocalized("Execution Trend")).tag("Execution Trend")
+                        Text(appLocalized("Structure by KEKV")).tag("Structure by KEKV")
+                        Text(appLocalized("Fund Managers Heatmap")).tag(
                             "Fund Managers Heatmap")
-                        Text(String(localized: "Forecast vs Actual")).tag("Forecast vs Actual")
+                        Text(appLocalized("Forecast vs Actual")).tag("Forecast vs Actual")
                     }
                     .pickerStyle(.menu)
                     .frame(width: 250)
 
                     Button(action: {}) {
                         Label(
-                            String(localized: "Save as custom report"),
+                            appLocalized("Save as custom report"),
                             systemImage: "text.badge.plus")
                     }.buttonStyle(.bordered)
                 }
@@ -54,7 +54,7 @@ struct AnalyticsTab: View {
                         org: controller.selectedOrg, kekv: controller.selectedKekv)
                 }
             } else if isLoading {
-                AccLoadingView(message: String(localized: "Loading analytics..."))
+                AccLoadingView(message: appLocalized("Loading analytics..."))
             } else {
                 AccKPIRow(kpis: controller.analyticsKPIs)
 
@@ -63,7 +63,7 @@ struct AnalyticsTab: View {
                     List {
                         NavigationLink(value: FinanceDest.analyticsDetail) {
                             Label(
-                                String(localized: "View Full Analytics Report"),
+                                appLocalized("View Full Analytics Report"),
                                 systemImage: "chart.line.uptrend.xyaxis"
                             )
                             .font(.headline)
@@ -109,10 +109,10 @@ struct AnalyticsTab: View {
                 } else {
                     VStack(alignment: .leading, spacing: 0) {
                         HStack {
-                            Text(String(localized: "Pivot Analysis")).font(.headline)
+                            Text(appLocalized("Pivot Analysis")).font(.headline)
                                 .foregroundColor(.secondary)
                             Spacer()
-                            Text(String(localized: "Dimensions: Period | KEKV | Manager")).font(
+                            Text(appLocalized("Dimensions: Period | KEKV | Manager")).font(
                                 .caption
                             ).foregroundColor(.secondary)
                         }
@@ -120,7 +120,7 @@ struct AnalyticsTab: View {
                         .background(Color.secondary.opacity(0.1))
 
                         Table(controller.analyticsData, selection: $selectedDimensionIds) {
-                            TableColumn(String(localized: "Dimension")) { dim in
+                            TableColumn(appLocalized("Dimension")) { dim in
                                 Text(dim.name).font(.system(.body, design: .monospaced))
                             }
                             TableColumn("Q1 Actual") { dim in
@@ -137,7 +137,7 @@ struct AnalyticsTab: View {
                                 Text(dim.q4Forecast, format: .currency(code: "UAH"))
                                     .foregroundColor(.orange)
                             }
-                            TableColumn(String(localized: "Total Variance")) { dim in
+                            TableColumn(appLocalized("Total Variance")) { dim in
                                 Text(
                                     "\(dim.totalVariance > 0 ? "+" : "")\(dim.totalVariance, specifier: "%.1f")%"
                                 )
@@ -149,10 +149,10 @@ struct AnalyticsTab: View {
                 #else
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
-                        Text(String(localized: "Pivot Analysis")).font(.headline).foregroundColor(
+                        Text(appLocalized("Pivot Analysis")).font(.headline).foregroundColor(
                             .secondary)
                         Spacer()
-                        Text(String(localized: "Dimensions: Period | KEKV | Manager")).font(
+                        Text(appLocalized("Dimensions: Period | KEKV | Manager")).font(
                             .caption
                         ).foregroundColor(.secondary)
                     }
@@ -160,7 +160,7 @@ struct AnalyticsTab: View {
                     .background(Color.secondary.opacity(0.1))
 
                     Table(controller.analyticsData, selection: $selectedDimensionIds) {
-                        TableColumn(String(localized: "Dimension")) { dim in
+                        TableColumn(appLocalized("Dimension")) { dim in
                             Text(dim.name).font(.system(.body, design: .monospaced))
                         }
                         TableColumn("Q1 Actual") { dim in
@@ -177,7 +177,7 @@ struct AnalyticsTab: View {
                             Text(dim.q4Forecast, format: .currency(code: "UAH")).foregroundColor(
                                 .orange)
                         }
-                        TableColumn(String(localized: "Total Variance")) { dim in
+                        TableColumn(appLocalized("Total Variance")) { dim in
                             Text(
                                 "\(dim.totalVariance > 0 ? "+" : "")\(dim.totalVariance, specifier: "%.1f")%"
                             )

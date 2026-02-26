@@ -23,25 +23,25 @@ struct ApprRegisterTab: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
                     HStack {
-                        Text(String(localized: "Period:")).foregroundColor(.secondary)
+                        Text(appLocalized("Period:")).foregroundColor(.secondary)
                         Picker("", selection: $controller.selectedPeriod) {
-                            Text(String(localized: "Year 2026")).tag("2026 рік")
+                            Text(appLocalized("Year 2026")).tag("2026 рік")
                         }.frame(width: 100).labelsHidden()
                     }.padding(.horizontal, 8).frame(height: 28).overlay(
                         RoundedRectangle(cornerRadius: 6).stroke(Color.secondary.opacity(0.2)))
 
                     HStack {
-                        Text(String(localized: "Fund Manager:")).foregroundColor(.secondary)
+                        Text(appLocalized("Fund Manager:")).foregroundColor(.secondary)
                         Picker("", selection: $controller.selectedOrg) {
-                            Text(String(localized: "All Fund Managers")).tag("Всі розпорядники")
+                            Text(appLocalized("All Fund Managers")).tag("Всі розпорядники")
                         }.labelsHidden()
                     }.padding(.horizontal, 8).frame(height: 28).overlay(
                         RoundedRectangle(cornerRadius: 6).stroke(Color.secondary.opacity(0.2)))
 
                     HStack {
-                        Text(String(localized: "KEKV:")).foregroundColor(.secondary)
+                        Text(appLocalized("KEKV:")).foregroundColor(.secondary)
                         Picker("", selection: $controller.selectedKekv) {
-                            Text(String(localized: "All KEKV")).tag("Всі КЕКВ")
+                            Text(appLocalized("All KEKV")).tag("Всі КЕКВ")
                         }.labelsHidden()
                     }.padding(.horizontal, 8).frame(height: 28).overlay(
                         RoundedRectangle(cornerRadius: 6).stroke(Color.secondary.opacity(0.2)))
@@ -72,7 +72,7 @@ struct ApprRegisterTab: View {
                         }
 
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(String(localized: "Budget execution %")).font(.caption)
+                            Text(appLocalized("Budget execution %")).font(.caption)
                                 .foregroundColor(.secondary)
                             Text("73,2%").font(.title).bold()
                         }
@@ -113,25 +113,25 @@ struct ApprRegisterTab: View {
                     Table(controller.documents, selection: $controller.selectedDocumentIds) {
                         TableColumn("№", value: \.documentNumber)
                             .width(min: 30, ideal: 40)
-                        TableColumn(String(localized: "Date")) { doc in
+                        TableColumn(appLocalized("Date")) { doc in
                             Text(doc.date, style: .date)
                         }
-                        TableColumn(String(localized: "Plan No"), value: \.planNumber)
-                        TableColumn(String(localized: "Fund Manager"), value: \.organization)
-                        TableColumn(String(localized: "Appropriations Amount")) { doc in
+                        TableColumn(appLocalized("Plan No"), value: \.planNumber)
+                        TableColumn(appLocalized("Fund Manager"), value: \.organization)
+                        TableColumn(appLocalized("Appropriations Amount")) { doc in
                             Text(doc.amount, format: .currency(code: "UAH")).font(
                                 .system(.body, design: .monospaced))
                         }
-                        TableColumn(String(localized: "Financed")) { doc in
+                        TableColumn(appLocalized("Financed")) { doc in
                             Text(doc.financedAmount, format: .currency(code: "UAH")).font(
                                 .system(.body, design: .monospaced)
                             ).foregroundColor(.green)
                         }
-                        TableColumn(String(localized: "% Exec.")) { doc in
+                        TableColumn(appLocalized("% Exec.")) { doc in
                             Text("\(doc.executionPercentage, specifier: "%.1f")%")
                                 .foregroundColor(.green)
                         }
-                        TableColumn(String(localized: "Status")) { doc in
+                        TableColumn(appLocalized("Status")) { doc in
                             AccStatusBadge(status: doc.status)
                         }
                         .width(ideal: 100)
@@ -141,25 +141,25 @@ struct ApprRegisterTab: View {
                 Table(controller.documents, selection: $controller.selectedDocumentIds) {
                     TableColumn("№", value: \.documentNumber)
                         .width(min: 30, ideal: 40)
-                    TableColumn(String(localized: "Date")) { doc in
+                    TableColumn(appLocalized("Date")) { doc in
                         Text(doc.date, style: .date)
                     }
-                    TableColumn(String(localized: "Plan No"), value: \.planNumber)
-                    TableColumn(String(localized: "Fund Manager"), value: \.organization)
-                    TableColumn(String(localized: "Appropriations Amount")) { doc in
+                    TableColumn(appLocalized("Plan No"), value: \.planNumber)
+                    TableColumn(appLocalized("Fund Manager"), value: \.organization)
+                    TableColumn(appLocalized("Appropriations Amount")) { doc in
                         Text(doc.amount, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced))
                     }
-                    TableColumn(String(localized: "Financed")) { doc in
+                    TableColumn(appLocalized("Financed")) { doc in
                         Text(doc.financedAmount, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced)
                         ).foregroundColor(.green)
                     }
-                    TableColumn(String(localized: "% Exec.")) { doc in
+                    TableColumn(appLocalized("% Exec.")) { doc in
                         Text("\(doc.executionPercentage, specifier: "%.1f")%")
                             .foregroundColor(.green)
                     }
-                    TableColumn(String(localized: "Status")) { doc in
+                    TableColumn(appLocalized("Status")) { doc in
                         AccStatusBadge(status: doc.status)
                     }
                     .width(ideal: 100)

@@ -12,7 +12,7 @@ struct SubmissionDashboardTab: View {
                     Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
                         .system(size: 40))
                     Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
+                    Button(appLocalized("Retry")) {
                         controller.loadReportingData(
                             state: state, period: controller.selectedPeriod)
                     }.buttonStyle(.bordered)
@@ -24,7 +24,7 @@ struct SubmissionDashboardTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Loading submission...")).foregroundColor(.secondary)
+                    Text(appLocalized("Loading submission...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -34,14 +34,14 @@ struct SubmissionDashboardTab: View {
                     HStack(spacing: 12) {
                         Button(action: {}) {
                             Label(
-                                String(localized: "Bulk Submit All"), systemImage: "paperplane.fill"
+                                appLocalized("Bulk Submit All"), systemImage: "paperplane.fill"
                             )
                         }.buttonStyle(.borderedProminent)
                         Button(action: {}) {
-                            Label(String(localized: "Connect E-Reporting"), systemImage: "link")
+                            Label(appLocalized("Connect E-Reporting"), systemImage: "link")
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
-                            Label(String(localized: "Export Compliance"), systemImage: "doc.text")
+                            Label(appLocalized("Export Compliance"), systemImage: "doc.text")
                         }.buttonStyle(.bordered)
                     }.padding()
                 }
@@ -59,24 +59,24 @@ struct SubmissionDashboardTab: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
                         // Kanban-style pipeline
-                        Text(String(localized: "Submission Pipeline")).font(.headline).padding(
+                        Text(appLocalized("Submission Pipeline")).font(.headline).padding(
                             .horizontal)
 
                         HStack(alignment: .top, spacing: 12) {
                             kanbanColumn(
-                                String(localized: "Ready"),
+                                appLocalized("Ready"),
                                 items: controller.submissions.filter { $0.status == "Ready" },
                                 color: .blue)
                             kanbanColumn(
-                                String(localized: "Sent"),
+                                appLocalized("Sent"),
                                 items: controller.submissions.filter { $0.status == "Sent" },
                                 color: .orange)
                             kanbanColumn(
-                                String(localized: "Accepted"),
+                                appLocalized("Accepted"),
                                 items: controller.submissions.filter { $0.status == "Accepted" },
                                 color: .green)
                             kanbanColumn(
-                                String(localized: "Rejected"),
+                                appLocalized("Rejected"),
                                 items: controller.submissions.filter { $0.status == "Rejected" },
                                 color: .red)
                         }
@@ -85,7 +85,7 @@ struct SubmissionDashboardTab: View {
                         Divider().padding(.vertical, 8)
 
                         // Portal Summary
-                        Text(String(localized: "Submission by portals")).font(.headline).padding(
+                        Text(appLocalized("Submission by portals")).font(.headline).padding(
                             .horizontal)
 
                         ForEach(["Є-Звітність", "Пенсійний фонд", "ДПС"], id: \.self) { portal in
@@ -131,7 +131,7 @@ struct SubmissionDashboardTab: View {
             }
 
             if items.isEmpty {
-                Text(String(localized: "Empty")).font(.caption2).foregroundColor(.secondary)
+                Text(appLocalized("Empty")).font(.caption2).foregroundColor(.secondary)
                     .frame(maxWidth: .infinity, minHeight: 50)
             } else {
                 ForEach(items) { item in

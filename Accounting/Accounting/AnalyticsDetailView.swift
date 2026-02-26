@@ -7,7 +7,7 @@ struct AnalyticsDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 HStack {
-                    Text(String(localized: "Visualizations")).font(.title2).bold()
+                    Text(appLocalized("Visualizations")).font(.title2).bold()
                     Spacer()
                     Button(action: {}) {
                         Image(systemName: "arrow.up.left.and.arrow.down.right")
@@ -17,7 +17,7 @@ struct AnalyticsDetailView: View {
                 
                 // Active Dashboard Chart View
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(String(localized: "Execution Trend")).font(.headline)
+                    Text(appLocalized("Execution Trend")).font(.headline)
                     
                     // Complex mock line/bar chart area
                     ZStack {
@@ -56,22 +56,22 @@ struct AnalyticsDetailView: View {
                     
                     HStack {
                         Circle().fill(Color.blue).frame(width: 8, height: 8)
-                        Text(String(localized: "Actual")).font(.caption)
+                        Text(appLocalized("Actual")).font(.caption)
                         Circle().fill(Color.orange).frame(width: 8, height: 8).padding(.leading)
-                        Text(String(localized: "AI Prediction")).font(.caption)
+                        Text(appLocalized("AI Prediction")).font(.caption)
                     }
                 }
                 
                 Divider()
                 
                 VStack(alignment: .leading, spacing: 12) {
-                    Text(String(localized: "Quick Filters")).font(.headline)
+                    Text(appLocalized("Quick Filters")).font(.headline)
                     
                     HStack {
-                        Toggle(String(localized: "Show KEKV 2000 vs 3000"), isOn: .constant(true)).font(.caption)
+                        Toggle(appLocalized("Show KEKV 2000 vs 3000"), isOn: .constant(true)).font(.caption)
                     }
                     HStack {
-                        Toggle(String(localized: "Exclude adjustments"), isOn: .constant(false)).font(.caption)
+                        Toggle(appLocalized("Exclude adjustments"), isOn: .constant(false)).font(.caption)
                     }
                 }
                 .padding()
@@ -82,13 +82,13 @@ struct AnalyticsDetailView: View {
                 Divider()
                 
                 VStack(alignment: .leading, spacing: 12) {
-                    Text(String(localized: "Export Options")).font(.headline)
+                    Text(appLocalized("Export Options")).font(.headline)
                     HStack {
                         Button("PDF") {}.buttonStyle(.bordered)
                         Button("Excel") {}.buttonStyle(.bordered)
                         Button("Power BI") {}.buttonStyle(.bordered)
                     }
-                    Button(String(localized: "Export XML (E-Reporting)")) {}
+                    Button(appLocalized("Export XML (E-Reporting)")) {}
                         .buttonStyle(.borderedProminent)
                         .tint(.green)
                 }

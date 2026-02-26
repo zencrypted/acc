@@ -67,7 +67,7 @@ struct AccTabBar: View {
 struct AccLoadingView: View {
     var message: String
 
-    init(message: String = String(localized: "Loading data...")) {
+    init(message: String = appLocalized("Loading data...")) {
         self.message = message
     }
 
@@ -96,7 +96,7 @@ struct AccErrorView: View {
                 Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
                     .system(size: 40))
                 Text(message).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                Button(String(localized: "Retry"), action: retry).buttonStyle(.bordered)
+                Button(appLocalized("Retry"), action: retry).buttonStyle(.bordered)
             }
             .frame(maxWidth: .infinity).padding(.vertical, 40)
             .background(Color.secondary.opacity(0.05)).cornerRadius(12)

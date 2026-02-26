@@ -12,7 +12,7 @@ struct ReportRegistryTab: View {
                     Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
                         .system(size: 40))
                     Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
+                    Button(appLocalized("Retry")) {
                         controller.loadReportingData(
                             state: state, period: controller.selectedPeriod)
                     }.buttonStyle(.bordered)
@@ -24,7 +24,7 @@ struct ReportRegistryTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Loading reports register...")).foregroundColor(
+                    Text(appLocalized("Loading reports register...")).foregroundColor(
                         .secondary
                     ).padding(.top)
                 }
@@ -35,21 +35,21 @@ struct ReportRegistryTab: View {
                     HStack(spacing: 12) {
                         Button(action: {}) {
                             Label(
-                                String(localized: "Generate Now"),
+                                appLocalized("Generate Now"),
                                 systemImage: "doc.badge.gearshape")
                         }.buttonStyle(.borderedProminent).disabled(
                             controller.selectedReportIds.isEmpty)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Schedule"), systemImage: "calendar.badge.clock")
+                                appLocalized("Schedule"), systemImage: "calendar.badge.clock")
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
-                            Label(String(localized: "Duplicate"), systemImage: "doc.on.doc")
+                            Label(appLocalized("Duplicate"), systemImage: "doc.on.doc")
                         }.buttonStyle(.bordered).disabled(controller.selectedReportIds.isEmpty)
                         Divider().frame(height: 20)
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Search by name or code")
+                            placeholder: appLocalized("Search by name or code")
                         ).frame(width: 230)
                     }.padding()
                 }
@@ -65,24 +65,24 @@ struct ReportRegistryTab: View {
                 }.padding(.bottom, 8)
 
                 Table(controller.reports, selection: $controller.selectedReportIds) {
-                    TableColumn(String(localized: "Report"), value: \.name).width(
+                    TableColumn(appLocalized("Report"), value: \.name).width(
                         min: 200, ideal: 250)
-                    TableColumn(String(localized: "Code"), value: \.formCode).width(60)
-                    TableColumn(String(localized: "Type"), value: \.reportType).width(100)
-                    TableColumn(String(localized: "Frequency"), value: \.frequency).width(100)
-                    TableColumn(String(localized: "Last")) { r in
+                    TableColumn(appLocalized("Code"), value: \.formCode).width(60)
+                    TableColumn(appLocalized("Type"), value: \.reportType).width(100)
+                    TableColumn(appLocalized("Frequency"), value: \.frequency).width(100)
+                    TableColumn(appLocalized("Last")) { r in
                         if let date = r.lastGenerated {
                             Text(date, style: .date)
                         } else {
                             Text("—").foregroundColor(.secondary)
                         }
                     }.width(90)
-                    TableColumn(String(localized: "Term")) { r in
+                    TableColumn(appLocalized("Term")) { r in
                         Text(r.nextDue, style: .date).foregroundColor(
                             r.nextDue < Date() ? .red : .primary)
                     }.width(90)
-                    TableColumn(String(localized: "Owner"), value: \.owner).width(120)
-                    TableColumn(String(localized: "Status")) { r in
+                    TableColumn(appLocalized("Owner"), value: \.owner).width(120)
+                    TableColumn(appLocalized("Status")) { r in
                         Text(r.status).font(.caption).bold().padding(.horizontal, 8).padding(
                             .vertical, 4
                         )

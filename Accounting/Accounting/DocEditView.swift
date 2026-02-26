@@ -5,26 +5,26 @@ struct DocEditView: View {
     
     var body: some View {
         Form {
-            Section(String(localized: "Basic Info")) {
-                TextField(String(localized: "Document Number"), text: $document.documentNumber)
-                DatePicker(String(localized: "Date"), selection: $document.date, displayedComponents: .date)
-                Picker(String(localized: "Status"), selection: $document.status) {
-                    Text(String(localized: "Draft")).tag("Draft")
-                    Text(String(localized: "Pending")).tag("Pending")
-                    Text(String(localized: "Approved")).tag("Approved")
+            Section(appLocalized("Basic Info")) {
+                TextField(appLocalized("Document Number"), text: $document.documentNumber)
+                DatePicker(appLocalized("Date"), selection: $document.date, displayedComponents: .date)
+                Picker(appLocalized("Status"), selection: $document.status) {
+                    Text(appLocalized("Draft")).tag("Draft")
+                    Text(appLocalized("Pending")).tag("Pending")
+                    Text(appLocalized("Approved")).tag("Approved")
                 }
-                TextField(String(localized: "Type"), text: $document.type)
+                TextField(appLocalized("Type"), text: $document.type)
             }
             
-            Section(String(localized: "Financial Details")) {
-                TextField(String(localized: "Organization"), text: $document.organization)
-                TextField(String(localized: "Amount"), value: $document.amount, format: .number)
+            Section(appLocalized("Financial Details")) {
+                TextField(appLocalized("Organization"), text: $document.organization)
+                TextField(appLocalized("Amount"), value: $document.amount, format: .number)
             }
         }
         #if os(macOS)
         .padding()
         #endif
-        .navigationTitle(document.documentNumber.isEmpty ? String(localized: "New Document") : String(localized: "Edit Document"))
+        .navigationTitle(document.documentNumber.isEmpty ? appLocalized("New Document") : appLocalized("Edit Document"))
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         #endif

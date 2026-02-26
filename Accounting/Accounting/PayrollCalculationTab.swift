@@ -12,7 +12,7 @@ struct PayrollCalculationTab: View {
                     Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
                         .system(size: 40))
                     Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
+                    Button(appLocalized("Retry")) {
                         controller.loadPayrollData(state: state, period: controller.selectedPeriod)
                     }.buttonStyle(.bordered)
                 }.frame(maxWidth: .infinity).padding(.vertical, 40).background(
@@ -23,7 +23,7 @@ struct PayrollCalculationTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Calculating salary...")).foregroundColor(.secondary)
+                    Text(appLocalized("Calculating salary...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -33,22 +33,22 @@ struct PayrollCalculationTab: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         Button(action: {}) {
-                            Label(String(localized: "Run Calculation"), systemImage: "play.fill")
+                            Label(appLocalized("Run Calculation"), systemImage: "play.fill")
                         }.buttonStyle(.borderedProminent)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Recalculate Selected"),
+                                appLocalized("Recalculate Selected"),
                                 systemImage: "arrow.clockwise")
                         }.buttonStyle(.bordered).disabled(controller.selectedPayrollIds.isEmpty)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Post to Accounting"),
+                                appLocalized("Post to Accounting"),
                                 systemImage: "arrow.right.doc.on.clipboard")
                         }.buttonStyle(.bordered)
                         Divider().frame(height: 20)
                         SearchField(
                             text: $controller.filterText,
-                            placeholder: String(localized: "Search by Name")
+                            placeholder: appLocalized("Search by Name")
                         ).frame(width: 200)
                     }.padding()
                 }
@@ -66,34 +66,34 @@ struct PayrollCalculationTab: View {
 
                 // Payroll Calculation Table
                 Table(controller.payrollLines, selection: $controller.selectedPayrollIds) {
-                    TableColumn(String(localized: "Full Name"), value: \.employeeName).width(
+                    TableColumn(appLocalized("Full Name"), value: \.employeeName).width(
                         min: 150, ideal: 200)
-                    TableColumn(String(localized: "Department"), value: \.department).width(100)
-                    TableColumn(String(localized: "Position"), value: \.position).width(120)
-                    TableColumn(String(localized: "Accrued")) { p in
+                    TableColumn(appLocalized("Department"), value: \.department).width(100)
+                    TableColumn(appLocalized("Position"), value: \.position).width(120)
+                    TableColumn(appLocalized("Accrued")) { p in
                         Text(p.grossPay, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced))
                     }.width(110)
-                    TableColumn(String(localized: "PIT")) { p in
+                    TableColumn(appLocalized("PIT")) { p in
                         Text(p.pit, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced)
                         ).foregroundColor(.red)
                     }.width(90)
-                    TableColumn(String(localized: "Military task")) { p in
+                    TableColumn(appLocalized("Military task")) { p in
                         Text(p.militaryTax, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced)
                         ).foregroundColor(.orange)
                     }.width(90)
-                    TableColumn(String(localized: "Other deduc.")) { p in
+                    TableColumn(appLocalized("Other deduc.")) { p in
                         Text(p.otherDeductions, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced))
                     }.width(80)
-                    TableColumn(String(localized: "To Pay")) { p in
+                    TableColumn(appLocalized("To Pay")) { p in
                         Text(p.netPay, format: .currency(code: "UAH")).font(
                             .system(.body, design: .monospaced)
                         ).bold().foregroundColor(.green)
                     }.width(110)
-                    TableColumn(String(localized: "Status")) { p in
+                    TableColumn(appLocalized("Status")) { p in
                         Text(p.status).font(.caption).bold().padding(.horizontal, 8).padding(
                             .vertical, 4
                         )

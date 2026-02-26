@@ -38,16 +38,16 @@ class SupplyController: ObservableObject {
             // Tab 1: Contracts
             self.contractKPIs = [
                 KPIData(
-                    title: String(localized: "Active Contracts"), value: "34", suffix: "",
+                    title: appLocalized("Active Contracts"), value: "34", suffix: "",
                     colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Total Cost"), value: "12.4",
-                    suffix: String(localized: "M ₴"), colorName: "green"),
+                    title: appLocalized("Total Cost"), value: "12.4",
+                    suffix: appLocalized("M ₴"), colorName: "green"),
                 KPIData(
-                    title: String(localized: "Completed"), value: "8.1",
-                    suffix: String(localized: "M ₴"), colorName: "purple"),
+                    title: appLocalized("Completed"), value: "8.1",
+                    suffix: appLocalized("M ₴"), colorName: "purple"),
                 KPIData(
-                    title: String(localized: "Overdue stages"), value: "3", suffix: "",
+                    title: appLocalized("Overdue stages"), value: "3", suffix: "",
                     colorName: "red"),
             ]
             self.contracts = [
@@ -88,16 +88,16 @@ class SupplyController: ObservableObject {
             // Tab 2: Warehouse
             self.warehouseKPIs = [
                 KPIData(
-                    title: String(localized: "Inventory Value"), value: "4.8",
-                    suffix: String(localized: "M ₴"), colorName: "blue"),
+                    title: appLocalized("Inventory Value"), value: "4.8",
+                    suffix: appLocalized("M ₴"), colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Items"), value: "1 247", suffix: "",
+                    title: appLocalized("Items"), value: "1 247", suffix: "",
                     colorName: "green"),
                 KPIData(
-                    title: String(localized: "Low Balance"), value: "18", suffix: "",
+                    title: appLocalized("Low Balance"), value: "18", suffix: "",
                     colorName: "orange"),
                 KPIData(
-                    title: String(localized: "Turnover"), value: "3.2", suffix: "x",
+                    title: appLocalized("Turnover"), value: "3.2", suffix: "x",
                     colorName: "purple"),
             ]
             self.warehouseItems = [
@@ -141,16 +141,16 @@ class SupplyController: ObservableObject {
             // Tab 3: Catalog
             self.catalogKPIs = [
                 KPIData(
-                    title: String(localized: "Total TMC"), value: "3 842", suffix: "",
+                    title: appLocalized("Total TMC"), value: "3 842", suffix: "",
                     colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Active"), value: "3 210", suffix: "",
+                    title: appLocalized("Active"), value: "3 210", suffix: "",
                     colorName: "green"),
                 KPIData(
-                    title: String(localized: "Standardized"), value: "2 890", suffix: "",
+                    title: appLocalized("Standardized"), value: "2 890", suffix: "",
                     colorName: "purple"),
                 KPIData(
-                    title: String(localized: "Non-standard"), value: "320", suffix: "",
+                    title: appLocalized("Non-standard"), value: "320", suffix: "",
                     colorName: "orange"),
             ]
             self.catalogItems = [
@@ -175,17 +175,17 @@ class SupplyController: ObservableObject {
             // Tab 4: Procurement
             self.procurementKPIs = [
                 KPIData(
-                    title: String(localized: "Procurement Plan"), value: "18.5",
-                    suffix: String(localized: "M ₴"), colorName: "blue"),
+                    title: appLocalized("Procurement Plan"), value: "18.5",
+                    suffix: appLocalized("M ₴"), colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Approved"), value: "14.2",
-                    suffix: String(localized: "M ₴"), colorName: "green"),
+                    title: appLocalized("Approved"), value: "14.2",
+                    suffix: appLocalized("M ₴"), colorName: "green"),
                 KPIData(
-                    title: String(localized: "In Progress"), value: "8.1",
-                    suffix: String(localized: "M ₴"), colorName: "purple"),
+                    title: appLocalized("In Progress"), value: "8.1",
+                    suffix: appLocalized("M ₴"), colorName: "purple"),
                 KPIData(
-                    title: String(localized: "Savings"), value: "1.3",
-                    suffix: String(localized: "M ₴"), colorName: "green"),
+                    title: appLocalized("Savings"), value: "1.3",
+                    suffix: appLocalized("M ₴"), colorName: "green"),
             ]
             self.procurementLines = [
                 ProcurementLine(
@@ -213,16 +213,16 @@ class SupplyController: ObservableObject {
             // Tab 5: Analytics
             self.analyticsKPIs = [
                 KPIData(
-                    title: String(localized: "Supplier Reliability"), value: "94%", suffix: "",
+                    title: appLocalized("Supplier Reliability"), value: "94%", suffix: "",
                     colorName: "green"),
                 KPIData(
-                    title: String(localized: "Avg delivery time"), value: "4.2",
-                    suffix: String(localized: "days"), colorName: "blue"),
+                    title: appLocalized("Avg delivery time"), value: "4.2",
+                    suffix: appLocalized("days"), colorName: "blue"),
                 KPIData(
-                    title: String(localized: "Turnover"), value: "3.2", suffix: "x",
+                    title: appLocalized("Turnover"), value: "3.2", suffix: "x",
                     colorName: "purple"),
                 KPIData(
-                    title: String(localized: "Procurement Savings"), value: "7.1%", suffix: "",
+                    title: appLocalized("Procurement Savings"), value: "7.1%", suffix: "",
                     colorName: "green"),
             ]
 
@@ -239,11 +239,11 @@ struct ModSupplyView: View {
         VStack(spacing: 0) {
             HStack {
                 Picker("", selection: $controller.selectedTab) {
-                    Text(String(localized: "Contracts")).tag(0)
-                    Text(String(localized: "Warehouse")).tag(1)
-                    Text(String(localized: "TMC Catalog")).tag(2)
-                    Text(String(localized: "Procurement")).tag(3)
-                    Text(String(localized: "Analytics")).tag(4)
+                    Text(appLocalized("Contracts")).tag(0)
+                    Text(appLocalized("Warehouse")).tag(1)
+                    Text(appLocalized("TMC Catalog")).tag(2)
+                    Text(appLocalized("Procurement")).tag(3)
+                    Text(appLocalized("Analytics")).tag(4)
                 }
                 .pickerStyle(.segmented)
                 .labelsHidden()
@@ -260,15 +260,15 @@ struct ModSupplyView: View {
             }
         }
         .navigationSplitViewColumnWidth(min: 400, ideal: 600)
-        .navigationTitle(String(localized: "Supply / Warehouse"))
+        .navigationTitle(appLocalized("Supply / Warehouse"))
         #if os(macOS)
             .toolbar {
                 ToolbarItem(placement: .navigation) {
-                    Text(String(localized: "SUPPLY MODULE")).font(.caption).bold()
+                    Text(appLocalized("SUPPLY MODULE")).font(.caption).bold()
                     .foregroundColor(.secondary)
                 }
                 ToolbarItem(placement: .primaryAction) {
-                    Text(String(localized: "Reporting Period: 2026")).font(.caption).foregroundColor(
+                    Text(appLocalized("Reporting Period: 2026")).font(.caption).foregroundColor(
                         .secondary)
                 }
             }

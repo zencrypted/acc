@@ -12,7 +12,7 @@ struct ReportConstructorTab: View {
                     Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
                         .system(size: 40))
                     Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
+                    Button(appLocalized("Retry")) {
                         controller.loadReportingData(
                             state: state, period: controller.selectedPeriod)
                     }.buttonStyle(.bordered)
@@ -24,7 +24,7 @@ struct ReportConstructorTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Loading constructor...")).foregroundColor(
+                    Text(appLocalized("Loading constructor...")).foregroundColor(
                         .secondary
                     ).padding(.top)
                 }
@@ -34,22 +34,22 @@ struct ReportConstructorTab: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         Button(action: {}) {
-                            Label(String(localized: "New Template"), systemImage: "plus.square")
+                            Label(appLocalized("New Template"), systemImage: "plus.square")
                         }.buttonStyle(.borderedProminent)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Save Template"),
+                                appLocalized("Save Template"),
                                 systemImage: "square.and.arrow.down")
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
-                            Label(String(localized: "Test Generate"), systemImage: "play.fill")
+                            Label(appLocalized("Test Generate"), systemImage: "play.fill")
                         }.buttonStyle(.bordered).disabled(controller.selectedTemplateIds.isEmpty)
                         Button(action: {}) {
-                            Label(String(localized: "Publish"), systemImage: "checkmark.seal")
+                            Label(appLocalized("Publish"), systemImage: "checkmark.seal")
                         }.buttonStyle(.bordered).disabled(controller.selectedTemplateIds.isEmpty)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Version History"),
+                                appLocalized("Version History"),
                                 systemImage: "clock.arrow.circlepath")
                         }.buttonStyle(.bordered)
                     }.padding()
@@ -67,12 +67,12 @@ struct ReportConstructorTab: View {
 
                 // Templates Table
                 Table(controller.templates, selection: $controller.selectedTemplateIds) {
-                    TableColumn(String(localized: "Template"), value: \.name).width(
+                    TableColumn(appLocalized("Template"), value: \.name).width(
                         min: 200, ideal: 280)
-                    TableColumn(String(localized: "Elements")) { t in
+                    TableColumn(appLocalized("Elements")) { t in
                         Text("\(t.elementsCount)").font(.system(.body, design: .monospaced))
                     }.width(70)
-                    TableColumn(String(localized: "Errors")) { t in
+                    TableColumn(appLocalized("Errors")) { t in
                         HStack(spacing: 4) {
                             Circle().fill(t.validationErrors > 0 ? Color.red : Color.green).frame(
                                 width: 8, height: 8)
@@ -80,13 +80,13 @@ struct ReportConstructorTab: View {
                                 .foregroundColor(t.validationErrors > 0 ? .red : .green)
                         }
                     }.width(60)
-                    TableColumn(String(localized: "Changed")) { t in
+                    TableColumn(appLocalized("Changed")) { t in
                         Text(t.lastModified, style: .date)
                     }.width(90)
-                    TableColumn(String(localized: "Status")) { t in
+                    TableColumn(appLocalized("Status")) { t in
                         Text(
                             t.isPublished
-                                ? String(localized: "Published") : String(localized: "Draft")
+                                ? appLocalized("Published") : appLocalized("Draft")
                         )
                         .font(.caption).bold().padding(.horizontal, 8).padding(.vertical, 4)
                         .background(t.isPublished ? Color.green : Color.orange).foregroundColor(
@@ -103,7 +103,7 @@ struct ReportConstructorTab: View {
                     Divider()
                     HStack(spacing: 20) {
                         VStack(alignment: .leading, spacing: 8) {
-                            Text(String(localized: "Element Palette")).font(.caption).bold()
+                            Text(appLocalized("Element Palette")).font(.caption).bold()
                                 .foregroundColor(.secondary)
                             HStack(spacing: 8) {
                                 designerTool("Текст", icon: "textformat")
@@ -114,7 +114,7 @@ struct ReportConstructorTab: View {
                             }
                         }
                         Spacer()
-                        Text(String(localized: "Select a template to edit")).font(.caption)
+                        Text(appLocalized("Select a template to edit")).font(.caption)
                             .foregroundColor(.secondary)
                     }
                     .padding()

@@ -115,20 +115,20 @@ struct ModFinanceView: View {
             AccTabBar(
                 tabs: [
                     AccTabItem(
-                        label: String(localized: "Appropriations Register"),
-                        short: String(localized: "Register"), tag: 0),
+                        label: appLocalized("Appropriations Register"),
+                        short: appLocalized("Register"), tag: 0),
                     AccTabItem(
-                        label: String(localized: "Plan Adjustments"),
-                        short: String(localized: "Adjustments"), tag: 1),
+                        label: appLocalized("Plan Adjustments"),
+                        short: appLocalized("Adjustments"), tag: 1),
                     AccTabItem(
-                        label: String(localized: "Financing Plan"),
-                        short: String(localized: "Fin. Plan"), tag: 2),
+                        label: appLocalized("Financing Plan"),
+                        short: appLocalized("Fin. Plan"), tag: 2),
                     AccTabItem(
-                        label: String(localized: "Fund Managers Network"),
-                        short: String(localized: "Network"), tag: 3),
+                        label: appLocalized("Fund Managers Network"),
+                        short: appLocalized("Network"), tag: 3),
                     AccTabItem(
-                        label: String(localized: "Analytics"),
-                        short: String(localized: "Analytics"), tag: 4),
+                        label: appLocalized("Analytics"),
+                        short: appLocalized("Analytics"), tag: 4),
                 ],
                 selection: $controller.selectedTab
             )
@@ -149,15 +149,15 @@ struct ModFinanceView: View {
             }
         }
         .navigationSplitViewColumnWidth(min: 400, ideal: 600)
-        .navigationTitle(String(localized: "Financing"))
+        .navigationTitle(appLocalized("Financing"))
         #if os(macOS)
             .toolbar {
                 ToolbarItem(placement: .navigation) {
-                    Text(String(localized: "FINANCE MODULE")).font(.caption).bold()
+                    Text(appLocalized("FINANCE MODULE")).font(.caption).bold()
                         .foregroundColor(.secondary)
                 }
                 ToolbarItem(placement: .primaryAction) {
-                    Text(String(localized: "Fiscal Year 2026 • February")).font(.caption)
+                    Text(appLocalized("Fiscal Year 2026 • February")).font(.caption)
                         .foregroundColor(.secondary)
                 }
             }
@@ -175,10 +175,10 @@ struct ModFinanceView: View {
             )
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button(String(localized: "Cancel")) { controller.cancelDraft() }
+                    Button(appLocalized("Cancel")) { controller.cancelDraft() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button(String(localized: "Save")) { controller.saveDraft() }
+                    Button(appLocalized("Save")) { controller.saveDraft() }
                 }
             }
         } else if controller.selectedDocumentIds.count > 1 {
@@ -236,7 +236,7 @@ struct ModFinanceView: View {
                             NetworkManagerDetailView(selectedId: id)
                         case .analyticsDetail:
                             AnalyticsDetailView(controller: controller)
-                                .navigationTitle(String(localized: "Analytics"))
+                                .navigationTitle(appLocalized("Analytics"))
                         }
                     }
             } else {
@@ -264,7 +264,7 @@ struct EmptyDetailPlaceholder: View {
             Image(systemName: "doc.richtext")
                 .font(.system(size: 80))
                 .foregroundColor(.secondary)
-            Text(String(localized: "Select a record to view details"))
+            Text(appLocalized("Select a record to view details"))
                 .font(.title2)
                 .foregroundColor(.secondary)
         }

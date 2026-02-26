@@ -24,16 +24,16 @@ struct FinancingPlanTab: View {
                 HStack(spacing: 12) {
                     Button(action: {}) {
                         Label(
-                            String(localized: "Generate Schedule"),
+                            appLocalized("Generate Schedule"),
                             systemImage: "calendar.badge.plus")
                     }.buttonStyle(.bordered)
                     Button(action: {}) {
                         Label(
-                            String(localized: "Import from E-Kazna"), systemImage: "arrow.down.doc")
+                            appLocalized("Import from E-Kazna"), systemImage: "arrow.down.doc")
                     }.buttonStyle(.bordered)
                     Button(action: {}) {
                         Label(
-                            String(localized: "Export to Excel"), systemImage: "square.and.arrow.up"
+                            appLocalized("Export to Excel"), systemImage: "square.and.arrow.up"
                         )
                     }.buttonStyle(.bordered)
                 }
@@ -62,7 +62,7 @@ struct FinancingPlanTab: View {
                         }
 
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(String(localized: "Forecast deviation")).font(.caption)
+                            Text(appLocalized("Forecast deviation")).font(.caption)
                                 .foregroundColor(.secondary)
                             Text("-2,4%").font(.title).bold().foregroundColor(.red)
                         }
@@ -88,7 +88,7 @@ struct FinancingPlanTab: View {
                                 }
                                 HStack {
                                     VStack(alignment: .leading, spacing: 2) {
-                                        Text(String(localized: "Plan:")).font(.caption)
+                                        Text(appLocalized("Plan:")).font(.caption)
                                             .foregroundColor(.secondary)
                                         Text(
                                             doc.amount / 1_000_000,
@@ -99,7 +99,7 @@ struct FinancingPlanTab: View {
                                     }
                                     Spacer()
                                     VStack(alignment: .trailing, spacing: 2) {
-                                        Text(String(localized: "Transferred:")).font(.caption)
+                                        Text(appLocalized("Transferred:")).font(.caption)
                                             .foregroundColor(.secondary)
                                         Text(
                                             doc.financedAmount / 1_000_000,
@@ -117,11 +117,11 @@ struct FinancingPlanTab: View {
                 } else {
                     Table(controller.documents, selection: $controller.selectedDocumentIds) {
                         Group {
-                            TableColumn(String(localized: "Fund Manager")) { (doc: AccDocument) in
+                            TableColumn(appLocalized("Fund Manager")) { (doc: AccDocument) in
                                 Text(doc.organization)
                             }
                             .width(min: 150, ideal: 200)
-                            TableColumn(String(localized: "Total Plan")) { (doc: AccDocument) in
+                            TableColumn(appLocalized("Total Plan")) { (doc: AccDocument) in
                                 Text(
                                     (doc.amount / 1_000_000),
                                     format: .number.precision(.fractionLength(1)))
@@ -167,14 +167,14 @@ struct FinancingPlanTab: View {
                                 TrafficLightCell(amount: doc.amount, isPaid: false)
                             }.width(40)
 
-                            TableColumn(String(localized: "Transferred")) { (doc: AccDocument) in
+                            TableColumn(appLocalized("Transferred")) { (doc: AccDocument) in
                                 Text(
                                     (doc.financedAmount / 1_000_000),
                                     format: .number.precision(.fractionLength(1))
                                 ).foregroundColor(.green)
                             }.width(80)
 
-                            TableColumn(String(localized: "Status")) { (doc: AccDocument) in
+                            TableColumn(appLocalized("Status")) { (doc: AccDocument) in
                                 AccStatusBadge(
                                     status: doc.executionPercentage >= 100 ? "OK" : "Pending")
                             }
@@ -185,11 +185,11 @@ struct FinancingPlanTab: View {
                 #else
                 Table(controller.documents, selection: $controller.selectedDocumentIds) {
                     Group {
-                        TableColumn(String(localized: "Fund Manager")) { (doc: AccDocument) in
+                        TableColumn(appLocalized("Fund Manager")) { (doc: AccDocument) in
                             Text(doc.organization)
                         }
                         .width(min: 150, ideal: 200)
-                        TableColumn(String(localized: "Total Plan")) { (doc: AccDocument) in
+                        TableColumn(appLocalized("Total Plan")) { (doc: AccDocument) in
                             Text(
                                 (doc.amount / 1_000_000),
                                 format: .number.precision(.fractionLength(1)))
@@ -235,14 +235,14 @@ struct FinancingPlanTab: View {
                             TrafficLightCell(amount: doc.amount, isPaid: false)
                         }.width(40)
 
-                        TableColumn(String(localized: "Transferred")) { (doc: AccDocument) in
+                        TableColumn(appLocalized("Transferred")) { (doc: AccDocument) in
                             Text(
                                 (doc.financedAmount / 1_000_000),
                                 format: .number.precision(.fractionLength(1))
                             ).foregroundColor(.green)
                         }.width(80)
 
-                        TableColumn(String(localized: "Status")) { (doc: AccDocument) in
+                        TableColumn(appLocalized("Status")) { (doc: AccDocument) in
                             AccStatusBadge(
                                 status: doc.executionPercentage >= 100 ? "OK" : "Pending")
                         }

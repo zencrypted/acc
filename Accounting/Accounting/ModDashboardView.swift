@@ -22,7 +22,7 @@ struct ModDashboardView: View {
             VStack(alignment: .leading, spacing: 20) {
                 // Header Region
                 HStack {
-                    Text(String(localized: "Dashboard"))
+                    Text(appLocalized("Dashboard"))
                         .font(.largeTitle)
                         .bold()
                     Spacer()
@@ -46,7 +46,7 @@ struct ModDashboardView: View {
                         Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
                             .system(size: 40))
                         Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                        Button(String(localized: "Retry")) { loadData(period: selectedPeriod) }
+                        Button(appLocalized("Retry")) { loadData(period: selectedPeriod) }
                             .buttonStyle(.bordered)
                     }
                     .frame(maxWidth: .infinity).padding(.vertical, 40)
@@ -55,7 +55,7 @@ struct ModDashboardView: View {
                     VStack {
                         ProgressView()
                             .scaleEffect(1.5)
-                        Text(String(localized: "Loading metrics...")).foregroundColor(.secondary)
+                        Text(appLocalized("Loading metrics...")).foregroundColor(.secondary)
                             .padding(.top)
                     }
                     .frame(maxWidth: .infinity, minHeight: 150)
@@ -97,22 +97,21 @@ struct ModDashboardView: View {
                         HStack {
                             Image(systemName: "exclamationmark.triangle.fill").foregroundColor(
                                 .orange)
-                            Text(String(localized: "Notification Monitor"))
+                            Text(appLocalized("Notification Monitor"))
                                 .font(.headline)
                         }
 
                         VStack(alignment: .leading, spacing: 4) {
                             Label(
-                                String(localized: "Exceeded limit KEKV 2210 (Salary)"),
+                                appLocalized("Exceeded limit KEKV 2210 (Salary)"),
                                 systemImage: "xmark.circle.fill"
                             ).foregroundColor(.red)
                             Label(
-                                String(localized: "2 documents awaiting signature"),
+                                appLocalized("2 documents awaiting signature"),
                                 systemImage: "exclamationmark.circle.fill"
                             ).foregroundColor(.orange)
                             Label(
-                                String(
-                                    localized: "Готово до передачі в Є-Казна: 5 платіжних доручень"),
+                                appLocalized("Готово до передачі в Є-Казна: 5 платіжних доручень"),
                                 systemImage: "info.circle.fill"
                             ).foregroundColor(.blue)
                         }
@@ -146,9 +145,9 @@ struct ModDashboardView: View {
     @ViewBuilder
     private var barChartCard: some View {
         VStack(alignment: .leading) {
-            Text(String(localized: "Financing Dynamics"))
+            Text(appLocalized("Financing Dynamics"))
                 .font(.headline)
-            Text(String(localized: "M ₴"))
+            Text(appLocalized("M ₴"))
                 .font(.caption)
                 .foregroundColor(.secondary)
 
@@ -187,7 +186,7 @@ struct ModDashboardView: View {
     @ViewBuilder
     private var pieChartCard: some View {
         VStack(alignment: .leading) {
-            Text(String(localized: "Expenditures\nby KEKV"))
+            Text(appLocalized("Expenditures\nby KEKV"))
                 .font(.headline)
                 .multilineTextAlignment(.leading)
 
@@ -209,11 +208,11 @@ struct ModDashboardView: View {
             .frame(width: 120, height: 120)
 
             VStack(alignment: .leading, spacing: 4) {
-                Label(String(localized: "Salary 65%"), systemImage: "circle.fill")
+                Label(appLocalized("Salary 65%"), systemImage: "circle.fill")
                     .foregroundColor(.blue).font(.caption2)
-                Label(String(localized: "Capital 20%"), systemImage: "circle.fill")
+                Label(appLocalized("Capital 20%"), systemImage: "circle.fill")
                     .foregroundColor(.green).font(.caption2)
-                Label(String(localized: "Other 15%"), systemImage: "circle.fill")
+                Label(appLocalized("Other 15%"), systemImage: "circle.fill")
                     .foregroundColor(.orange).font(.caption2)
             }
         }
@@ -230,19 +229,19 @@ struct ModDashboardView: View {
     @ViewBuilder
     private var recentDocumentsCard: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(String(localized: "Recent documents for attention"))
+            Text(appLocalized("Recent documents for attention"))
                 .font(.headline)
                 .padding(.horizontal)
 
             Grid(alignment: .leading, horizontalSpacing: 20, verticalSpacing: 12) {
                 GridRow {
-                    Text(String(localized: "Date")).foregroundColor(.secondary)
-                    Text(String(localized: "Type")).foregroundColor(.secondary)
-                    Text(String(localized: "Amount")).foregroundColor(.secondary)
+                    Text(appLocalized("Date")).foregroundColor(.secondary)
+                    Text(appLocalized("Type")).foregroundColor(.secondary)
+                    Text(appLocalized("Amount")).foregroundColor(.secondary)
                         .gridColumnAlignment(.trailing)
-                    Text(String(localized: "Status")).foregroundColor(.secondary)
+                    Text(appLocalized("Status")).foregroundColor(.secondary)
                         .gridColumnAlignment(.center)
-                    Text(String(localized: "Counterparty")).foregroundColor(.secondary)
+                    Text(appLocalized("Counterparty")).foregroundColor(.secondary)
                 }
                 .font(.subheadline)
 
@@ -321,33 +320,33 @@ struct ModDashboardView: View {
             if period == "2026 - Січень" {
                 self.metrics = [
                     DashboardMetric(
-                        title: String(localized: "Budget Execution"), value: "12,1%", suffix: "",
-                        description: String(localized: "of 2026 plan"), percentage: 0.121),
+                        title: appLocalized("Budget Execution"), value: "12,1%", suffix: "",
+                        description: appLocalized("of 2026 plan"), percentage: 0.121),
                     DashboardMetric(
-                        title: String(localized: "Cash Expenditures"), value: "45,2 млн", suffix: "₴",
-                        description: String(localized: "Jan 2026"), percentage: nil),
+                        title: appLocalized("Cash Expenditures"), value: "45,2 млн", suffix: "₴",
+                        description: appLocalized("Jan 2026"), percentage: nil),
                     DashboardMetric(
-                        title: String(localized: "Salary Accrued"), value: "39,8 млн", suffix: "₴",
-                        description: String(localized: "current month"), percentage: nil),
+                        title: appLocalized("Salary Accrued"), value: "39,8 млн", suffix: "₴",
+                        description: appLocalized("current month"), percentage: nil),
                     DashboardMetric(
-                        title: String(localized: "Account Balances"), value: "12,4 млн",
-                        suffix: "₴", description: String(localized: "at the end of period"),
+                        title: appLocalized("Account Balances"), value: "12,4 млн",
+                        suffix: "₴", description: appLocalized("at the end of period"),
                         percentage: nil),
                 ]
             } else {
                 self.metrics = [
                     DashboardMetric(
-                        title: String(localized: "Budget Execution"), value: "87,4%", suffix: "",
-                        description: String(localized: "of 2026 plan"), percentage: 0.874),
+                        title: appLocalized("Budget Execution"), value: "87,4%", suffix: "",
+                        description: appLocalized("of 2026 plan"), percentage: 0.874),
                     DashboardMetric(
-                        title: String(localized: "Cash Expenditures"), value: "248,7 млн", suffix: "₴",
-                        description: String(localized: "Feb 2026"), percentage: nil),
+                        title: appLocalized("Cash Expenditures"), value: "248,7 млн", suffix: "₴",
+                        description: appLocalized("Feb 2026"), percentage: nil),
                     DashboardMetric(
-                        title: String(localized: "Salary Accrued"), value: "41,2 млн", suffix: "₴",
-                        description: String(localized: "current month"), percentage: nil),
+                        title: appLocalized("Salary Accrued"), value: "41,2 млн", suffix: "₴",
+                        description: appLocalized("current month"), percentage: nil),
                     DashboardMetric(
-                        title: String(localized: "Account Balances"), value: "8,1 млн",
-                        suffix: "₴", description: String(localized: "at the end of period"),
+                        title: appLocalized("Account Balances"), value: "8,1 млн",
+                        suffix: "₴", description: appLocalized("at the end of period"),
                         percentage: nil),
                 ]
             }

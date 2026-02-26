@@ -14,7 +14,7 @@ struct PayrollReportsTab: View {
                     Image(systemName: "exclamationmark.triangle").foregroundColor(.red).font(
                         .system(size: 40))
                     Text(error).foregroundColor(.red).multilineTextAlignment(.center).padding()
-                    Button(String(localized: "Retry")) {
+                    Button(appLocalized("Retry")) {
                         controller.loadPayrollData(state: state, period: controller.selectedPeriod)
                     }.buttonStyle(.bordered)
                 }.frame(maxWidth: .infinity).padding(.vertical, 40).background(
@@ -25,7 +25,7 @@ struct PayrollReportsTab: View {
                 Spacer()
                 VStack {
                     ProgressView().scaleEffect(1.5)
-                    Text(String(localized: "Loading reports...")).foregroundColor(.secondary)
+                    Text(appLocalized("Loading reports...")).foregroundColor(.secondary)
                         .padding(.top)
                 }
                 .frame(maxWidth: .infinity, minHeight: 150)
@@ -35,16 +35,16 @@ struct PayrollReportsTab: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         Menu {
-                            Button(String(localized: "Payroll Execution")) {
+                            Button(appLocalized("Payroll Execution")) {
                                 selectedReport = "Виконання ФОП"
                             }
-                            Button(String(localized: "Tax Summary")) {
+                            Button(appLocalized("Tax Summary")) {
                                 selectedReport = "Податковий зведений"
                             }
-                            Button(String(localized: "Vacation Balance")) {
+                            Button(appLocalized("Vacation Balance")) {
                                 selectedReport = "Залишок відпусток"
                             }
-                            Button(String(localized: "Analysis by departments")) {
+                            Button(appLocalized("Analysis by departments")) {
                                 selectedReport = "Аналіз за підрозділами"
                             }
                         } label: {
@@ -53,15 +53,15 @@ struct PayrollReportsTab: View {
                         Divider().frame(height: 20)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Generate Statutory Reports"),
+                                appLocalized("Generate Statutory Reports"),
                                 systemImage: "doc.badge.gearshape")
                         }.buttonStyle(.borderedProminent)
                         Button(action: {}) {
-                            Label(String(localized: "Export PDF"), systemImage: "doc.text")
+                            Label(appLocalized("Export PDF"), systemImage: "doc.text")
                         }.buttonStyle(.bordered)
                         Button(action: {}) {
                             Label(
-                                String(localized: "Export XML (E-Reporting)"),
+                                appLocalized("Export XML (E-Reporting)"),
                                 systemImage: "doc.badge.arrow.up")
                         }.buttonStyle(.bordered)
                     }.padding()
@@ -84,23 +84,23 @@ struct PayrollReportsTab: View {
                         // Summary Cards
                         HStack(spacing: 16) {
                             reportCard(
-                                String(localized: "Payroll Fund"), value: "2 840 000 ₴",
-                                subtitle: String(localized: "plan: 3,200,000 ₴"), progress: 0.875,
+                                appLocalized("Payroll Fund"), value: "2 840 000 ₴",
+                                subtitle: appLocalized("plan: 3,200,000 ₴"), progress: 0.875,
                                 color: .blue)
                             reportCard(
-                                String(localized: "Taxes paid"), value: "620 000 ₴",
-                                subtitle: String(localized: "PIT + MT + SSC"), progress: 1.0,
+                                appLocalized("Taxes paid"), value: "620 000 ₴",
+                                subtitle: appLocalized("PIT + MT + SSC"), progress: 1.0,
                                 color: .green)
                         }
 
                         HStack(spacing: 16) {
                             reportCard(
-                                String(localized: "Overtime"), value: "86 год",
-                                subtitle: String(localized: "5 employees"), progress: 0.43,
+                                appLocalized("Overtime"), value: "86 год",
+                                subtitle: appLocalized("5 employees"), progress: 0.43,
                                 color: .orange)
                             reportCard(
-                                String(localized: "Average Salary"), value: "11 450 ₴",
-                                subtitle: String(localized: "growth +2.3%"), progress: 0.72,
+                                appLocalized("Average Salary"), value: "11 450 ₴",
+                                subtitle: appLocalized("growth +2.3%"), progress: 0.72,
                                 color: .purple)
                         }
 
@@ -108,7 +108,7 @@ struct PayrollReportsTab: View {
 
                         // Department Breakdown Mock
                         VStack(alignment: .leading, spacing: 0) {
-                            Text(String(localized: "Payroll by Departments")).font(.headline).padding()
+                            Text(appLocalized("Payroll by Departments")).font(.headline).padding()
 
                             ForEach(
                                 ["Адміністрація", "IT Відділ", "Бухгалтерія", "Госп. відділ"],

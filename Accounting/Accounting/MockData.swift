@@ -65,13 +65,13 @@ struct MockData {
     var analyticsData: [AnalyticsDimension] {
         [
             AnalyticsDimension(
-                name: String(localized: "2210 Зарплата"), q1Actual: 100, q2Actual: 120,
+                name: appLocalized("2210 Зарплата"), q1Actual: 100, q2Actual: 120,
                 q3Forecast: 130, q4Forecast: 140, totalVariance: -2.4),
             AnalyticsDimension(
-                name: String(localized: "2270 Комунальні"), q1Actual: 40, q2Actual: 30,
+                name: appLocalized("2270 Комунальні"), q1Actual: 40, q2Actual: 30,
                 q3Forecast: 25, q4Forecast: 60, totalVariance: 5.1),
             AnalyticsDimension(
-                name: String(localized: "3110 Капітальні"), q1Actual: 10, q2Actual: 50,
+                name: appLocalized("3110 Капітальні"), q1Actual: 10, q2Actual: 50,
                 q3Forecast: 150, q4Forecast: 200, totalVariance: -12.0),
         ]
     }
@@ -79,59 +79,59 @@ struct MockData {
     var apprKPIs: [KPIData] {
         [
             KPIData(
-                title: String(localized: "Загальний обсяг асигнувань"), value: "1 842,6",
-                suffix: String(localized: "млн ₴"), colorName: "blue"),
+                title: appLocalized("Загальний обсяг асигнувань"), value: "1 842,6",
+                suffix: appLocalized("млн ₴"), colorName: "blue"),
             KPIData(
-                title: String(localized: "Профінансовано"), value: "1 347,8",
-                suffix: String(localized: "млн ₴"), colorName: "green"),
+                title: appLocalized("Профінансовано"), value: "1 347,8",
+                suffix: appLocalized("млн ₴"), colorName: "green"),
             KPIData(
-                title: String(localized: "Залишок асигнувань"), value: "494,8",
-                suffix: String(localized: "млн ₴"), colorName: "orange"),
+                title: appLocalized("Залишок асигнувань"), value: "494,8",
+                suffix: appLocalized("млн ₴"), colorName: "orange"),
         ]
     }
 
     var planAdjustmentKPIs: [KPIData] {
         [
             KPIData(
-                title: String(localized: "Pending Adjustments"), value: "12", suffix: "",
+                title: appLocalized("Pending Adjustments"), value: "12", suffix: "",
                 colorName: "orange"),
             KPIData(
-                title: String(localized: "Approved"), value: "45", suffix: "",
+                title: appLocalized("Approved"), value: "45", suffix: "",
                 colorName: "green"),
             KPIData(
-                title: String(localized: "Rejected"), value: "3", suffix: "",
+                title: appLocalized("Rejected"), value: "3", suffix: "",
                 colorName: "red"),
             KPIData(
-                title: String(localized: "Total Change Amount"), value: "+14.2",
-                suffix: String(localized: "млн ₴"), colorName: "blue"),
+                title: appLocalized("Total Change Amount"), value: "+14.2",
+                suffix: appLocalized("млн ₴"), colorName: "blue"),
         ]
     }
 
     var financingPlanKPIs: [KPIData] {
         [
             KPIData(
-                title: String(localized: "План на місяць"), value: "482,5",
-                suffix: String(localized: "млн ₴"), colorName: "blue"),
+                title: appLocalized("План на місяць"), value: "482,5",
+                suffix: appLocalized("млн ₴"), colorName: "blue"),
             KPIData(
-                title: String(localized: "Відкрито асигнувань"), value: "312,8",
-                suffix: String(localized: "млн ₴"), colorName: "green"),
+                title: appLocalized("Відкрито асигнувань"), value: "312,8",
+                suffix: appLocalized("млн ₴"), colorName: "green"),
             KPIData(
-                title: String(localized: "Готівка на рахунку"), value: "45,2",
-                suffix: String(localized: "млн ₴"), colorName: "orange"),
+                title: appLocalized("Готівка на рахунку"), value: "45,2",
+                suffix: appLocalized("млн ₴"), colorName: "orange"),
         ]
     }
 
     var financeAnalyticsKPIs: [KPIData] {
         [
             KPIData(
-                title: String(localized: "Total Actual Executed"), value: "3.42",
-                suffix: String(localized: "млрд ₴"), colorName: "blue"),
+                title: appLocalized("Total Actual Executed"), value: "3.42",
+                suffix: appLocalized("млрд ₴"), colorName: "blue"),
             KPIData(
-                title: String(localized: "Projected Q4"), value: "1.25",
-                suffix: String(localized: "млрд ₴"), colorName: "orange"),
+                title: appLocalized("Projected Q4"), value: "1.25",
+                suffix: appLocalized("млрд ₴"), colorName: "orange"),
             KPIData(
-                title: String(localized: "Savings Flagged"), value: "142",
-                suffix: String(localized: "млн ₴"), colorName: "green"),
+                title: appLocalized("Savings Flagged"), value: "142",
+                suffix: appLocalized("млн ₴"), colorName: "green"),
         ]
     }
 
@@ -239,25 +239,25 @@ struct MockData {
     var balanceAssets: [BalanceSheetItem] {
         [
             BalanceSheetItem(
-                id: UUID(), code: "I", item: String(localized: "Необоротні активи"),
+                id: UUID(), code: "I", item: appLocalized("Необоротні активи"),
                 beginningBalance: 12_500_000, endingBalance: 12_800_000, isHeader: true),
             BalanceSheetItem(
-                id: UUID(), code: "1010", item: String(localized: "Основні засоби"),
+                id: UUID(), code: "1010", item: appLocalized("Основні засоби"),
                 beginningBalance: 10_000_000, endingBalance: 10_200_000, isHeader: false),
             BalanceSheetItem(
-                id: UUID(), code: "1050", item: String(localized: "Нематеріальні активи"),
+                id: UUID(), code: "1050", item: appLocalized("Нематеріальні активи"),
                 beginningBalance: 2_500_000, endingBalance: 2_600_000, isHeader: false),
             BalanceSheetItem(
-                id: UUID(), code: "II", item: String(localized: "Оборотні активи"),
+                id: UUID(), code: "II", item: appLocalized("Оборотні активи"),
                 beginningBalance: 5_200_000, endingBalance: 5_600_000, isHeader: true),
             BalanceSheetItem(
-                id: UUID(), code: "1113", item: String(localized: "Грошові кошти"),
+                id: UUID(), code: "1113", item: appLocalized("Грошові кошти"),
                 beginningBalance: 2_500_000, endingBalance: 2_600_000, isHeader: false),
             BalanceSheetItem(
-                id: UUID(), code: "1511", item: String(localized: "Запаси"),
+                id: UUID(), code: "1511", item: appLocalized("Запаси"),
                 beginningBalance: 1_200_000, endingBalance: 1_185_000, isHeader: false),
             BalanceSheetItem(
-                id: UUID(), code: "2110", item: String(localized: "Дебіторська заборг."),
+                id: UUID(), code: "2110", item: appLocalized("Дебіторська заборг."),
                 beginningBalance: 1_500_000, endingBalance: 1_815_000, isHeader: false),
         ]
     }
@@ -265,26 +265,26 @@ struct MockData {
     var balanceLiabilities: [BalanceSheetItem] {
         [
             BalanceSheetItem(
-                id: UUID(), code: "III", item: String(localized: "Власний капітал"),
+                id: UUID(), code: "III", item: appLocalized("Власний капітал"),
                 beginningBalance: 6_000_000, endingBalance: 6_300_000, isHeader: true),
             BalanceSheetItem(
-                id: UUID(), code: "4010", item: String(localized: "Внесений капітал"),
+                id: UUID(), code: "4010", item: appLocalized("Внесений капітал"),
                 beginningBalance: 5_000_000, endingBalance: 5_000_000, isHeader: false),
             BalanceSheetItem(
-                id: UUID(), code: "4411", item: String(localized: "Нерозподілений прибуток"),
+                id: UUID(), code: "4411", item: appLocalized("Нерозподілений прибуток"),
                 beginningBalance: 1_000_000, endingBalance: 1_300_000, isHeader: false),
             BalanceSheetItem(
-                id: UUID(), code: "IV", item: String(localized: "Зобов'язання"),
+                id: UUID(), code: "IV", item: appLocalized("Зобов'язання"),
                 beginningBalance: 11_700_000, endingBalance: 12_100_000, isHeader: true),
             BalanceSheetItem(
                 id: UUID(), code: "6311",
-                item: String(localized: "Кредит. заборг. постачальникам"),
+                item: appLocalized("Кредит. заборг. постачальникам"),
                 beginningBalance: 890_000, endingBalance: 1_490_400, isHeader: false),
             BalanceSheetItem(
-                id: UUID(), code: "6511", item: String(localized: "Заборг. із зарплати"),
+                id: UUID(), code: "6511", item: appLocalized("Заборг. із зарплати"),
                 beginningBalance: 450_000, endingBalance: 100_000, isHeader: false),
             BalanceSheetItem(
-                id: UUID(), code: "6015", item: String(localized: "Довгострокові кредити"),
+                id: UUID(), code: "6015", item: appLocalized("Довгострокові кредити"),
                 beginningBalance: 10_360_000, endingBalance: 10_509_600, isHeader: false),
         ]
     }
@@ -292,46 +292,46 @@ struct MockData {
     var primaryDocKPIs: [KPIData] {
         [
             KPIData(
-                title: String(localized: "За цей місяць"), value: "124",
-                suffix: String(localized: "док."), colorName: "blue"),
+                title: appLocalized("За цей місяць"), value: "124",
+                suffix: appLocalized("док."), colorName: "blue"),
             KPIData(
-                title: String(localized: "Проведено"), value: "89", suffix: "",
+                title: appLocalized("Проведено"), value: "89", suffix: "",
                 colorName: "green"),
             KPIData(
-                title: String(localized: "Чернетки"), value: "35", suffix: "",
+                title: appLocalized("Чернетки"), value: "35", suffix: "",
                 colorName: "orange"),
             KPIData(
-                title: String(localized: "Загальна сума"), value: "45.2",
-                suffix: String(localized: "млн ₴"), colorName: "purple"),
+                title: appLocalized("Загальна сума"), value: "45.2",
+                suffix: appLocalized("млн ₴"), colorName: "purple"),
         ]
     }
 
     var journalKPIs: [KPIData] {
         [
             KPIData(
-                title: String(localized: "Всього проведень"), value: "1 245", suffix: "",
+                title: appLocalized("Всього проведень"), value: "1 245", suffix: "",
                 colorName: "blue"),
             KPIData(
-                title: String(localized: "Оборот Дт"), value: "142.5", suffix: "M",
+                title: appLocalized("Оборот Дт"), value: "142.5", suffix: "M",
                 colorName: "orange"),
             KPIData(
-                title: String(localized: "Оборот Кт"), value: "142.5", suffix: "M",
+                title: appLocalized("Оборот Кт"), value: "142.5", suffix: "M",
                 colorName: "purple"),
             KPIData(
-                title: String(localized: "Сальдо"), value: "0", suffix: "", colorName: "green"),
+                title: appLocalized("Сальдо"), value: "0", suffix: "", colorName: "green"),
         ]
     }
 
     var bookkeepingAnalyticsKPIs: [KPIData] {
         [
             KPIData(
-                title: String(localized: "Заг. оборот"), value: "85.2", suffix: "M",
+                title: appLocalized("Заг. оборот"), value: "85.2", suffix: "M",
                 colorName: "blue"),
             KPIData(
-                title: String(localized: "Топ вимір"), value: "IT",
-                suffix: String(localized: "відділ"), colorName: "purple"),
+                title: appLocalized("Топ вимір"), value: "IT",
+                suffix: appLocalized("відділ"), colorName: "purple"),
             KPIData(
-                title: String(localized: "Актив. аналітик"), value: "4", suffix: "",
+                title: appLocalized("Актив. аналітик"), value: "4", suffix: "",
                 colorName: "orange"),
         ]
     }
@@ -339,16 +339,16 @@ struct MockData {
     var ledgerKPIs: [KPIData] {
         [
             KPIData(
-                title: String(localized: "Активні рахунки"), value: "42", suffix: "",
+                title: appLocalized("Активні рахунки"), value: "42", suffix: "",
                 colorName: "blue"),
             KPIData(
-                title: String(localized: "Всього Дт"), value: "142.5", suffix: "M",
+                title: appLocalized("Всього Дт"), value: "142.5", suffix: "M",
                 colorName: "green"),
             KPIData(
-                title: String(localized: "Всього Кт"), value: "142.5", suffix: "M",
+                title: appLocalized("Всього Кт"), value: "142.5", suffix: "M",
                 colorName: "orange"),
             KPIData(
-                title: String(localized: "Чисте сальдо"), value: "0", suffix: "",
+                title: appLocalized("Чисте сальдо"), value: "0", suffix: "",
                 colorName: "green"),
         ]
     }
@@ -356,16 +356,16 @@ struct MockData {
     var balanceKPIs: [KPIData] {
         [
             KPIData(
-                title: String(localized: "Всього активів"), value: "18.4", suffix: "M",
+                title: appLocalized("Всього активів"), value: "18.4", suffix: "M",
                 colorName: "blue"),
             KPIData(
-                title: String(localized: "Всього зобов'язань"), value: "12.1", suffix: "M",
+                title: appLocalized("Всього зобов'язань"), value: "12.1", suffix: "M",
                 colorName: "orange"),
             KPIData(
-                title: String(localized: "Власний капітал"), value: "6.3", suffix: "M",
+                title: appLocalized("Власний капітал"), value: "6.3", suffix: "M",
                 colorName: "green"),
             KPIData(
-                title: String(localized: "Баланс перевірка"), value: "0", suffix: "✓",
+                title: appLocalized("Баланс перевірка"), value: "0", suffix: "✓",
                 colorName: "green"),
         ]
     }
