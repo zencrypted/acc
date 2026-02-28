@@ -316,7 +316,7 @@ struct ModDashboardView: View {
         state.errorMessage = nil
 
         // Simulate network delay
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
             if period == "2026 - Січень" {
                 self.metrics = [
                     DashboardMetric(

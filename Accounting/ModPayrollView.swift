@@ -33,7 +33,7 @@ class PayrollController: ObservableObject {
         state.isLoading = true
         state.errorMessage = nil
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
             // Tab 1: Timesheets
             self.timesheetKPIs = [
                 KPIData(
